@@ -2,7 +2,7 @@ import sensor, image, time, math, lcd
 from machine import UART, Timer
 from fpioa_manager import fm
 #黑线
-GRAYSCALE_THRESHOLD = [(0, 18)]
+GRAYSCALE_THRESHOLD = [(0, 22)]
 
 
 # 每个roi为(x, y, w, h)，线检测算法将尝试找到每个roi中最大的blob的质心。
@@ -19,7 +19,7 @@ ROIS = [ # [ROI, weight]
 #控制参数
 deflection_distance = 0
 deflection_angle = 0
-velocity_cmps = 10
+velocity_cmps = 15
 velocity_angle = 0
 
 #校验数据
@@ -111,8 +111,8 @@ while(True):
     deflection_distance = 0 # pixels
     velocity_angle = 0
     if(px[0] != 0 or py[0] != 0):# 检测到第三个色块
-        deflection_distance = math.sqrt(math.pow((py[0] - 60), 2) + math.pow(30, 2))
-        velocity_angle = math.atan((py[0] - 60) / 30)
+        deflection_distance = math.sqrt(math.pow((py[0] - 60), 2) + math.pow(50, 2))
+        velocity_angle = math.atan((py[0] - 60) / 50)
         velocity_angle = math.degrees(velocity_angle)
 
     # 旋转角度

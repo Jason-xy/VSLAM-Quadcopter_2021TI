@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\build\ANO_PioneerPro_Ti.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\build\ANO_PioneerPro_Ti.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jul 14 16:10:13 2021
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Wed Jul 14 20:03:17 2021
 <BR><P>
 <H3>Maximum Stack Usage =        152 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1654,13 +1654,14 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART2_IRQHandler
 </UL>
 
-<P><STRONG><a name="[de]"></a>MoveControl_Output</STRONG> (Thumb, 246 bytes, Stack size 8 bytes, movecontrol.o(i.MoveControl_Output))
+<P><STRONG><a name="[de]"></a>MoveControl_Output</STRONG> (Thumb, 284 bytes, Stack size 8 bytes, movecontrol.o(i.MoveControl_Output))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = MoveControl_Output &rArr; Horizontal_Move
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Horizontal_Move
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;FC_Unlock
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LX_Change_Mode
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OneKey_Takeoff
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OneKey_Land
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveControl_Spin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Loop_20Hz
@@ -1691,6 +1692,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CMD_Send
 </UL>
 <BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UserTask_OneKeyCmd
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MoveControl_Output
 </UL>
 
 <P><STRONG><a name="[e5]"></a>OneKey_Return_Home</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, lx_fc_fun.o(i.OneKey_Return_Home))

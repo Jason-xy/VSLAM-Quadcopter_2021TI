@@ -153,6 +153,7 @@ void MoveControl_Output(void){
 //					{
 					if(func_code == 0x80)
 					{
+						time_dly_cnt_ms = 0;
 						if(control_stat == 1)
 						{
 							Horizontal_Move(distance_cm, velocity_cmps, dir_angle_0_360);
@@ -166,7 +167,11 @@ void MoveControl_Output(void){
 					}
 					else if(func_code == 0x81)
 					{
-						//OneKey_Land();
+						time_dly_cnt_ms += 50;
+						if(time_dly_cnt_ms >= 3000)
+						{
+							OneKey_Land();
+						}
 					}
 //					}
 				}
@@ -175,7 +180,7 @@ void MoveControl_Output(void){
 }
 
 //MoveControl Spin
-static uint16_t spin_speed = 10;
+static uint16_t spin_speed = 20;
 uint8_t MoveControl_Spin(uint16_t spin_angle_0_360){
 		if (dt.wait_ck == 0) //there is no wait ack
 		{
