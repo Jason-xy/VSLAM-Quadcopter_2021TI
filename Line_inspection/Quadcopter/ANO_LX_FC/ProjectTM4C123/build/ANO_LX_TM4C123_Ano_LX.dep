@@ -44,7 +44,7 @@ I (..\DriversBsp\Drv_BSP.h)(0x5F4B4EE7)
 I (..\DriversMcu\TM4C123\Drivers\Drv_Sys.h)(0x5F3E7720)
 I (..\FcSrc\ANO_LX.h)(0x5F4B4E40)
 I (..\FcSrc\User_Task.h)(0x60EC23FE)
-I (..\APP\MoveControl.h)(0x60ED6934)
+I (..\APP\MoveControl.h)(0x60EE8633)
 I (..\FcSrc\LX_FC_Fun.h)(0x5F4B3381)
 I (..\FcSrc\ANO_DT_LX.h)(0x5F4B3380)
 I (..\FcSrc\LX_FC_State.h)(0x5F4B3381)
@@ -451,7 +451,7 @@ I (..\DriversMcu\TM4C123\Libraries\inc\driver_hw\hw_types.h)(0x5CD62FE4)
 I (..\FcSrc\Ano_DT_LX.h)(0x5F4B3380)
 I (..\DriversBsp\Drv_UbloxGPS.h)(0x5F4B39B1)
 I (..\DriversBsp\Drv_AnoOf.h)(0x5F4B3381)
-I (..\APP\MoveControl.h)(0x60ED6934)
+I (..\APP\MoveControl.h)(0x60EE8633)
 I (..\FcSrc\LX_FC_Fun.h)(0x5F4B3381)
 I (..\FcSrc\LX_FC_State.h)(0x5F4B3381)
 F (..\DriversMcu\TM4C123\Drivers\Drv_Uart.h)(0x5F7687B1)()
@@ -536,8 +536,8 @@ I (..\DriversMcu\TM4C123\Libraries\inc\driver_usb\device\usbdcdc.h)(0x5CE7D4AE)
 I (..\DriversMcu\TM4C123\Libraries\inc\usb_serial_structs.h)(0x5CE7D92A)
 F (..\DriversMcu\TM4C123\Libraries\inc\usb_serial_structs.h)(0x5CE7D92A)()
 F (..\Doc\note.txt)(0x5B8B8FD8)()
-F (..\APP\MoveControl.c)(0x60ED9F86)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\DriversBsp -I ..\DriversBsp\MyMath -I ..\DriversMcu\TM4C123\Drivers -I ..\DriversMcu\TM4C123\Libraries\inc -I ..\DriversMcu\TM4C123\Libraries\inc\driver_hw -I ..\DriversMcu\TM4C123\Libraries\inc\driver_inc -I ..\DriversMcu\TM4C123\Libraries\inc\driver_usb -I ..\DriversMcu\TM4C123\Libraries\inc\driver_usb\device -I ..\FcSrc -I ..\FcSrc\FcGeneral -I ..\FcSrc\FcSpecific -I ..\DriversMcu\TM4C123 -I ..\APP-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DTM4C123GH6PM -DTARGET_IS_TM4C123_RB1 -DPART_TM4C123GH6PM-o .\build\movecontrol.o --omf_browse .\build\movecontrol.crf --depend .\build\movecontrol.d)
-I (..\APP\MoveControl.h)(0x60ED6934)
+F (..\APP\MoveControl.c)(0x60EE9BE1)(--c99 -c --cpu Cortex-M4.fp.sp -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I ..\DriversBsp -I ..\DriversBsp\MyMath -I ..\DriversMcu\TM4C123\Drivers -I ..\DriversMcu\TM4C123\Libraries\inc -I ..\DriversMcu\TM4C123\Libraries\inc\driver_hw -I ..\DriversMcu\TM4C123\Libraries\inc\driver_inc -I ..\DriversMcu\TM4C123\Libraries\inc\driver_usb -I ..\DriversMcu\TM4C123\Libraries\inc\driver_usb\device -I ..\FcSrc -I ..\FcSrc\FcGeneral -I ..\FcSrc\FcSpecific -I ..\DriversMcu\TM4C123 -I ..\APP-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C123-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="531" -DTM4C123GH6PM -DTARGET_IS_TM4C123_RB1 -DPART_TM4C123GH6PM-o .\build\movecontrol.o --omf_browse .\build\movecontrol.crf --depend .\build\movecontrol.d)
+I (..\APP\MoveControl.h)(0x60EE8633)
 I (..\FcSrc\SysConfig.h)(0x5F4B4DDD)
 I (..\DriversMcu\TM4C123\McuConfig.h)(0x5F4B1323)
 I (..\DriversMcu\TM4C123\Libraries\inc\TM4C123G.h)(0x550F8DCC)
@@ -560,4 +560,4 @@ I (..\FcSrc\ANO_LX.h)(0x5F4B4E40)
 I (..\FcSrc\LX_FC_Fun.h)(0x5F4B3381)
 I (..\FcSrc\ANO_DT_LX.h)(0x5F4B3380)
 I (..\FcSrc\LX_FC_State.h)(0x5F4B3381)
-F (..\APP\MoveControl.h)(0x60ED6934)()
+F (..\APP\MoveControl.h)(0x60EE8633)()

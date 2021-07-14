@@ -120,6 +120,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -156,9 +157,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>172</LineNumber>
+          <LineNumber>164</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>13026</Address>
+          <Address>12996</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -167,23 +168,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>..\APP\MoveControl.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ANO_PioneerPro_Ti\../APP/MoveControl.c\172</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
-          <LineNumber>174</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>13034</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\APP\MoveControl.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\ANO_PioneerPro_Ti\../APP/MoveControl.c\174</Expression>
+          <Expression>\\ANO_PioneerPro_Ti\../APP/MoveControl.c\164</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
@@ -216,6 +201,11 @@
           <count>5</count>
           <WinNumber>1</WinNumber>
           <ItemText>data+7</ItemText>
+        </Ww>
+        <Ww>
+          <count>6</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>func_code</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>

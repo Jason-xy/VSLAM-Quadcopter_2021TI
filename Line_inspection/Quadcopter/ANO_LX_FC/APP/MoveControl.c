@@ -1,6 +1,6 @@
 #include "MoveControl.h"
 
-static uint8_t MoveControl_datatemp[50];
+static uint8_t MoveControl_datatemp[50], func_code;
 static uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360;
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data){
@@ -79,6 +79,7 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len){
 		return;
 	/*================================================================================*/
     //Get data
+		func_code = (*(data + 2));
     distance_cm = (*(data + 4) << 8) | (*(data + 5));
     velocity_cmps = (*(data + 6) << 8) | (*(data + 7));
     dir_angle_0_360 = (*(data + 8) << 8) | (*(data + 9));
@@ -150,15 +151,22 @@ void MoveControl_Output(void){
 				{
 //					if(fc_sta.unlock_cmd == 0)
 //					{
-					if(control_stat == 1)
+					if(func_code == 0x80)
 					{
-						Horizontal_Move(distance_cm, velocity_cmps, dir_angle_0_360);
-						control_stat = 0;
+						if(control_stat == 1)
+						{
+							Horizontal_Move(distance_cm, velocity_cmps, dir_angle_0_360);
+							control_stat = 0;
+						}
+						else
+						{
+							control_stat =1;
+							MoveControl_Spin(spin_angle_0_360);
+						}
 					}
-					else
+					else if(func_code == 0x81)
 					{
-						control_stat =1;
-						MoveControl_Spin(spin_angle_0_360);
+						//OneKey_Land();
 					}
 //					}
 				}
@@ -167,7 +175,7 @@ void MoveControl_Output(void){
 }
 
 //MoveControl Spin
-static uint16_t spin_speed = 3;
+static uint16_t spin_speed = 10;
 uint8_t MoveControl_Spin(uint16_t spin_angle_0_360){
 		if (dt.wait_ck == 0) //there is no wait ack
 		{
