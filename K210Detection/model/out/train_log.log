@@ -1,0 +1,146 @@
+2021-07-17 10:05:08,596 - [INFO]:  progress: 0%, start
+2021-07-17 10:05:08,596 - [INFO]:  progress: 1%, start train
+2021-07-17 10:05:10,319 - [INFO]:  select GPU:0:GeForce RTX 2080 Ti, used:12.1875/11019.4375MB, free:11007.25MB
+2021-07-17 10:05:17,757 - [INFO]:  input_shape: (224, 224, 3)
+2021-07-17 10:05:30,873 - [INFO]:  load datasets complete, check pass, images num:9983, bboxes num:9983
+2021-07-17 10:05:32,398 - [INFO]:  train, labels:['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+2021-07-17 10:05:32,398 - [DEBUG]:  train, datasets dir:/root/github/maix_train/out/datasets/datasets
+2021-07-17 10:05:32,407 - [INFO]:  bboxes num: 9983, first bbox: [0.26785714 0.26785714]
+2021-07-17 10:05:34,908 - [INFO]:  bbox accuracy(IOU): 91.49%
+2021-07-17 10:05:34,908 - [INFO]:  bound boxes: (98.000000,98.00),(131.000000,131.00),(80.000000,80.00),(115.000000,115.00),(64.000000,64.00)
+2021-07-17 10:05:34,908 - [INFO]:  anchors: [3.0625, 3.0625, 4.09375, 4.09375, 2.5, 2.5, 3.5937499999999996, 3.5937499999999996, 2.0, 2.0]
+2021-07-17 10:05:34,908 - [INFO]:  w/h ratios: [1.0, 1.0, 1.0, 1.0, 1.0]
+2021-07-17 10:05:38,460 - [INFO]:  train start
+2021-07-17 10:05:38,460 - [INFO]:  progress: 1.0%, train start
+2021-07-17 10:05:38,476 - [INFO]:  epoch 0 start
+2021-07-17 10:08:27,960 - [INFO]:  epoch 0 end: {'loss': 0.5199378132820129, 'val_loss': 0.3812596797943115, 'lr': 1e-04}
+2021-07-17 10:08:27,960 - [INFO]:  progress: 3.425%, train epoch end
+2021-07-17 10:08:28,117 - [INFO]:  epoch 1 start
+2021-07-17 10:11:05,661 - [INFO]:  epoch 1 end: {'loss': 0.085186667740345, 'val_loss': 0.42215871810913086, 'lr': 1e-04}
+2021-07-17 10:11:05,662 - [INFO]:  progress: 5.85%, train epoch end
+2021-07-17 10:11:05,692 - [INFO]:  epoch 2 start
+2021-07-17 10:13:41,044 - [INFO]:  epoch 2 end: {'loss': 0.060771968215703964, 'val_loss': 0.35362958908081055, 'lr': 1e-04}
+2021-07-17 10:13:41,044 - [INFO]:  progress: 8.274999999999999%, train epoch end
+2021-07-17 10:13:41,190 - [INFO]:  epoch 3 start
+2021-07-17 10:16:19,229 - [INFO]:  epoch 3 end: {'loss': 0.044321078807115555, 'val_loss': 0.3850388824939728, 'lr': 1e-04}
+2021-07-17 10:16:19,229 - [INFO]:  progress: 10.7%, train epoch end
+2021-07-17 10:16:19,249 - [INFO]:  epoch 4 start
+2021-07-17 10:19:03,669 - [INFO]:  epoch 4 end: {'loss': 0.03282693773508072, 'val_loss': 0.3315703570842743, 'lr': 1e-04}
+2021-07-17 10:19:03,670 - [INFO]:  progress: 13.125%, train epoch end
+2021-07-17 10:19:03,826 - [INFO]:  epoch 5 start
+2021-07-17 10:21:47,197 - [INFO]:  epoch 5 end: {'loss': 0.029191767796874046, 'val_loss': 0.32169416546821594, 'lr': 1e-04}
+2021-07-17 10:21:47,197 - [INFO]:  progress: 15.549999999999999%, train epoch end
+2021-07-17 10:21:47,379 - [INFO]:  epoch 6 start
+2021-07-17 10:24:30,025 - [INFO]:  epoch 6 end: {'loss': 0.02869487926363945, 'val_loss': 0.3085346817970276, 'lr': 1e-04}
+2021-07-17 10:24:30,025 - [INFO]:  progress: 17.974999999999998%, train epoch end
+2021-07-17 10:24:30,196 - [INFO]:  epoch 7 start
+2021-07-17 10:27:15,835 - [INFO]:  epoch 7 end: {'loss': 0.01948595605790615, 'val_loss': 0.26223617792129517, 'lr': 1e-04}
+2021-07-17 10:27:15,835 - [INFO]:  progress: 20.4%, train epoch end
+2021-07-17 10:27:15,982 - [INFO]:  epoch 8 start
+2021-07-17 10:29:58,180 - [INFO]:  epoch 8 end: {'loss': 0.02028081938624382, 'val_loss': 0.31352612376213074, 'lr': 1e-04}
+2021-07-17 10:29:58,181 - [INFO]:  progress: 22.825%, train epoch end
+2021-07-17 10:29:58,200 - [INFO]:  epoch 9 start
+2021-07-17 10:32:40,903 - [INFO]:  epoch 9 end: {'loss': 0.02016211301088333, 'val_loss': 0.347111314535141, 'lr': 1e-04}
+2021-07-17 10:32:40,903 - [INFO]:  progress: 25.25%, train epoch end
+2021-07-17 10:32:40,920 - [INFO]:  epoch 10 start
+2021-07-17 10:35:24,748 - [INFO]:  epoch 10 end: {'loss': 0.010777866467833519, 'val_loss': 0.24399560689926147, 'lr': 1e-04}
+2021-07-17 10:35:24,748 - [INFO]:  progress: 27.675000000000004%, train epoch end
+2021-07-17 10:35:24,901 - [INFO]:  epoch 11 start
+2021-07-17 10:38:05,999 - [INFO]:  epoch 11 end: {'loss': 0.018821826204657555, 'val_loss': 0.27483275532722473, 'lr': 1e-04}
+2021-07-17 10:38:05,999 - [INFO]:  progress: 30.099999999999998%, train epoch end
+2021-07-17 10:38:06,035 - [INFO]:  epoch 12 start
+2021-07-17 10:40:46,769 - [INFO]:  epoch 12 end: {'loss': 0.010433163493871689, 'val_loss': 0.2607977092266083, 'lr': 1e-04}
+2021-07-17 10:40:46,770 - [INFO]:  progress: 32.525%, train epoch end
+2021-07-17 10:40:46,787 - [INFO]:  epoch 13 start
+2021-07-17 10:43:28,018 - [INFO]:  epoch 13 end: {'loss': 0.017074188217520714, 'val_loss': 0.23981213569641113, 'lr': 1e-04}
+2021-07-17 10:43:28,019 - [INFO]:  progress: 34.949999999999996%, train epoch end
+2021-07-17 10:43:28,206 - [INFO]:  epoch 14 start
+2021-07-17 10:46:09,361 - [INFO]:  epoch 14 end: {'loss': 0.014791427180171013, 'val_loss': 0.28160038590431213, 'lr': 1e-04}
+2021-07-17 10:46:09,362 - [INFO]:  progress: 37.375%, train epoch end
+2021-07-17 10:46:09,384 - [INFO]:  epoch 15 start
+2021-07-17 10:48:49,778 - [INFO]:  epoch 15 end: {'loss': 0.01420111209154129, 'val_loss': 0.28564321994781494, 'lr': 1e-04}
+2021-07-17 10:48:49,778 - [INFO]:  progress: 39.8%, train epoch end
+2021-07-17 10:48:49,803 - [INFO]:  epoch 16 start
+2021-07-17 10:51:30,906 - [INFO]:  epoch 16 end: {'loss': 0.010650133714079857, 'val_loss': 0.2550359070301056, 'lr': 1e-04}
+2021-07-17 10:51:30,906 - [INFO]:  progress: 42.225%, train epoch end
+2021-07-17 10:51:30,931 - [INFO]:  epoch 17 start
+2021-07-17 10:54:12,490 - [INFO]:  epoch 17 end: {'loss': 0.009589020162820816, 'val_loss': 0.269060879945755, 'lr': 1e-04}
+2021-07-17 10:54:12,490 - [INFO]:  progress: 44.65%, train epoch end
+2021-07-17 10:54:12,516 - [INFO]:  epoch 18 start
+2021-07-17 10:56:57,537 - [INFO]:  epoch 18 end: {'loss': 0.01012925524264574, 'val_loss': 0.2532590925693512, 'lr': 1e-04}
+2021-07-17 10:56:57,538 - [INFO]:  progress: 47.074999999999996%, train epoch end
+2021-07-17 10:56:57,569 - [INFO]:  epoch 19 start
+2021-07-17 10:59:34,488 - [INFO]:  epoch 19 end: {'loss': 0.0024218757171183825, 'val_loss': 0.24477677047252655, 'lr': 2e-05}
+2021-07-17 10:59:34,488 - [INFO]:  progress: 49.5%, train epoch end
+2021-07-17 10:59:34,505 - [INFO]:  epoch 20 start
+2021-07-17 11:02:14,059 - [INFO]:  epoch 20 end: {'loss': 0.0016271404456347227, 'val_loss': 0.23857074975967407, 'lr': 2e-05}
+2021-07-17 11:02:14,060 - [INFO]:  progress: 51.925%, train epoch end
+2021-07-17 11:02:14,243 - [INFO]:  epoch 21 start
+2021-07-17 11:04:55,437 - [INFO]:  epoch 21 end: {'loss': 0.0012544837081804872, 'val_loss': 0.2447497844696045, 'lr': 2e-05}
+2021-07-17 11:04:55,437 - [INFO]:  progress: 54.35000000000001%, train epoch end
+2021-07-17 11:04:55,455 - [INFO]:  epoch 22 start
+2021-07-17 11:07:36,556 - [INFO]:  epoch 22 end: {'loss': 0.0010605817660689354, 'val_loss': 0.236538365483284, 'lr': 2e-05}
+2021-07-17 11:07:36,557 - [INFO]:  progress: 56.77499999999999%, train epoch end
+2021-07-17 11:07:36,730 - [INFO]:  epoch 23 start
+2021-07-17 11:10:15,370 - [INFO]:  epoch 23 end: {'loss': 0.0009213518933393061, 'val_loss': 0.23576734960079193, 'lr': 2e-05}
+2021-07-17 11:10:15,370 - [INFO]:  progress: 59.199999999999996%, train epoch end
+2021-07-17 11:10:15,565 - [INFO]:  epoch 24 start
+2021-07-17 11:12:57,172 - [INFO]:  epoch 24 end: {'loss': 0.0008268421515822411, 'val_loss': 0.2511430084705353, 'lr': 2e-05}
+2021-07-17 11:12:57,172 - [INFO]:  progress: 61.625%, train epoch end
+2021-07-17 11:12:57,194 - [INFO]:  epoch 25 start
+2021-07-17 11:15:38,708 - [INFO]:  epoch 25 end: {'loss': 0.0007532956660725176, 'val_loss': 0.2543688416481018, 'lr': 2e-05}
+2021-07-17 11:15:38,709 - [INFO]:  progress: 64.05%, train epoch end
+2021-07-17 11:15:38,726 - [INFO]:  epoch 26 start
+2021-07-17 11:18:19,243 - [INFO]:  epoch 26 end: {'loss': 0.0006981207407079637, 'val_loss': 0.2542387843132019, 'lr': 2e-05}
+2021-07-17 11:18:19,243 - [INFO]:  progress: 66.475%, train epoch end
+2021-07-17 11:18:19,261 - [INFO]:  epoch 27 start
+2021-07-17 11:20:57,588 - [INFO]:  epoch 27 end: {'loss': 0.0006483071483671665, 'val_loss': 0.24718591570854187, 'lr': 2e-05}
+2021-07-17 11:20:57,589 - [INFO]:  progress: 68.89999999999999%, train epoch end
+2021-07-17 11:20:57,611 - [INFO]:  epoch 28 start
+2021-07-17 11:23:35,556 - [INFO]:  epoch 28 end: {'loss': 0.000602796848397702, 'val_loss': 0.24938733875751495, 'lr': 2e-05}
+2021-07-17 11:23:35,557 - [INFO]:  progress: 71.325%, train epoch end
+2021-07-17 11:23:35,580 - [INFO]:  epoch 29 start
+2021-07-17 11:26:15,763 - [INFO]:  epoch 29 end: {'loss': 0.0004727912601083517, 'val_loss': 0.25165295600891113, 'lr': 1e-05}
+2021-07-17 11:26:15,763 - [INFO]:  progress: 73.75%, train epoch end
+2021-07-17 11:26:15,790 - [INFO]:  epoch 30 start
+2021-07-17 11:28:55,602 - [INFO]:  epoch 30 end: {'loss': 0.0004272070073056966, 'val_loss': 0.2555057406425476, 'lr': 1e-05}
+2021-07-17 11:28:55,602 - [INFO]:  progress: 76.175%, train epoch end
+2021-07-17 11:28:55,630 - [INFO]:  epoch 31 start
+2021-07-17 11:31:36,329 - [INFO]:  epoch 31 end: {'loss': 0.00041132085607387125, 'val_loss': 0.26538965106010437, 'lr': 1e-05}
+2021-07-17 11:31:36,330 - [INFO]:  progress: 78.6%, train epoch end
+2021-07-17 11:31:36,361 - [INFO]:  epoch 32 start
+2021-07-17 11:34:18,207 - [INFO]:  epoch 32 end: {'loss': 0.0003978295426350087, 'val_loss': 0.2636086046695709, 'lr': 1e-05}
+2021-07-17 11:34:18,207 - [INFO]:  progress: 81.02499999999999%, train epoch end
+2021-07-17 11:34:18,245 - [INFO]:  epoch 33 start
+2021-07-17 11:37:02,639 - [INFO]:  epoch 33 end: {'loss': 0.0003750947362277657, 'val_loss': 0.26811492443084717, 'lr': 1e-05}
+2021-07-17 11:37:02,639 - [INFO]:  progress: 83.45%, train epoch end
+2021-07-17 11:37:02,660 - [INFO]:  epoch 34 start
+2021-07-17 11:39:45,460 - [INFO]:  epoch 34 end: {'loss': 0.00036310855648480356, 'val_loss': 0.27132299542427063, 'lr': 1e-05}
+2021-07-17 11:39:45,461 - [INFO]:  progress: 85.875%, train epoch end
+2021-07-17 11:39:45,479 - [INFO]:  epoch 35 start
+2021-07-17 11:42:25,872 - [INFO]:  epoch 35 end: {'loss': 0.000354847899870947, 'val_loss': 0.2672477066516876, 'lr': 1e-05}
+2021-07-17 11:42:25,873 - [INFO]:  progress: 88.3%, train epoch end
+2021-07-17 11:42:25,905 - [INFO]:  epoch 36 start
+2021-07-17 11:45:08,808 - [INFO]:  epoch 36 end: {'loss': 0.0003470189112704247, 'val_loss': 0.26908838748931885, 'lr': 1e-05}
+2021-07-17 11:45:08,808 - [INFO]:  progress: 90.725%, train epoch end
+2021-07-17 11:45:08,832 - [INFO]:  epoch 37 start
+2021-07-17 11:47:55,584 - [INFO]:  epoch 37 end: {'loss': 0.00033405664726160467, 'val_loss': 0.26768437027931213, 'lr': 1e-05}
+2021-07-17 11:47:55,584 - [INFO]:  progress: 93.14999999999999%, train epoch end
+2021-07-17 11:47:55,608 - [INFO]:  epoch 38 start
+2021-07-17 11:50:35,143 - [INFO]:  epoch 38 end: {'loss': 0.000322631822200492, 'val_loss': 0.27091526985168457, 'lr': 1e-05}
+2021-07-17 11:50:35,143 - [INFO]:  progress: 95.575%, train epoch end
+2021-07-17 11:50:35,155 - [INFO]:  epoch 39 start
+2021-07-17 11:53:13,755 - [INFO]:  epoch 39 end: {'loss': 0.00031500126351602376, 'val_loss': 0.27566203474998474, 'lr': 1e-05}
+2021-07-17 11:53:13,756 - [INFO]:  progress: 98.0%, train epoch end
+2021-07-17 11:53:13,767 - [INFO]:  train end
+2021-07-17 11:53:13,767 - [INFO]:  progress: 98.0%, train end
+2021-07-17 11:53:21,940 - [INFO]:  train ok, now generate report
+2021-07-17 11:53:21,941 - [INFO]:  generate report image
+2021-07-17 11:53:22,123 - [INFO]:  generate report image end
+2021-07-17 11:53:22,124 - [INFO]:  now generate kmodel
+2021-07-17 11:55:44,234 - [INFO]:  copy template files
+2021-07-17 11:55:44,237 - [INFO]:  pack result to zip file
+2021-07-17 11:55:44,378 - [INFO]:  progress: 99%, pack ok
+2021-07-17 11:55:44,378 - [INFO]:  progress: 100%, task complete
+2021-07-17 11:55:44,378 - [INFO]:  OK, task complete, result uri: /root/github/maix_train/out/maixhub_detector_result_2021_07_17__11_55.zip
+2021-07-17 11:55:44,381 - [INFO]:  success: out_dir: /root/github/maix_train/out/maixhub_detector_result_2021_07_17__11_55.zip
