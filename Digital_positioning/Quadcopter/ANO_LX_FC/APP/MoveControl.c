@@ -1,73 +1,135 @@
 #include "MoveControl.h"
 
 //data transfer
-static uint8_t MoveControl_datatemp[50], func_code;
+static uint8_t MoveControl_datatemp[50], OVControl_datatemp[50], func_code_u2, func_code_u3;
 //fly control variable
 static uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, spin_speed_dps;
 //number identify
-static uint8_t number_set, percentage_set, number_identified, percentage_identified;
+static uint8_t number_set = 3, percentage_set = 30, number_identified, percentage_identified;
 //circling motion variable
 static uint8_t origin_dir, cir_motion_dir, cir_motion_r_cm, cir_motion_speed_dps;
 static uint16_t cir_motion_degrees;
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data)
 {
-	static u8 _data_len = 0, _data_cnt = 0;
-	static u8 rxstate = 0;
+	static u8 _data_len_u2 = 0, _data_cnt_u2 = 0;
+	static u8 rxstate_u2 = 0;
 
-	if (rxstate == 0 && data == 0xAA)
+	if (rxstate_u2 == 0 && data == 0xAA)
 	{
 		//HEAD
-		rxstate = 1;
+		rxstate_u2 = 1;
 		MoveControl_datatemp[0] = data;
 	}
-	else if (rxstate == 1 && (data == HW_TYPE || data == HW_ALL))
+	else if (rxstate_u2 == 1 && (data == HW_TYPE || data == HW_ALL))
 	{
 		//Dest
-		rxstate = 2;
+		rxstate_u2 = 2;
 		MoveControl_datatemp[1] = data;
 	}
-	else if (rxstate == 2)
+	else if (rxstate_u2 == 2)
 	{
 		//Func
-		rxstate = 3;
+		rxstate_u2 = 3;
 		MoveControl_datatemp[2] = data;
 	}
-	else if (rxstate == 3 && data < 250)
+	else if (rxstate_u2 == 3 && data < 250)
 	{
 		//Len
-		rxstate = 4;
+		rxstate_u2 = 4;
 		MoveControl_datatemp[3] = data;
-		_data_len = data;
-		_data_cnt = 0;
+		_data_len_u2 = data;
+		_data_cnt_u2 = 0;
 	}
-	else if (rxstate == 4 && _data_len > 0)
+	else if (rxstate_u2 == 4 && _data_len_u2 > 0)
 	{
 		//data
-		_data_len--;
-		MoveControl_datatemp[4 + _data_cnt++] = data;
-		if (_data_len == 0)
-			rxstate = 5;
+		_data_len_u2--;
+		MoveControl_datatemp[4 + _data_cnt_u2++] = data;
+		if (_data_len_u2 == 0)
+			rxstate_u2 = 5;
 	}
-	else if (rxstate == 5)
+	else if (rxstate_u2 == 5)
 	{
 		//SumCheck
-		rxstate = 6;
-		MoveControl_datatemp[4 + _data_cnt++] = data;
+		rxstate_u2 = 6;
+		MoveControl_datatemp[4 + _data_cnt_u2++] = data;
 	}
-	else if (rxstate == 6)
+	else if (rxstate_u2 == 6)
 	{
 		//add on check
-		rxstate = 0;
-		MoveControl_datatemp[4 + _data_cnt] = data;
-		//DT_data_cnt = _data_cnt+5;
+		rxstate_u2 = 0;
+		MoveControl_datatemp[4 + _data_cnt_u2] = data;
+		//DT_data_cnt = _data_cnt_u2+5;
 		//data resolution
-		MoveControl_DataAnl(MoveControl_datatemp, _data_cnt + 5);
+		MoveControl_DataAnl(MoveControl_datatemp, _data_cnt_u2 + 5);
 	}
 	else
 	{
 		//error
-		rxstate = 0;
+		rxstate_u2 = 0;
+	}
+}
+
+//OVControl_GetOneByte
+void OVControl_GetOneByte(uint8_t data)
+{
+	static u8 _data_len_u3 = 0, _data_cnt_u3 = 0;
+	static u8 rxstate_u3 = 0;
+
+	if (rxstate_u3 == 0 && data == 0xAA)
+	{
+		//HEAD
+		rxstate_u3 = 1;
+		OVControl_datatemp[0] = data;
+	}
+	else if (rxstate_u3 == 1 && (data == HW_TYPE || data == HW_ALL))
+	{
+		//Dest
+		rxstate_u3 = 2;
+		OVControl_datatemp[1] = data;
+	}
+	else if (rxstate_u3 == 2)
+	{
+		//Func
+		rxstate_u3 = 3;
+		OVControl_datatemp[2] = data;
+	}
+	else if (rxstate_u3 == 3 && data < 250)
+	{
+		//Len
+		rxstate_u3 = 4;
+		OVControl_datatemp[3] = data;
+		_data_len_u3 = data;
+		_data_cnt_u3 = 0;
+	}
+	else if (rxstate_u3 == 4 && _data_len_u3 > 0)
+	{
+		//data
+		_data_len_u3--;
+		OVControl_datatemp[4 + _data_cnt_u3++] = data;
+		if (_data_len_u3 == 0)
+			rxstate_u3 = 5;
+	}
+	else if (rxstate_u3 == 5)
+	{
+		//SumCheck
+		rxstate_u3 = 6;
+		OVControl_datatemp[4 + _data_cnt_u3++] = data;
+	}
+	else if (rxstate_u3 == 6)
+	{
+		//add on check
+		rxstate_u3 = 0;
+		OVControl_datatemp[4 + _data_cnt_u3] = data;
+		//DT_data_cnt = _data_cnt_u2+5;
+		//data resolution
+		OVControl_DataAnl(OVControl_datatemp, _data_cnt_u3 + 5);
+	}
+	else
+	{
+		//error
+		rxstate_u3 = 0;
 	}
 }
 
@@ -88,8 +150,9 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 		return;
 	/*================================================================================*/
 	//Get data
-	func_code = (*(data + 2));
-	if (func_code == 0x80)
+	func_code_u2 = (*(data + 2));
+	
+	if (func_code_u2 == 0x80)
 	{ 
 		//fly control
 		distance_cm = (*(data + 4) << 8) | (*(data + 5));
@@ -98,7 +161,7 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 		spin_angle_0_360 = (*(data + 10) << 8) | (*(data + 11));
 		spin_speed_dps = (*(data + 12) << 8) | (*(data + 13));
 	}
-	else if(func_code == 0x82)
+	else if(func_code_u2 == 0x82)
 	{
 		//circling motion
 		origin_dir = (*(data + 4));
@@ -107,7 +170,27 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 		cir_motion_speed_dps = (*(data + 7));
 		cir_motion_dir = (*(data + 7) << 8) | (*(data + 9));
 	}
-	else if (func_code == 0x90)
+}
+
+//OVControl_DataAnl
+void OVControl_DataAnl(uint8_t *data, uint8_t len)
+{
+	//data check
+	uint8_t check_sum1 = 0, check_sum2 = 0;
+	if (*(data + 3) != (len - 6)) //check the length of the data
+		return;
+	for (uint8_t i = 0; i < len - 2; i++)
+	{
+		check_sum1 += *(data + i); //Sum check
+		check_sum2 += check_sum1;  //add on check
+	}
+	if ((check_sum1 != *(data + len - 2)) || (check_sum2 != *(data + len - 1))) //compare the checksum
+		return;
+	/*================================================================================*/
+	//Get data
+	func_code_u3 = (*(data + 2));
+	
+	if (func_code_u3 == 0x90)
 	{
 		//number identify
 		number_identified = (*(data + 4));
@@ -144,6 +227,7 @@ void MoveControl_Output(void)
 			{
 				//unlock check
 				mission_step += UNLOCK_STATE;
+				//mission_step++;
 			}
 			break;
 			case 3:
@@ -162,7 +246,7 @@ void MoveControl_Output(void)
 			case 4:
 			{
 				//takeoff
-				mission_step += OneKey_Takeoff(50);
+				mission_step += OneKey_Takeoff(80);
 			}
 			break;
 			case 5:
@@ -181,9 +265,11 @@ void MoveControl_Output(void)
 			case 6: //user instructions
 			{
 				if (UNLOCK_STATE)
+				//if(1)
 				{
-					if (func_code == 0x80) //fly control
+					if (func_code_u2 == 0x80) //fly control
 					{
+
 						time_dly_cnt_ms = 0;
 						if (control_stat == 1)
 						{
@@ -196,7 +282,7 @@ void MoveControl_Output(void)
 							MoveControl_Spin(spin_angle_0_360, spin_speed_dps);
 						}
 					}
-					else if (func_code == 0x81) //land
+					else if (func_code_u2 == 0x81) //land
 					{
 						time_dly_cnt_ms += 50;
 						if (time_dly_cnt_ms >= 3000)
@@ -205,7 +291,7 @@ void MoveControl_Output(void)
 							mission_step = 2;
 						}
 					}
-					else if (func_code == 0x90) //identify specific number
+					else if (func_code_u2 == 0x90 || func_code_u3 == 0x90) //identify specific number
 					{
 						if (number_identified == number_set && percentage_identified >= percentage_set)
 							OneKey_Land();
@@ -220,7 +306,6 @@ void MoveControl_Output(void)
 //MoveControl Spin
 uint8_t MoveControl_Spin(uint16_t spin_angle_0_360, uint16_t spin_speed_dps)
 {
-	spin_speed_dps = 30; //temp
 	if (dt.wait_ck == 0) //there is no wait ack
 	{
 		dt.cmd_send.CID = 0x10;
@@ -315,5 +400,4 @@ uint8_t Circling_motion(uint8_t origin_dir, uint8_t cir_motion_dir, uint8_t cir_
 	{
 		return 0;
 	}
-	
 }
