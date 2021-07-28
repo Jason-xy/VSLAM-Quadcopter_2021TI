@@ -1,0 +1,536 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#ae470ece0666e9b5c0880ff2f068ec053"><param name="Name" value="_getFrame"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ac7d442ad4c99256aad34f8f1893393a0"><param name="Name" value="_getHandle"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ac7d442ad4c99256aad34f8f1893393a0"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a35ba3cad930cedd382ae3dd5970c6f45"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a3415fa937652bdc6bfb0c6484114f36a"><param name="Name" value="_openEx"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a3246bf83e394077297c34893b697428d"><param name="Name" value="_setData"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#ab25dfa6c38afa53c970de222d555d30a"><param name="Name" value="_setFrame"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a134e63dd470532118c4d9d06496fa910"><param name="Name" value="addDeviceConnectedListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a92e84cbd6623beb7bc7438ab3e499a15"><param name="Name" value="addDeviceDisconnectedListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#aa810e1ed0639e76d90d6b110283518d3"><param name="Name" value="addDeviceStateChangedListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a72da62972b0f042d2e4d6b4e1bf3605a"><param name="Name" value="addNewFrameListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html#a87d1de1d474d7ebf0c17830e26b685ce"><param name="Name" value="allocateFrameBuffer"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="autotoc_md70.html"><param name="Name" value="API"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a19215ebd71c8da5c64bf9114eb1c9c46"><param name="Name" value="Array"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#ab5351b4642fd738147feca2d7e5e2565"><param name="Name" value="attach"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html#a2c77b285c8caf7bd8f7b34a847f53f74"><param name="Name" value="b"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#a79f9cb7e9a828a3303c55498767f332e"><param name="Name" value="build"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a1804e9fe6cd46185f762d01e8d949518"><param name="Name" value="close"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="autotoc_md25.html"><param name="Name" value="Code samples"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a620f01abbe0db79dc2c9607b5484c5f4"><param name="Name" value="convertC2DCoordinateByIntrinsic"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#ac650f52ba396ace14e49cbf008d7737b"><param name="Name" value="convertD2CCoordinateByIntrinsic"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a4faabf558f2eb6e27948e50bffa8f581"><param name="Name" value="convertDepthToColor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a3129cdc99f37c8084ddb27849702b1dc"><param name="Name" value="convertDepthToWorld"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a38b9a3f31f62ebd8664f4f8a1fd26704"><param name="Name" value="convertWorldToDepth"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a7e0865a077fcc968427977d2063884ec"><param name="Name" value="create"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a7e0865a077fcc968427977d2063884ec"><param name="Name" value="openni::Recorder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a171b2f72e383903ee7787697b26017ae"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceopenni.html#ab2403242071ff06fc6fe18c0c6111d0f"><param name="Name" value="DepthPixel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a66e242dbe35907e9ecdbb516532ed347"><param name="Name" value="destroy"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a66e242dbe35907e9ecdbb516532ed347"><param name="Name" value="openni::Recorder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ae10d69b147fe098c3dc9cb0bfde415ed"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a1216228442de43e088a66ddf3f21c846"><param name="Name" value="Device"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a1216228442de43e088a66ddf3f21c846"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="openni::DeviceInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="openni::PlaybackControl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="openni::SensorInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#aef1804963ffbe476be41f9c2c09ee99e"><param name="Name" value="enumerateDevices"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a351d48677e850244a28824a8a594e662"><param name="Name" value="filterSpeckles"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html#aaa309f4045027b32efe305f67403dc9b"><param name="Name" value="freeFrameBuffer"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html#a7f41e1b7c3e0d376928a966d41068c2a"><param name="Name" value="g"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#ac3496ac40e65601b1db34b19e4a17ab2"><param name="Name" value="getAutoExposureEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a298baedee32914ef6392bb9b5d9a0311"><param name="Name" value="getAutoWhiteBalanceEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a029f6df9d50d1f125c0ec2c7f2b6574f"><param name="Name" value="getCameraSettings"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aca8ed165497d2b5d260905491c20bc2f"><param name="Name" value="getCropOriginX"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a99782c267a699b71a0b6ac9e56ab9416"><param name="Name" value="getCropOriginY"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a27ce049b5bb3b68c1f38d1cb820b7545"><param name="Name" value="getCropping"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a17ca073703addae873a0411517dd19d0"><param name="Name" value="getCroppingEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a9fa9c6a08f90f587ca5572223c2bffca"><param name="Name" value="getData"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a89f5ba0be4fe9a6a6dda028812d759d1"><param name="Name" value="getDataSize"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#af01251ba63a30cac547511e7af71c920"><param name="Name" value="getDepthColorSyncEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ac60a6769a6a6e27923f3f1650e95e7e8"><param name="Name" value="getDeviceInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a754f04c54eefa97b9c9384dab0040236"><param name="Name" value="getExposure"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a01fd4df5c93eaf9a9437bbc4c942130a"><param name="Name" value="getExtendedError"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#aeeaa5f5152b9886c16509e331df2a9c4"><param name="Name" value="getFps"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a3631adf70e842369d5fdf886fa40fc59"><param name="Name" value="getFrameIndex"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a6180ac6156cfdc81788f2805e207ee05"><param name="Name" value="getGain"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a6180ac6156cfdc81788f2805e207ee05"><param name="Name" value="openni::CameraSettings"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a3f82578b4f4f76bfc3127e32d33fab9c"><param name="Name" value="openni::Device"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aa161ae2054d8c1b06788aa0016b8399d"><param name="Name" value="getHeight"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aa8021f8de3976433c5a0f7d134a407ab"><param name="Name" value="getHorizontalFieldOfView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#af0f1a5b335de11bf0ca396d27c6f058e"><param name="Name" value="getImageRegistrationMode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#ae543a75628401c022d8fc27793d99833"><param name="Name" value="getLogFileName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a43f9bfe703eda2bd63563e43a667d559"><param name="Name" value="getMaxPixelValue"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ae2efa7a989a5dfd73b3e190a7370e2ee"><param name="Name" value="getMinPixelValue"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#afb6c998f78895530873dba8abbe9bcc7"><param name="Name" value="getMirroringEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a007f4dfd67be6064db655f1584c64ebb"><param name="Name" value="getName"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a3bea28eb44d8553dc15d188ffef1955b"><param name="Name" value="getNumberOfFrames"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#aa86b637e4d4e0d4bbb38a7a0c54615b1"><param name="Name" value="getPixelFormat"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ab1b0ec1efd1dc208d1f11a91257d3f91"><param name="Name" value="getPlaybackControl"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ae9dd16a0002e21d95fc75e6d1adb61d2"><param name="Name" value="getProperty"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ae9dd16a0002e21d95fc75e6d1adb61d2"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aa5228ae7358097ca766cdf77bb9b9adf"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a7d92c9940577ce7b877d3568f8b47de2"><param name="Name" value="getRepeatEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a7382d7f8ddd1df35ff0bf8b536d116e8"><param name="Name" value="getResolutionX"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a91b83e30fc4b7a367801034d9c85c018"><param name="Name" value="getResolutionY"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ae2f512f237ee1d3d464250a8bdb81925"><param name="Name" value="getSensorInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ae2f512f237ee1d3d464250a8bdb81925"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aef0dc5af688f344956a892ee30956964"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a17a6bbbe254cc105bcf7bc104bf65734"><param name="Name" value="getSensorType"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a17a6bbbe254cc105bcf7bc104bf65734"><param name="Name" value="openni::SensorInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#ac88e90425130f98d07f200470f160444"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a0b4e16517f1844c22d9a345974757aa8"><param name="Name" value="getSize"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a86ecbd235e03178b610de42e25d9d5a1"><param name="Name" value="getSoftwareRegistratorMode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#acc82b59418a59b23703cdca498759345"><param name="Name" value="getSpeed"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#adfe9befe7020181946e573019c539eae"><param name="Name" value="getStrideInBytes"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a4e9b23e921b04558f86317c96d764cd3"><param name="Name" value="getSupportedVideoModes"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a2bcc1888d2fb631f290de4a345a6e88b"><param name="Name" value="getTimestamp"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#aadc34dbfe44a7b48b97df2eef1d16be9"><param name="Name" value="getUri"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a834f6b1eb3753a844788eb88c6b026ff"><param name="Name" value="getUsbProductId"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#ac87f986a2ed94de76c492b40230f7a02"><param name="Name" value="getUsbVendorId"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#aa11243cef6a25a0baa96bdd141930887"><param name="Name" value="getVendor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#aab96e01582123921bdb223d936393d07"><param name="Name" value="getVersion"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a57148d27888d599b653ace07d7b62656"><param name="Name" value="getVerticalFieldOfView"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a9c0462c0a0f2b60f0b115c4e61d5deb8"><param name="Name" value="getVideoMode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a9c0462c0a0f2b60f0b115c4e61d5deb8"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aa242cb3ea4f4d08ff8d0ebebdad8f99a"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#acc7f5f4a425c602d96a557481caa7f9d"><param name="Name" value="getWidth"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceopenni.html#a15bcac1ff77c313557dd28804c31c4ff"><param name="Name" value="Grayscale16Pixel"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#aff0664ccc8e969e4778fec07b6adf81f"><param name="Name" value="hasSensor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a0f374c05978a3373f1060c288997d8ca"><param name="Name" value="initialize"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="autotoc_md4.html"><param name="Name" value="Installation"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a67d755db987d9d608001b13558c97de9"><param name="Name" value="invoke"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a67d755db987d9d608001b13558c97de9"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aaa6363371fa11f76e431462e913cffe2"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a6d388ad559ca7afbbdf894342527077a"><param name="Name" value="isCommandSupported"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a6d388ad559ca7afbbdf894342527077a"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a273b8567e5c617521bbe30aa97a37b0f"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a9be9eace9bede33f4142a8f2c283eba4"><param name="Name" value="isCroppingSupported"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a538a5e9c0cac4d32a8168c72df8f78b7"><param name="Name" value="isFile"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a74a3ba042d50c8b7b4a35da3b77809f9"><param name="Name" value="isImageRegistrationModeSupported"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a2b06b268c44f513b7b25e795f28d8ada"><param name="Name" value="isPropertySupported"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a2b06b268c44f513b7b25e795f28d8ada"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#adb7dcdc8444230a615798fb88a9b8ad9"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a92c45b930ea5fec71ddded8777a6d53a"><param name="Name" value="isValid"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a92c45b930ea5fec71ddded8777a6d53a"><param name="Name" value="openni::CameraSettings"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#af18dcc20cf123a4e469a750e235ff978"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#ab4e4f87744e94ba9a75f5f63dd0ee56d"><param name="Name" value="openni::PlaybackControl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#ac84dd75d16114c1962e913600821e15c"><param name="Name" value="openni::Recorder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a5788fc2a3b5bc0c082faf2abde95c923"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a147feaa91ae8efb725bda9535452420b"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#a975d3371cc404eb34bf17c97c09bd0b3"><param name="Name" value="maintenance"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#a5ae4a632961fa57459d2ba5e461dea5b"><param name="Name" value="major"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#aecc77ce1b6aa5866c7d5013d37fb1a5a"><param name="Name" value="minor"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html#a73fb0101631bc1da7eeae056d73d78fc"><param name="Name" value="NewFrameListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_connected_listener.html#aba6dd6e8cad373476c7715453a7155fd"><param name="Name" value="onDeviceConnected"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_disconnected_listener.html#a93cce4849be363185d58867b63400057"><param name="Name" value="onDeviceDisconnected"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_state_changed_listener.html#a311b3d677811a45e247553ac02d932b7"><param name="Name" value="onDeviceStateChanged"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html#a5f6a771b3f48e2217d036bd1c6b520a4"><param name="Name" value="onNewFrame"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a2240eaf483ea04506f320f3cd963ca62"><param name="Name" value="open"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceopenni.html"><param name="Name" value="openni"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1___null_string.html"><param name="Name" value="openni::_NullString"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1___null_string.html#af7cdb1033949390ff7e6bb6cbc8af25b"><param name="Name" value="operator const char *"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html"><param name="Name" value="openni::Array"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a3246bf83e394077297c34893b697428d"><param name="Name" value="_setData"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a19215ebd71c8da5c64bf9114eb1c9c46"><param name="Name" value="Array"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a0b4e16517f1844c22d9a345974757aa8"><param name="Name" value="getSize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a05e8fc2e0245f674833dbfe95ba2f6d0"><param name="Name" value="operator[]"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#ac318cd0a03d863ea861791bb3f647253"><param name="Name" value="~Array"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html"><param name="Name" value="openni::CameraSettings"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#ac3496ac40e65601b1db34b19e4a17ab2"><param name="Name" value="getAutoExposureEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a298baedee32914ef6392bb9b5d9a0311"><param name="Name" value="getAutoWhiteBalanceEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a754f04c54eefa97b9c9384dab0040236"><param name="Name" value="getExposure"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a6180ac6156cfdc81788f2805e207ee05"><param name="Name" value="getGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a92c45b930ea5fec71ddded8777a6d53a"><param name="Name" value="isValid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a0d5aba4f0ff486640504f789cfd48266"><param name="Name" value="setAutoExposureEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a93e2a514c334edbaa07efa680dc8b93a"><param name="Name" value="setAutoWhiteBalanceEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a1de2542079bb08af57439ab1ded165b7"><param name="Name" value="setExposure"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a28a8ecfbb8a198ebb4ad51b60e4794f4"><param name="Name" value="setGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html"><param name="Name" value="openni::CoordinateConverter"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a620f01abbe0db79dc2c9607b5484c5f4"><param name="Name" value="convertC2DCoordinateByIntrinsic"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#ac650f52ba396ace14e49cbf008d7737b"><param name="Name" value="convertD2CCoordinateByIntrinsic"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a4faabf558f2eb6e27948e50bffa8f581"><param name="Name" value="convertDepthToColor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a3129cdc99f37c8084ddb27849702b1dc"><param name="Name" value="convertDepthToWorld"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_coordinate_converter.html#a38b9a3f31f62ebd8664f4f8a1fd26704"><param name="Name" value="convertWorldToDepth"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html"><param name="Name" value="openni::Device"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ac7d442ad4c99256aad34f8f1893393a0"><param name="Name" value="_getHandle"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a3415fa937652bdc6bfb0c6484114f36a"><param name="Name" value="_openEx"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a1804e9fe6cd46185f762d01e8d949518"><param name="Name" value="close"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a1216228442de43e088a66ddf3f21c846"><param name="Name" value="Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#af01251ba63a30cac547511e7af71c920"><param name="Name" value="getDepthColorSyncEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ac60a6769a6a6e27923f3f1650e95e7e8"><param name="Name" value="getDeviceInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a3f82578b4f4f76bfc3127e32d33fab9c"><param name="Name" value="getGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#af0f1a5b335de11bf0ca396d27c6f058e"><param name="Name" value="getImageRegistrationMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ab1b0ec1efd1dc208d1f11a91257d3f91"><param name="Name" value="getPlaybackControl"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ae9dd16a0002e21d95fc75e6d1adb61d2"><param name="Name" value="getProperty"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ae2f512f237ee1d3d464250a8bdb81925"><param name="Name" value="getSensorInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#aff0664ccc8e969e4778fec07b6adf81f"><param name="Name" value="hasSensor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a67d755db987d9d608001b13558c97de9"><param name="Name" value="invoke"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a6d388ad559ca7afbbdf894342527077a"><param name="Name" value="isCommandSupported"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a538a5e9c0cac4d32a8168c72df8f78b7"><param name="Name" value="isFile"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a74a3ba042d50c8b7b4a35da3b77809f9"><param name="Name" value="isImageRegistrationModeSupported"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a2b06b268c44f513b7b25e795f28d8ada"><param name="Name" value="isPropertySupported"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#af18dcc20cf123a4e469a750e235ff978"><param name="Name" value="isValid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a2240eaf483ea04506f320f3cd963ca62"><param name="Name" value="open"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a94dfc240ffd2f8e777494d10814d5d07"><param name="Name" value="setDepthColorSyncEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ad863b0d0d419810450000fb66d3d6af5"><param name="Name" value="setGain"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a28161dabfe92ce624d7a805ff8f4ec6e"><param name="Name" value="setImageRegistrationMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#aef50fe8316bd537275e84cced6dd7890"><param name="Name" value="setProperty"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a5faa442b23dfef84aa77d9117980a3ab"><param name="Name" value="~Device"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html"><param name="Name" value="openni::DeviceInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a007f4dfd67be6064db655f1584c64ebb"><param name="Name" value="getName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#aadc34dbfe44a7b48b97df2eef1d16be9"><param name="Name" value="getUri"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a834f6b1eb3753a844788eb88c6b026ff"><param name="Name" value="getUsbProductId"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#ac87f986a2ed94de76c492b40230f7a02"><param name="Name" value="getUsbVendorId"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#aa11243cef6a25a0baa96bdd141930887"><param name="Name" value="getVendor"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="OpenNI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html"><param name="Name" value="openni::OpenNI"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_connected_listener.html"><param name="Name" value="openni::OpenNI::DeviceConnectedListener"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_connected_listener.html#aba6dd6e8cad373476c7715453a7155fd"><param name="Name" value="onDeviceConnected"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_connected_listener.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="OpenNI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_disconnected_listener.html"><param name="Name" value="openni::OpenNI::DeviceDisconnectedListener"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_disconnected_listener.html#a93cce4849be363185d58867b63400057"><param name="Name" value="onDeviceDisconnected"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_disconnected_listener.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="OpenNI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_state_changed_listener.html"><param name="Name" value="openni::OpenNI::DeviceStateChangedListener"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_state_changed_listener.html#a311b3d677811a45e247553ac02d932b7"><param name="Name" value="onDeviceStateChanged"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_state_changed_listener.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="OpenNI"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html"><param name="Name" value="openni::OpenNI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a134e63dd470532118c4d9d06496fa910"><param name="Name" value="addDeviceConnectedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a92e84cbd6623beb7bc7438ab3e499a15"><param name="Name" value="addDeviceDisconnectedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#aa810e1ed0639e76d90d6b110283518d3"><param name="Name" value="addDeviceStateChangedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#aef1804963ffbe476be41f9c2c09ee99e"><param name="Name" value="enumerateDevices"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a01fd4df5c93eaf9a9437bbc4c942130a"><param name="Name" value="getExtendedError"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#ae543a75628401c022d8fc27793d99833"><param name="Name" value="getLogFileName"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#aab96e01582123921bdb223d936393d07"><param name="Name" value="getVersion"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a0f374c05978a3373f1060c288997d8ca"><param name="Name" value="initialize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a350f5989882cbf4b29dbbcae42003f54"><param name="Name" value="removeDeviceConnectedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#af68edcf05f1e50f620c13d5fb393f105"><param name="Name" value="removeDeviceDisconnectedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#acab32726b8f7b9a2d7619ce9be3b7da2"><param name="Name" value="removeDeviceStateChangedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a92729437b766cf86133d6ffa4f4e37f2"><param name="Name" value="setLogAndroidOutput"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a14a299005452e957ccf3703d15b0a96a"><param name="Name" value="setLogConsoleOutput"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a5fe6e70302953a684f6198dbfa8f24e3"><param name="Name" value="setLogFileOutput"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a4f27c310b99a9b0c28793d460bf44133"><param name="Name" value="setLogMinSeverity"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a5082d1b0c3d62c6ed41925cc569acb01"><param name="Name" value="setLogOutputFolder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a1a3fb2a487849cc591373aa3f88a7edc"><param name="Name" value="shutdown"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#ad0e287ef86221db74055c3e928c9adf2"><param name="Name" value="waitForAnyStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html"><param name="Name" value="openni::PlaybackControl"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a3bea28eb44d8553dc15d188ffef1955b"><param name="Name" value="getNumberOfFrames"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a7d92c9940577ce7b877d3568f8b47de2"><param name="Name" value="getRepeatEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#acc82b59418a59b23703cdca498759345"><param name="Name" value="getSpeed"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#ab4e4f87744e94ba9a75f5f63dd0ee56d"><param name="Name" value="isValid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a99d10ea20ad021cfe056ff225d31d840"><param name="Name" value="seek"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#ab0c377c5276294889e2562acb8163d30"><param name="Name" value="setRepeatEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a3ba6436562df82179e118296f3c897ee"><param name="Name" value="setSpeed"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a1ff78b61cdde4b4777b30325d0cda0d9"><param name="Name" value="~PlaybackControl"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html"><param name="Name" value="openni::Recorder"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#ab5351b4642fd738147feca2d7e5e2565"><param name="Name" value="attach"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a7e0865a077fcc968427977d2063884ec"><param name="Name" value="create"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a66e242dbe35907e9ecdbb516532ed347"><param name="Name" value="destroy"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#ac84dd75d16114c1962e913600821e15c"><param name="Name" value="isValid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a868e9145d222d3c17c5e0a684f6b247c"><param name="Name" value="Recorder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#af9e22ae7bb59250cf97db34cf067da5a"><param name="Name" value="start"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a5912dcb5b76623a1bfdc53e97fe9dc03"><param name="Name" value="stop"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a4452268d371108c3b670d7527efae3d0"><param name="Name" value="~Recorder"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html"><param name="Name" value="openni::RGB888Pixel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html#a2c77b285c8caf7bd8f7b34a847f53f74"><param name="Name" value="b"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html#a7f41e1b7c3e0d376928a966d41068c2a"><param name="Name" value="g"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html#a386473055de76efb74b8fb820d39e9a1"><param name="Name" value="r"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html"><param name="Name" value="openni::SensorInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a17a6bbbe254cc105bcf7bc104bf65734"><param name="Name" value="getSensorType"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a4e9b23e921b04558f86317c96d764cd3"><param name="Name" value="getSupportedVideoModes"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html"><param name="Name" value="openni::Version"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#a79f9cb7e9a828a3303c55498767f332e"><param name="Name" value="build"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#a975d3371cc404eb34bf17c97c09bd0b3"><param name="Name" value="maintenance"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#a5ae4a632961fa57459d2ba5e461dea5b"><param name="Name" value="major"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_version.html#aecc77ce1b6aa5866c7d5013d37fb1a5a"><param name="Name" value="minor"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#ae470ece0666e9b5c0880ff2f068ec053"><param name="Name" value="_getFrame"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#ab25dfa6c38afa53c970de222d555d30a"><param name="Name" value="_setFrame"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aca8ed165497d2b5d260905491c20bc2f"><param name="Name" value="getCropOriginX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a99782c267a699b71a0b6ac9e56ab9416"><param name="Name" value="getCropOriginY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a17ca073703addae873a0411517dd19d0"><param name="Name" value="getCroppingEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a9fa9c6a08f90f587ca5572223c2bffca"><param name="Name" value="getData"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a89f5ba0be4fe9a6a6dda028812d759d1"><param name="Name" value="getDataSize"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a3631adf70e842369d5fdf886fa40fc59"><param name="Name" value="getFrameIndex"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aa161ae2054d8c1b06788aa0016b8399d"><param name="Name" value="getHeight"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#ac88e90425130f98d07f200470f160444"><param name="Name" value="getSensorType"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#adfe9befe7020181946e573019c539eae"><param name="Name" value="getStrideInBytes"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a2bcc1888d2fb631f290de4a345a6e88b"><param name="Name" value="getTimestamp"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a9c0462c0a0f2b60f0b115c4e61d5deb8"><param name="Name" value="getVideoMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#acc7f5f4a425c602d96a557481caa7f9d"><param name="Name" value="getWidth"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a5788fc2a3b5bc0c082faf2abde95c923"><param name="Name" value="isValid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aa60bde0bb1fa8db6992585ca80f57932"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aab68b2fe1564d62d739f09edca037ae3"><param name="Name" value="release"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#af67a596c25b7bbde80f5ecc42644269d"><param name="Name" value="VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a1003fbe08a41586b8bf98c8e3f76fd0d"><param name="Name" value="~VideoFrameRef"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html"><param name="Name" value="openni::VideoMode"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#aeeaa5f5152b9886c16509e331df2a9c4"><param name="Name" value="getFps"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#aa86b637e4d4e0d4bbb38a7a0c54615b1"><param name="Name" value="getPixelFormat"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a7382d7f8ddd1df35ff0bf8b536d116e8"><param name="Name" value="getResolutionX"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a91b83e30fc4b7a367801034d9c85c018"><param name="Name" value="getResolutionY"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a7dc4cd97e74a1c99408bc2a39964c16d"><param name="Name" value="operator="></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a08ab6b96be9413b35b5898694db91bfb"><param name="Name" value="SensorInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#ad77d3ea95c7df97759f7d232d738b30e"><param name="Name" value="setFps"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#af7fd37bba526fced9c7dbbbf1ab419ea"><param name="Name" value="setPixelFormat"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a01c52061617acb5f62a9eabf8b2acdbe"><param name="Name" value="setResolution"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a19caa736db2e87abcc9d7c66bccaefb6"><param name="Name" value="VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a6e7db60c5d475fcd039a6619816ae8d6"><param name="Name" value="VideoMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html"><param name="Name" value="openni::VideoStream"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html"><param name="Name" value="openni::VideoStream::FrameAllocator"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html#a87d1de1d474d7ebf0c17830e26b685ce"><param name="Name" value="allocateFrameBuffer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html#aaa309f4045027b32efe305f67403dc9b"><param name="Name" value="freeFrameBuffer"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html"><param name="Name" value="openni::VideoStream::NewFrameListener"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html#a73fb0101631bc1da7eeae056d73d78fc"><param name="Name" value="NewFrameListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html#a5f6a771b3f48e2217d036bd1c6b520a4"><param name="Name" value="onNewFrame"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html"><param name="Name" value="openni::VideoStream"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a35ba3cad930cedd382ae3dd5970c6f45"><param name="Name" value="_getHandle"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a72da62972b0f042d2e4d6b4e1bf3605a"><param name="Name" value="addNewFrameListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a171b2f72e383903ee7787697b26017ae"><param name="Name" value="create"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ae10d69b147fe098c3dc9cb0bfde415ed"><param name="Name" value="destroy"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a520fa05e0bf58785da428f7a0241eee2"><param name="Name" value="Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a351d48677e850244a28824a8a594e662"><param name="Name" value="filterSpeckles"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a029f6df9d50d1f125c0ec2c7f2b6574f"><param name="Name" value="getCameraSettings"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a27ce049b5bb3b68c1f38d1cb820b7545"><param name="Name" value="getCropping"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aa8021f8de3976433c5a0f7d134a407ab"><param name="Name" value="getHorizontalFieldOfView"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a43f9bfe703eda2bd63563e43a667d559"><param name="Name" value="getMaxPixelValue"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ae2efa7a989a5dfd73b3e190a7370e2ee"><param name="Name" value="getMinPixelValue"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#afb6c998f78895530873dba8abbe9bcc7"><param name="Name" value="getMirroringEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aa5228ae7358097ca766cdf77bb9b9adf"><param name="Name" value="getProperty"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aef0dc5af688f344956a892ee30956964"><param name="Name" value="getSensorInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a86ecbd235e03178b610de42e25d9d5a1"><param name="Name" value="getSoftwareRegistratorMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a57148d27888d599b653ace07d7b62656"><param name="Name" value="getVerticalFieldOfView"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aa242cb3ea4f4d08ff8d0ebebdad8f99a"><param name="Name" value="getVideoMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#aaa6363371fa11f76e431462e913cffe2"><param name="Name" value="invoke"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a273b8567e5c617521bbe30aa97a37b0f"><param name="Name" value="isCommandSupported"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a9be9eace9bede33f4142a8f2c283eba4"><param name="Name" value="isCroppingSupported"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#adb7dcdc8444230a615798fb88a9b8ad9"><param name="Name" value="isPropertySupported"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a147feaa91ae8efb725bda9535452420b"><param name="Name" value="isValid"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a1610b8aaa89e0f39a607b9780ba9ab77"><param name="Name" value="readFrame"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a4842ff4f5b1be4c668f0c616b98aaa92"><param name="Name" value="removeNewFrameListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ae3f8fc2698c14d85667d35d358d4643c"><param name="Name" value="resetCropping"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a5b3bc3ef4e531496f875fdbf6604a157"><param name="Name" value="setCropping"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a627e6d5b3ddf2032693275780913d1ee"><param name="Name" value="setFrameBuffersAllocator"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#af34b31b62f0ae9d1772b6ff85ef0bae5"><param name="Name" value="setMirroringEnabled"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a72c23221468529cc97c6bde25fccce2c"><param name="Name" value="setProperty"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a8b611b2f558d09dc565b8439d9877f1e"><param name="Name" value="setSoftwareRegistrator"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a542e98aecfcdfc5c38079d80960af5d2"><param name="Name" value="setVideoMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a090d4873ab30dac86d29005831ffbd77"><param name="Name" value="start"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a55fc279dd603a694ee5f5ec074592dce"><param name="Name" value="stop"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ad9e23fcc619535149c8833eea9fc2918"><param name="Name" value="VideoStream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a063149ee3a46d499af3819565156c818"><param name="Name" value="~VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html"><param name="Name" value="openni::YUV422DoublePixel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#a01ad06ab1eda8a3af607b4bf53720974"><param name="Name" value="u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#ab1b8f2b619f286d7fc324db9ac30ee57"><param name="Name" value="v"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#ad77adbb7bbcd747ceee687cac0c2d479"><param name="Name" value="y1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#a877023a8447a329874a75cad01e38aed"><param name="Name" value="y2"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html"><param name="Name" value="openni::YUYVDoublePixel"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#ad021ef324e78398b8c6273e37d04f658"><param name="Name" value="u"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#a812758444329e769163f40910a3ec1f7"><param name="Name" value="v"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#a94db4b198aea90a8ac3161ae8a089fa1"><param name="Name" value="y1"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#a2e5dbe140135dfecfe5b6e982d73c58e"><param name="Name" value="y2"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceopenni.html"><param name="Name" value="openni"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceopenni.html#ab2403242071ff06fc6fe18c0c6111d0f"><param name="Name" value="DepthPixel"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="namespaceopenni.html#a15bcac1ff77c313557dd28804c31c4ff"><param name="Name" value="Grayscale16Pixel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="OpenNI"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device_info.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="openni::DeviceInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_connected_listener.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="openni::OpenNI::DeviceConnectedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_disconnected_listener.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="openni::OpenNI::DeviceDisconnectedListener"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i_1_1_device_state_changed_listener.html#a1d661a036b1e7e29b65f2b012bc92d00"><param name="Name" value="openni::OpenNI::DeviceStateChangedListener"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1___null_string.html#af7cdb1033949390ff7e6bb6cbc8af25b"><param name="Name" value="operator const char *"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aa60bde0bb1fa8db6992585ca80f57932"><param name="Name" value="operator="></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aa60bde0bb1fa8db6992585ca80f57932"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a7dc4cd97e74a1c99408bc2a39964c16d"><param name="Name" value="openni::VideoMode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#a05e8fc2e0245f674833dbfe95ba2f6d0"><param name="Name" value="operator[]"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="autotoc_md0.html"><param name="Name" value="Overview"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="autotoc_md89.html"><param name="Name" value="Product Support"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_r_g_b888_pixel.html#a386473055de76efb74b8fb820d39e9a1"><param name="Name" value="r"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a1610b8aaa89e0f39a607b9780ba9ab77"><param name="Name" value="readFrame"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a868e9145d222d3c17c5e0a684f6b247c"><param name="Name" value="Recorder"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#aab68b2fe1564d62d739f09edca037ae3"><param name="Name" value="release"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a350f5989882cbf4b29dbbcae42003f54"><param name="Name" value="removeDeviceConnectedListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#af68edcf05f1e50f620c13d5fb393f105"><param name="Name" value="removeDeviceDisconnectedListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#acab32726b8f7b9a2d7619ce9be3b7da2"><param name="Name" value="removeDeviceStateChangedListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a4842ff4f5b1be4c668f0c616b98aaa92"><param name="Name" value="removeNewFrameListener"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ae3f8fc2698c14d85667d35d358d4643c"><param name="Name" value="resetCropping"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="autotoc_md65.html"><param name="Name" value="SDK knowledge base"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a99d10ea20ad021cfe056ff225d31d840"><param name="Name" value="seek"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a08ab6b96be9413b35b5898694db91bfb"><param name="Name" value="SensorInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a0d5aba4f0ff486640504f789cfd48266"><param name="Name" value="setAutoExposureEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a93e2a514c334edbaa07efa680dc8b93a"><param name="Name" value="setAutoWhiteBalanceEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a5b3bc3ef4e531496f875fdbf6604a157"><param name="Name" value="setCropping"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a94dfc240ffd2f8e777494d10814d5d07"><param name="Name" value="setDepthColorSyncEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a1de2542079bb08af57439ab1ded165b7"><param name="Name" value="setExposure"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#ad77d3ea95c7df97759f7d232d738b30e"><param name="Name" value="setFps"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a627e6d5b3ddf2032693275780913d1ee"><param name="Name" value="setFrameBuffersAllocator"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a28a8ecfbb8a198ebb4ad51b60e4794f4"><param name="Name" value="setGain"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a28a8ecfbb8a198ebb4ad51b60e4794f4"><param name="Name" value="openni::CameraSettings"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#ad863b0d0d419810450000fb66d3d6af5"><param name="Name" value="openni::Device"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a28161dabfe92ce624d7a805ff8f4ec6e"><param name="Name" value="setImageRegistrationMode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a92729437b766cf86133d6ffa4f4e37f2"><param name="Name" value="setLogAndroidOutput"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a14a299005452e957ccf3703d15b0a96a"><param name="Name" value="setLogConsoleOutput"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a5fe6e70302953a684f6198dbfa8f24e3"><param name="Name" value="setLogFileOutput"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a4f27c310b99a9b0c28793d460bf44133"><param name="Name" value="setLogMinSeverity"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a5082d1b0c3d62c6ed41925cc569acb01"><param name="Name" value="setLogOutputFolder"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#af34b31b62f0ae9d1772b6ff85ef0bae5"><param name="Name" value="setMirroringEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#af7fd37bba526fced9c7dbbbf1ab419ea"><param name="Name" value="setPixelFormat"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#aef50fe8316bd537275e84cced6dd7890"><param name="Name" value="setProperty"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#aef50fe8316bd537275e84cced6dd7890"><param name="Name" value="openni::Device"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a72c23221468529cc97c6bde25fccce2c"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#ab0c377c5276294889e2562acb8163d30"><param name="Name" value="setRepeatEnabled"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a01c52061617acb5f62a9eabf8b2acdbe"><param name="Name" value="setResolution"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a8b611b2f558d09dc565b8439d9877f1e"><param name="Name" value="setSoftwareRegistrator"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a3ba6436562df82179e118296f3c897ee"><param name="Name" value="setSpeed"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a542e98aecfcdfc5c38079d80960af5d2"><param name="Name" value="setVideoMode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#a1a3fb2a487849cc591373aa3f88a7edc"><param name="Name" value="shutdown"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#af9e22ae7bb59250cf97db34cf067da5a"><param name="Name" value="start"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#af9e22ae7bb59250cf97db34cf067da5a"><param name="Name" value="openni::Recorder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a090d4873ab30dac86d29005831ffbd77"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a5912dcb5b76623a1bfdc53e97fe9dc03"><param name="Name" value="stop"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a5912dcb5b76623a1bfdc53e97fe9dc03"><param name="Name" value="openni::Recorder"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a55fc279dd603a694ee5f5ec074592dce"><param name="Name" value="openni::VideoStream"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#a01ad06ab1eda8a3af607b4bf53720974"><param name="Name" value="u"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#a01ad06ab1eda8a3af607b4bf53720974"><param name="Name" value="openni::YUV422DoublePixel"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#ad021ef324e78398b8c6273e37d04f658"><param name="Name" value="openni::YUYVDoublePixel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#ab1b8f2b619f286d7fc324db9ac30ee57"><param name="Name" value="v"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#ab1b8f2b619f286d7fc324db9ac30ee57"><param name="Name" value="openni::YUV422DoublePixel"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#a812758444329e769163f40910a3ec1f7"><param name="Name" value="openni::YUYVDoublePixel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#af67a596c25b7bbde80f5ecc42644269d"><param name="Name" value="VideoFrameRef"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#af67a596c25b7bbde80f5ecc42644269d"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a19caa736db2e87abcc9d7c66bccaefb6"><param name="Name" value="openni::VideoMode"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a6e7db60c5d475fcd039a6619816ae8d6"><param name="Name" value="VideoMode"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="VideoStream"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_camera_settings.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="openni::CameraSettings"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_sensor_info.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="openni::SensorInfo"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="openni::VideoFrameRef"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_mode.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="openni::VideoMode"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#ad9e23fcc619535149c8833eea9fc2918"><param name="Name" value="openni::VideoStream"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_frame_allocator.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="openni::VideoStream::FrameAllocator"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream_1_1_new_frame_listener.html#a4fd1028f691947151ea08e0db214f01c"><param name="Name" value="openni::VideoStream::NewFrameListener"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_open_n_i.html#ad0e287ef86221db74055c3e928c9adf2"><param name="Name" value="waitForAnyStream"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#ad77adbb7bbcd747ceee687cac0c2d479"><param name="Name" value="y1"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#ad77adbb7bbcd747ceee687cac0c2d479"><param name="Name" value="openni::YUV422DoublePixel"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#a94db4b198aea90a8ac3161ae8a089fa1"><param name="Name" value="openni::YUYVDoublePixel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#a877023a8447a329874a75cad01e38aed"><param name="Name" value="y2"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_v422_double_pixel.html#a877023a8447a329874a75cad01e38aed"><param name="Name" value="openni::YUV422DoublePixel"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="structopenni_1_1_y_u_y_v_double_pixel.html#a2e5dbe140135dfecfe5b6e982d73c58e"><param name="Name" value="openni::YUYVDoublePixel"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_array.html#ac318cd0a03d863ea861791bb3f647253"><param name="Name" value="~Array"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_device.html#a5faa442b23dfef84aa77d9117980a3ab"><param name="Name" value="~Device"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_playback_control.html#a1ff78b61cdde4b4777b30325d0cda0d9"><param name="Name" value="~PlaybackControl"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_recorder.html#a4452268d371108c3b670d7527efae3d0"><param name="Name" value="~Recorder"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_frame_ref.html#a1003fbe08a41586b8bf98c8e3f76fd0d"><param name="Name" value="~VideoFrameRef"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="classopenni_1_1_video_stream.html#a063149ee3a46d499af3819565156c818"><param name="Name" value="~VideoStream"></OBJECT>
+</UL>
+</BODY>
+</HTML>

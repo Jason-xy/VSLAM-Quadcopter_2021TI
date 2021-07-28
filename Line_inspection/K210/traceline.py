@@ -1,6 +1,11 @@
 import sensor, image, time, math, lcd
 from machine import UART, Timer
 from fpioa_manager import fm
+
+# 速度环
+k_v = [1, 0, 0.01] # kp_v, ki_v, kd_v
+# 角度环
+k_a = [1, 0, 0.01] # kp_a, ki_a, kd_a
 #黑线
 GRAYSCALE_THRESHOLD = [(0, 22)]
 
@@ -21,6 +26,7 @@ deflection_distance = 0
 deflection_angle = 0
 velocity_cmps = 15
 velocity_angle = 0
+degree_speed = 0
 
 #校验数据
 sumcheck=0
@@ -110,9 +116,16 @@ while(True):
     # 平移距离
     deflection_distance = 0 # pixels
     velocity_angle = 0
+    if(py[0] == 60):
+        py[0] == 59
+
+    foward_distance = (1 - math.fabs(py[0] - 60)/60) * 60 # 相对差值乘以比例60
+    velocity_cmps = math.fabs(py[0] - 60)/60 * k_v[0] * 20
+    velocity_cmps = velocity_cmps - velocity_cmps * k_v[2]
+
     if(px[0] != 0 or py[0] != 0):# 检测到第三个色块
-        deflection_distance = math.sqrt(math.pow((py[0] - 60), 2) + math.pow(50, 2))
-        velocity_angle = math.atan((py[0] - 60) / 50)
+        deflection_distance = math.sqrt(math.pow((py[0] - 60), 2) + math.pow(foward_distance, 2))
+        velocity_angle = math.atan((py[0] - 60) / foward_distance)
         velocity_angle = math.degrees(velocity_angle)
 
     # 旋转角度
@@ -142,6 +155,8 @@ while(True):
         deflection_angle = math.atan((py[2] - py[1]) / (px[2] - px[1]))# px[2] != px[1]不会出现非法除0的情况
         deflection_angle = math.degrees(deflection_angle)
 
+    degree_speed = math.fabs(deflection_angle) * k_a[0]
+    degree_speed = degree_speed * (1 - k_a[2])
     #打印原始计算数据
     lcd.draw_string(0, 0, str(deflection_angle), lcd.WHITE, lcd.BLACK)
     lcd.draw_string(0, 20, str(deflection_distance), lcd.WHITE, lcd.BLACK)
@@ -164,16 +179,20 @@ while(True):
     velocity_angle_byte = int(velocity_angle).to_bytes(2,'small')
     velocity_angle_high = velocity_angle_byte[0]
     velocity_angle_low = velocity_angle_byte[1]
+    degree_speed_byte = int(degree_speed).to_bytes(2, 'small')
+    degree_speed_high = degree_speed_byte[0]
+    degree_speed_low = degree_speed_byte[1]
 
     deflection_distance /= 10
+    velocity_cmps += 15
     # 发送控制数据
-    arry=bytes([0xAA,0x61,0x80,0x08,0,int(deflection_distance),0,int(velocity_cmps),int(velocity_angle_high),int(velocity_angle_low),int(deflection_angle_high),int(deflection_angle_low)])
+    arry=bytes([0xAA,0x61,0x80,0x08,0,int(deflection_distance),0,int(velocity_cmps),int(velocity_angle_high),int(velocity_angle_low),int(deflection_angle_high),int(deflection_angle_low),int(degree_speed_high),int(degree_speed_low)])
     for i in arry:
         sumcheck+=i
         add_on_check+=sumcheck
     sumcheck=math.fmod(sumcheck, 256)
     add_on_check=math.fmod(add_on_check, 256)
-    arry2=bytes([0xAA,0x61,0x80,0x08,0,int(deflection_distance),0,int(velocity_cmps),int(velocity_angle_high),int(velocity_angle_low),int(deflection_angle_high),int(deflection_angle_low),int(sumcheck),int(add_on_check)])
+    arry2=bytes([0xAA,0x61,0x80,0x08,0,int(deflection_distance),0,int(velocity_cmps),int(velocity_angle_high),int(velocity_angle_low),int(deflection_angle_high),int(deflection_angle_low),int(degree_speed_high),int(degree_speed_low),int(sumcheck),int(add_on_check)])
     uart.write(arry2)
     sumcheck = 0
     add_on_check = 0
