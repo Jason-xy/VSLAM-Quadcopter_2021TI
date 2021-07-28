@@ -89,7 +89,7 @@ def senddata(uart, funccode = 0x81, length = 0, yolo_classid = 0, yolo_confidenc
     add_on_check=math.fmod(add_on_check, 256)
 
     # 构造发送数据
-    array = array.extend(bytes([int(sumcheck),int(add_on_check)]))
+    array = array + bytes(int(sumcheck)) + bytes(int(add_on_check))
     uart.write(array)
 
 def main(anchors, labels = None, model_addr="/sd/m.kmodel", uart = UART(UART.UART1, 115200, read_buf_len=4096)):
