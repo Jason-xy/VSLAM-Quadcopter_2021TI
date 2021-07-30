@@ -18,6 +18,7 @@
 #include "LX_FC_EXT_Sensor.h"
 #include "Drv_AnoOf.h"
 #include "ANO_DT_LX.h"
+#include "MoveControl.h"
 
 _fc_ext_sensor_st ext_sens;
 
@@ -41,10 +42,13 @@ static inline void General_Velocity_Data_Handle()
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = ano_of.of1_dx;
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = ano_of.of1_dy;
 		}
-		else //无效
+		else //无效 move to Intel T265
 		{
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+			
+//			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
+			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
+			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
+//			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
 		}
 	}
 	if (of_alt_update_cnt != ano_of.alt_update_cnt)

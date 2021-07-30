@@ -17,7 +17,7 @@
 //串口接收发送快速定义，直接修改此处的函数名称宏，修改成自己的串口解析和发送函数名称即可，注意函数参数格式需统一
 void NoUse(u8 data){}
 #define U1GetOneByte	UBLOX_M8_GPS_Data_Receive
-#define U2GetOneByte	OVControl_GetOneByte
+#define U2GetOneByte	NoUse
 #define U3GetOneByte	MoveControl_GetOneByte
 #define U4GetOneByte	AnoOF_GetOneByte
 #define U5GetOneByte	ANO_DT_LX_Data_Receive_Prepare

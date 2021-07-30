@@ -1,14 +1,16 @@
 #include "MoveControl.h"
 
 //data transfer
-static uint8_t MoveControl_datatemp[50], OVControl_datatemp[50], func_code_u2, func_code_u3;
+static uint8_t MoveControl_datatemp[50], func_code_u2;
 //fly control variable
 static uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, spin_speed_dps;
-//number identify
-static uint8_t number_set = 3, percentage_set = 30, number_identified, percentage_identified;
 //circling motion variable
 static uint8_t origin_dir, cir_motion_dir, cir_motion_r_cm, cir_motion_speed_dps;
 static uint16_t cir_motion_degrees;
+//V-SLAM
+//in .h
+
+
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data)
 {
@@ -71,68 +73,6 @@ void MoveControl_GetOneByte(uint8_t data)
 	}
 }
 
-//OVControl_GetOneByte
-void OVControl_GetOneByte(uint8_t data)
-{
-	static u8 _data_len_u3 = 0, _data_cnt_u3 = 0;
-	static u8 rxstate_u3 = 0;
-
-	if (rxstate_u3 == 0 && data == 0xAA)
-	{
-		//HEAD
-		rxstate_u3 = 1;
-		OVControl_datatemp[0] = data;
-	}
-	else if (rxstate_u3 == 1 && (data == HW_TYPE || data == HW_ALL))
-	{
-		//Dest
-		rxstate_u3 = 2;
-		OVControl_datatemp[1] = data;
-	}
-	else if (rxstate_u3 == 2)
-	{
-		//Func
-		rxstate_u3 = 3;
-		OVControl_datatemp[2] = data;
-	}
-	else if (rxstate_u3 == 3 && data < 250)
-	{
-		//Len
-		rxstate_u3 = 4;
-		OVControl_datatemp[3] = data;
-		_data_len_u3 = data;
-		_data_cnt_u3 = 0;
-	}
-	else if (rxstate_u3 == 4 && _data_len_u3 > 0)
-	{
-		//data
-		_data_len_u3--;
-		OVControl_datatemp[4 + _data_cnt_u3++] = data;
-		if (_data_len_u3 == 0)
-			rxstate_u3 = 5;
-	}
-	else if (rxstate_u3 == 5)
-	{
-		//SumCheck
-		rxstate_u3 = 6;
-		OVControl_datatemp[4 + _data_cnt_u3++] = data;
-	}
-	else if (rxstate_u3 == 6)
-	{
-		//add on check
-		rxstate_u3 = 0;
-		OVControl_datatemp[4 + _data_cnt_u3] = data;
-		//DT_data_cnt = _data_cnt_u2+5;
-		//data resolution
-		OVControl_DataAnl(OVControl_datatemp, _data_cnt_u3 + 5);
-	}
-	else
-	{
-		//error
-		rxstate_u3 = 0;
-	}
-}
-
 //MoveControl data resolution
 void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 {
@@ -155,11 +95,11 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 	if (func_code_u2 == 0x80)
 	{ 
 		//fly control
-		distance_cm = (*(data + 4) << 8) | (*(data + 5));
-		velocity_cmps = (*(data + 6) << 8) | (*(data + 7));
-		dir_angle_0_360 = (*(data + 8) << 8) | (*(data + 9));
-		spin_angle_0_360 = (*(data + 10) << 8) | (*(data + 11));
-		spin_speed_dps = (*(data + 12) << 8) | (*(data + 13));
+		distance_cm = (*(data + 5) << 8) | (*(data + 4));
+		velocity_cmps = (*(data + 7) << 8) | (*(data + 6));
+		dir_angle_0_360 = (*(data + 9) << 8) | (*(data + 8));
+		spin_angle_0_360 = (*(data + 11) << 8) | (*(data + 10));
+		spin_speed_dps = (*(data + 13) << 8) | (*(data + 12));
 	}
 	else if(func_code_u2 == 0x82)
 	{
@@ -168,35 +108,18 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 		cir_motion_dir = (*(data + 5));
 		cir_motion_r_cm = (*(data + 6));
 		cir_motion_speed_dps = (*(data + 7));
-		cir_motion_dir = (*(data + 7) << 8) | (*(data + 9));
+		cir_motion_dir = (*(data + 9) << 8) | (*(data + 8));
 	}
-}
-
-//OVControl_DataAnl
-void OVControl_DataAnl(uint8_t *data, uint8_t len)
-{
-	//data check
-	uint8_t check_sum1 = 0, check_sum2 = 0;
-	if (*(data + 3) != (len - 6)) //check the length of the data
-		return;
-	for (uint8_t i = 0; i < len - 2; i++)
+	else if(func_code_u2 == 0x91)
 	{
-		check_sum1 += *(data + i); //Sum check
-		check_sum2 += check_sum1;  //add on check
+		//V-SLAM
+		t265_x_velocity_cmps = (*(data + 5) << 8) | (*(data + 4));
+		t265_y_velocity_cmps = (*(data + 7) << 8) | (*(data + 6));
+		t265_z_velocity_cmps = (*(data + 9) << 8) | (*(data + 8));
+		t265_x_position = (*(data + 11) << 8) | (*(data + 10));
+		t265_y_position = (*(data + 13) << 8) | (*(data + 12));
+		t265_z_position = (*(data + 15) << 8) | (*(data + 14));
 	}
-	if ((check_sum1 != *(data + len - 2)) || (check_sum2 != *(data + len - 1))) //compare the checksum
-		return;
-	/*================================================================================*/
-	//Get data
-	func_code_u3 = (*(data + 2));
-	
-	if (func_code_u3 == 0x90)
-	{
-		//number identify
-		number_identified = (*(data + 4));
-		percentage_identified = (*(data + 5));
-	}
-	
 }
 
 static u8 mission_f = 0;
@@ -228,7 +151,7 @@ void MoveControl_Output(void)
 			case 2:
 			{
 				//unlock check
-				FC_Unlock();
+				//FC_Unlock();
 				MyDelayMs(500);
 				mission_step += UNLOCK_STATE;
 				//mission_step++;
@@ -268,7 +191,7 @@ void MoveControl_Output(void)
 			break;
 			case 6: //user instructions
 			{
-				if (UNLOCK_STATE)
+				if (!UNLOCK_STATE)//暂时停用
 				//if(1)
 				{
 					if (func_code_u2 == 0x80) //fly control
@@ -294,12 +217,6 @@ void MoveControl_Output(void)
 							OneKey_Land();
 							mission_step = 2;
 						}
-					}
-					else if (func_code_u2 == 0x90 || func_code_u3 == 0x90) //identify specific number
-					{
-						if (number_identified == number_set && percentage_identified >= percentage_set)
-							OneKey_Land();
-						mission_step = 2;
 					}
 				}
 			}
@@ -340,9 +257,9 @@ uint8_t MoveControl_Spin(uint16_t spin_angle_0_360, uint16_t spin_speed_dps)
 //The origin is perpendicular to the head 
 uint8_t Circling_motion(uint8_t origin_dir, uint8_t cir_motion_dir, uint8_t cir_motion_r_cm, uint8_t cir_motion_speed_dps, uint16_t cir_motion_degrees)
 {
-	uint8_t move_distance_cm = cir_motion_degrees * RAD_PER_DEG * cir_motion_r_cm;// l = a*r
+	uint8_t move_distance_cm = (uint8_t)(cir_motion_degrees * RAD_PER_DEG * cir_motion_r_cm);// l = a*r
 	uint8_t time_s = cir_motion_degrees / cir_motion_speed_dps;// t = a/w
-	uint8_t move_velocity_cms = move_distance_cm / time_s;// v = l/t
+	uint8_t move_velocity_cms = (uint8_t)(move_distance_cm / time_s);// v = l/t
 	uint8_t spin_speed = cir_motion_speed_dps;
 	uint16_t move_dir = 0;
 	uint8_t spin_dir = 0;
