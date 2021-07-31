@@ -23,7 +23,7 @@ typedef s16 vec2_s16[2];
 //================ϵͳ===================
 #define HW_ALL 0xFF
 #define SWJ_ADDR 0xAF
-#define HW_TYPE 0x61
+#define HW_TYPE 0x62
 #define HW_VER 1
 #define SOFT_VER 17
 #define BL_VER 0
