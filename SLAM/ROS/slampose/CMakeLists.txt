@@ -10,6 +10,7 @@ project(slampose)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   # orb_slam2_ros
+  serial
   roscpp
   rospy
   std_msgs
