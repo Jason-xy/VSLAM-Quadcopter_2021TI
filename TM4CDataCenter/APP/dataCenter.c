@@ -7,6 +7,7 @@ static uint8_t K210_datatemp[100];
 static uint8_t Jetson_datatemp[100];
 static uint8_t TOF_datatemp[100];
 static uint8_t Screen_datatemp[100];
+
 //OpenMV
 static uint8_t minL;
 static uint8_t maxL;
@@ -14,6 +15,10 @@ static uint8_t minA;
 static uint8_t maxA;
 static uint8_t minB;
 static uint8_t maxB;
+
+//Jetson
+
+//
 
 
 
