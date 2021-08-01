@@ -490,8 +490,20 @@ void Screen_DataAnl(uint8_t *data, uint8_t len)
 			maxB=*(data+24);
 			OpenMV_SetLAB();
 			break;
-		case 0xa1:
+		case 0xa1://Screen Wants LAB
 			OpenMV_RequestLAB();
+			break;
+		case 0xa8://Tell 61 six sides
+			MainBoard_BeginSixSidesCalibration();
+			break;
+		case 0xa9://tell 61 compass
+			MainBoard_BeginCompassCalibration();
+			break;
+		case 0xaa://tell 62 level
+			MainBoard_BeginLevelCalibration();
+			break;
+		case 0xab://tell 61 unlock
+			MainBoard_Unlock();
 			break;
 		default:
 			break;
@@ -548,4 +560,27 @@ void Screen_BackData(void)
 	Screen_Buf[32]=check_sum2;
 	DrvUart7SendBuf(Screen_Buf, (u8)40);
 }
+
+void MainBoard_BeginSixSidesCalibration(void)
+{
+	uint8_t MainBoard_Buf[]={0xaa,0xff,0xe0,0x03,0x01,0x00,0x05,0x92,0x14};
+	DrvUart2SendBuf(MainBoard_Buf, (u8)10);
+}
+void MainBoard_BeginCompassCalibration(void)
+{
+	uint8_t MainBoard_Buf[]={0xaa,0xff,0xe0,0x03,0x01,0x00,0x04,0x91,0x13};
+	DrvUart2SendBuf(MainBoard_Buf, (u8)10);
+}
+void MainBoard_BeginLevelCalibration(void)
+{
+	uint8_t MainBoard_Buf[]={0xaa,0xff,0xe0,0x03,0x01,0x00,0x03,0x90,0x12};
+	DrvUart2SendBuf(MainBoard_Buf, (u8)10);
+}
+void MainBoard_Unlock(void)
+{
+	uint8_t MainBoard_Buf[]={0xaa,0xff,0xe0,0x03,0x10,0x00,0x01,0x9d,0x3d};
+	DrvUart2SendBuf(MainBoard_Buf, (u8)10);
+}
+
+
 

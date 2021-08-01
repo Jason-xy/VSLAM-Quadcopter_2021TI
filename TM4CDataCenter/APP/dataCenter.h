@@ -15,11 +15,15 @@
 //U4 PE0 PE1
 //U7 PC6 PC7
 
-
 //dataCenter:0x62
 //U2
+//U2 PC4 PC5 RX TX
 void MainBoard_GetOneByte(uint8_t data);
 void MainBoard_DataAnl(uint8_t *data, uint8_t len);
+void MainBoard_BeginSixSidesCalibration(void);
+void MainBoard_BeginCompassCalibration(void);
+void MainBoard_BeginLevelCalibration(void);
+void MainBoard_Unlock(void);
 
 
 //U3
