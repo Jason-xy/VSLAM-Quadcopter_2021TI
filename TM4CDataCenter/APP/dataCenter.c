@@ -17,8 +17,12 @@ static uint8_t minB;
 static uint8_t maxB;
 
 //Jetson
-
-//
+static int16_t t265_x_velocity_cmps;
+static int16_t t265_y_velocity_cmps;
+static int16_t t265_z_velocity_cmps;
+static int16_t t265_x_position;
+static int16_t t265_y_position;
+static int16_t t265_z_position;
 
 
 
@@ -451,8 +455,13 @@ void Jetson_DataAnl(uint8_t *data, uint8_t len)
 	/*================================================================================*/
 	//Get data
 	
-
-
+	DrvUart2SendBuf(data, (u8)18);
+//	t265_x_position = (*(data + 5) << 8) | (*(data + 4));
+//	t265_y_position = (*(data + 7) << 8) | (*(data + 6));
+//	t265_z_position = (*(data + 9) << 8) | (*(data + 8));
+//	t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
+//	t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
+//	t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
 }
 
 void TOF_DataAnl(uint8_t *data, uint8_t len)
