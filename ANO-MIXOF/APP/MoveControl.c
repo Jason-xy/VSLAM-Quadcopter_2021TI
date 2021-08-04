@@ -8,12 +8,14 @@ static uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, s
 static uint8_t origin_dir, cir_motion_dir, cir_motion_r_cm, cir_motion_speed_dps;
 static uint16_t cir_motion_degrees;
 //V-SLAM
-//in .h
+int16_t t265_x_velocity_cmps = 0, t265_y_velocity_cmps = 0, t265_z_velocity_cmps = 0;
+int16_t t265_x_position = 0, t265_y_position = 0, t265_z_position = 0;
+
 
 
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data)
-{
+	{
 	static u8 _data_len_u2 = 0, _data_cnt_u2 = 0;
 	static u8 rxstate_u2 = 0;
 
@@ -113,12 +115,12 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 	else if(func_code_u2 == 0x91)
 	{
 		//V-SLAM
-		t265_x_velocity_cmps = (*(data + 5) << 8) | (*(data + 4));
-		t265_y_velocity_cmps = (*(data + 7) << 8) | (*(data + 6));
-		t265_z_velocity_cmps = (*(data + 9) << 8) | (*(data + 8));
-		t265_x_position = (*(data + 11) << 8) | (*(data + 10));
-		t265_y_position = (*(data + 13) << 8) | (*(data + 12));
-		t265_z_position = (*(data + 15) << 8) | (*(data + 14));
+		t265_x_position = (*(data + 5) << 8) | (*(data + 4));
+		t265_y_position = (*(data + 7) << 8) | (*(data + 6));
+		t265_z_position = (*(data + 9) << 8) | (*(data + 8));
+		t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
+		t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
+		t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
 	}
 	else if(func_code_u2 == 0xe0)
 	{
@@ -192,7 +194,7 @@ void MoveControl_Output(void)
 			case 4:
 			{
 				//takeoff
-				mission_step += OneKey_Takeoff(80);
+				//mission_step += OneKey_Takeoff(30);
 			}
 			break;
 			case 5:

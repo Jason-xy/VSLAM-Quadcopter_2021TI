@@ -33,6 +33,8 @@
 #define To_180_degrees range_to_180deg
 #define range_to_180deg(a) ((a) > 180 ? (a - 360) : ((a) < -180 ? (a + 360) : (a)))
 
+extern const float fast_atan_table[257];
+
 float my_abs(float f);
 REAL fast_atan2(REAL y, REAL x);
 //float my_pow(float a);

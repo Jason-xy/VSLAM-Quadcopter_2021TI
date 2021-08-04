@@ -1,12 +1,14 @@
 #include "dataCenter.h"
 
-//data buffer
+//rx data buffer
 static uint8_t MainBoard_datatemp[100];
 static uint8_t OpenMV_datatemp[100];
 static uint8_t K210_datatemp[100];
 static uint8_t Jetson_datatemp[100];
 static uint8_t TOF_datatemp[100];
 static uint8_t Screen_datatemp[100];
+//tx data buffer
+static uint8_t Jetson_datatemp_tx[100];
 
 //OpenMV
 static uint8_t minL;
@@ -455,13 +457,15 @@ void Jetson_DataAnl(uint8_t *data, uint8_t len)
 	/*================================================================================*/
 	//Get data
 	
-	DrvUart2SendBuf(data, (u8)18);
-//	t265_x_position = (*(data + 5) << 8) | (*(data + 4));
-//	t265_y_position = (*(data + 7) << 8) | (*(data + 6));
-//	t265_z_position = (*(data + 9) << 8) | (*(data + 8));
-//	t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
-//	t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
-//	t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
+	//DrvUart2SendBuf(data, (u8)18);
+	t265_x_position = (*(data + 5) << 8) | (*(data + 4));
+	t265_y_position = (*(data + 7) << 8) | (*(data + 6));
+	t265_z_position = (*(data + 9) << 8) | (*(data + 8));
+	t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
+	t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
+	t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
+	send_t265_data();
+	
 }
 
 void TOF_DataAnl(uint8_t *data, uint8_t len)
@@ -472,7 +476,7 @@ void TOF_DataAnl(uint8_t *data, uint8_t len)
 void Screen_DataAnl(uint8_t *data, uint8_t len)
 {
     //data check
-	//Screen Data is little endding so check_sum in data is -2 and -4
+	//Screen Data is little endding so check_sum in data is -2 and -4y
 	uint8_t check_sum1 = 0, check_sum2 = 0;
 	if (*(data + 3) != (len - 12)) //check the length of the data
 		return;
@@ -591,5 +595,48 @@ void MainBoard_Unlock(void)
 	DrvUart2SendBuf(MainBoard_Buf, (u8)10);
 }
 
+//t265 data
+void send_t265_data(void)
+{
+	memset(Jetson_datatemp_tx, 0, 100);
+	Jetson_datatemp_tx[0] = 0xAA;
+	Jetson_datatemp_tx[1] = 0x61;
+	Jetson_datatemp_tx[2] = 0x91;
+	Jetson_datatemp_tx[3] = 0x0C;
+	
+	//x_position_cm
+  Jetson_datatemp_tx[5] = t265_x_position >> 8;
+  Jetson_datatemp_tx[4] = t265_x_position - (Jetson_datatemp_tx[5] << 8);
+  //y_position_cm
+  Jetson_datatemp_tx[7] = t265_y_position >> 8;
+  Jetson_datatemp_tx[6] = t265_y_position - (Jetson_datatemp_tx[7] << 8);
+  //z_position_cm
+  Jetson_datatemp_tx[9] = t265_z_position >> 8;
+  Jetson_datatemp_tx[8] = t265_z_position - (Jetson_datatemp_tx[9] << 8);
+  //x_velocity_cms
+  Jetson_datatemp_tx[11] = t265_x_velocity_cmps >> 8;
+  Jetson_datatemp_tx[10] = t265_x_velocity_cmps - (Jetson_datatemp_tx[11] << 8);
+  //y_velocity_cms
+  Jetson_datatemp_tx[13] = t265_y_velocity_cmps >> 8;
+  Jetson_datatemp_tx[12] = t265_y_velocity_cmps - (Jetson_datatemp_tx[13] << 8);
+  //z_velocity_cms
+  Jetson_datatemp_tx[15] = t265_z_velocity_cmps >> 8;
+  Jetson_datatemp_tx[14] = t265_z_velocity_cmps - (Jetson_datatemp_tx[15] << 8);
+	
+	int sumcheck = 0, add_on_check = 0;
+	for(int i = 0; i<= 15; i++)
+  {
+      sumcheck += Jetson_datatemp_tx[i];
+      add_on_check += sumcheck;
+  }
+  sumcheck %= 256;
+  add_on_check %= 256;
+
+  Jetson_datatemp_tx[16] = sumcheck;
+  Jetson_datatemp_tx[17] = add_on_check;
+	
+	DrvUart2SendBuf(Jetson_datatemp_tx, (u8)18);
+	
+}
 
 

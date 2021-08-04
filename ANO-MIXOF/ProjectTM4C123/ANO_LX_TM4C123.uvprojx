@@ -657,6 +657,16 @@
               <FileType>5</FileType>
               <FilePath>..\APP\MoveControl.h</FilePath>
             </File>
+            <File>
+              <FileName>WaypointControl.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\APP\WaypointControl.c</FilePath>
+            </File>
+            <File>
+              <FileName>WaypointControl.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\APP\WaypointControl.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

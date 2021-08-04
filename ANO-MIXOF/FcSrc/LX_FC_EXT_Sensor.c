@@ -37,18 +37,22 @@ static inline void General_Velocity_Data_Handle()
 	{
 		of_update_cnt = ano_of.of_update_cnt;
 		//XY_VEL
-		if (ano_of.of1_sta && ano_of.work_sta) //光流有效
+		if (ano_of.of1_sta && ano_of.work_sta && ano_of.of_quality >= 240) //光流有效
 		{
+//			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
+//			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = ano_of.of1_dx;
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = ano_of.of1_dy;
+//		ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = (ano_of.of1_dx + t265_x_velocity_cmps) / 2;
+//		ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = (ano_of.of1_dy + t265_y_velocity_cmps) / 2;
 		}
-		else //无效 move to Intel T265
+		else //无效                                                                                                                                                                                      move to Intel T265
 		{
 			
-//			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
+//		ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
-//			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+//		ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
 		}
 	}
 	if (of_alt_update_cnt != ano_of.alt_update_cnt)
@@ -57,6 +61,7 @@ static inline void General_Velocity_Data_Handle()
 		of_alt_update_cnt = ano_of.alt_update_cnt;
 		//不输入z轴速度，将z速度赋值为无效
 		ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0x8000;
+		//ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = t265_z_velocity_cmps;
 		//触发发送
 		dt.fun[0x33].WTS = 1;
 		//reset
@@ -74,7 +79,8 @@ static inline void General_Distance_Data_Handle()
 		//
 		ext_sens.gen_dis.st_data.direction = 0;
 		ext_sens.gen_dis.st_data.angle_100 = 270;
-		ext_sens.gen_dis.st_data.distance_cm = ano_of.of_alt_cm;
+		//ext_sens.gen_dis.st_data.distance_cm = ano_of.of_alt_cm;
+		ext_sens.gen_dis.st_data.distance_cm = t265_z_position;
 		//触发发送
 		dt.fun[0x34].WTS = 1;
 	}
@@ -87,3 +93,4 @@ void LX_FC_EXT_Sensor_Task(float dT_s) //1ms
 	//
 	General_Distance_Data_Handle();
 }
+

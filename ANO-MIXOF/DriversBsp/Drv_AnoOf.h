@@ -3,6 +3,7 @@
 
 //==引用
 #include "SysConfig.h"
+#include "WaypointControl.h"
 
 //==定义/声明
 

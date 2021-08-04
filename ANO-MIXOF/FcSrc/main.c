@@ -7,6 +7,7 @@
 **********************************************************************************/
 #include "SysConfig.h"
 #include "Ano_Scheduler.h"
+#include "WaypointControl.h"
 
 #ifdef USE_FULL_ASSERT
 void assert_failed(uint8_t *file, uint32_t line)
@@ -25,6 +26,12 @@ int main(void)
 	All_Init();
 	//调度器初始化，系统为裸奔，这里人工做了一个时分调度器
 	Scheduler_Setup();
+	//calibrate base yaw
+	MyDelayMs(5000);
+	t265_yaw_base = anof_yaw;
+	set_x_position = t265_x_position;
+	set_y_position = t265_y_position;
+	set_z_position = t265_z_position;
 	while (1)
 	{
 		//运行任务调度器，所有系统功能，除了中断服务函数，都在任务调度器内完成

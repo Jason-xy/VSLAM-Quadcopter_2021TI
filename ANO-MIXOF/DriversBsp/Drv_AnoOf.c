@@ -174,5 +174,12 @@ static void AnoOF_DataAnl(uint8_t *data, uint8_t len)
 		ano_of.quaternion[1] = (*((s16 *)(data + 6))) * 0.0001f;
 		ano_of.quaternion[2] = (*((s16 *)(data + 8))) * 0.0001f;
 		ano_of.quaternion[3] = (*((s16 *)(data + 10))) * 0.0001f;
+		anof_yaw = fast_atan2(2*(ano_of.quaternion[1]*ano_of.quaternion[2] + ano_of.quaternion[0]*ano_of.quaternion[3]),ano_of.quaternion[0]*ano_of.quaternion[0]+ano_of.quaternion[1]*ano_of.quaternion[1]-ano_of.quaternion[2]*ano_of.quaternion[2]-ano_of.quaternion[3]*ano_of.quaternion[3]) * DEG_PER_RAD;
+	}
+	else if(*(data + 2) == 0X03)//Euler
+	{
+		anof_roll = (*((s16 *)(data + 4))) * 0.01f;
+		anof_pitch = (*((s16 *)(data + 6))) * 0.01f;
+		anof_yaw = (*((s16 *)(data + 8))) * 0.01f;
 	}
 }

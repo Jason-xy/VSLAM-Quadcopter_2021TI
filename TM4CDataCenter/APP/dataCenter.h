@@ -6,6 +6,8 @@
 #include "LX_FC_State.h"
 #include "Ano_math.h"
 #include "Drv_Uart.h"
+#include <stdlib.h>
+#include <string.h>
 
 //TM4C-USART0->U1 //BAN
 //U6 PB0 PB1 RX TX
@@ -42,6 +44,7 @@ void K210_DataAnl(uint8_t *data, uint8_t len);
 //U5
 void Jetson_GetOneByte(uint8_t data);
 void Jetson_DataAnl(uint8_t *data, uint8_t len);
+void send_t265_data(void);
 //U6
 void TOF_GetOneByte(uint8_t data);
 void TOF_DataAnl(uint8_t *data, uint8_t len);
