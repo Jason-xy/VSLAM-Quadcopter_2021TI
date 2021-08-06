@@ -37,7 +37,7 @@ static inline void General_Velocity_Data_Handle()
 	{
 		of_update_cnt = ano_of.of_update_cnt;
 		//XY_VEL
-		if (ano_of.of1_sta && ano_of.work_sta && ano_of.of_quality >= 240) //光流有效
+		if (ano_of.of1_sta && ano_of.work_sta) //光流有效
 		{
 //			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
 //			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
@@ -69,6 +69,33 @@ static inline void General_Velocity_Data_Handle()
 	}
 }
 
+static inline void General_Position_Data_Handle()
+{
+	static u8 t265_pos_update_cnt;
+	static u8 dT_ms = 0;
+	//每一毫秒dT_ms+1，用来判断是否长时间无数据
+	if (dT_ms != 255)
+	{
+		dT_ms++;
+	}
+	if(t265_pos_update_cnt != t265_usart_update_cnt)
+	{
+		t265_pos_update_cnt = t265_usart_update_cnt;
+		
+		ext_sens.gen_pos.st_data.ulhca_pos_cm[0] = (int32_t)t265_x_position;
+		ext_sens.gen_pos.st_data.ulhca_pos_cm[1] = (int32_t)t265_y_position;
+		ext_sens.gen_pos.st_data.ulhca_pos_cm[2] = (int32_t)t265_z_position;
+//		ext_sens.gen_pos.st_data.ulhca_pos_cm[0] = 0x80000000;
+//		ext_sens.gen_pos.st_data.ulhca_pos_cm[1] = 0x80000000;
+//		ext_sens.gen_pos.st_data.ulhca_pos_cm[2] = 0x80000000;
+		
+		//触发发送
+		dt.fun[0x32].WTS = 1;
+		//reset
+		dT_ms = 0;
+	}
+}
+
 static inline void General_Distance_Data_Handle()
 {
 	static u8 of_alt_update_cnt;
@@ -79,8 +106,8 @@ static inline void General_Distance_Data_Handle()
 		//
 		ext_sens.gen_dis.st_data.direction = 0;
 		ext_sens.gen_dis.st_data.angle_100 = 270;
-		//ext_sens.gen_dis.st_data.distance_cm = ano_of.of_alt_cm;
-		ext_sens.gen_dis.st_data.distance_cm = t265_z_position;
+		ext_sens.gen_dis.st_data.distance_cm = ano_of.of_alt_cm;
+		//ext_sens.gen_dis.st_data.distance_cm = t265_z_position;
 		//触发发送
 		dt.fun[0x34].WTS = 1;
 	}
@@ -92,5 +119,7 @@ void LX_FC_EXT_Sensor_Task(float dT_s) //1ms
 	General_Velocity_Data_Handle();
 	//
 	General_Distance_Data_Handle();
+	//
+	General_Position_Data_Handle();
 }
 

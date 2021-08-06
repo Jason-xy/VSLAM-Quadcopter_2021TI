@@ -120,7 +120,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>惔??</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -301,6 +300,26 @@
           <count>18</count>
           <WinNumber>2</WinNumber>
           <ItemText>ext_sens.gen_dis.st_data.distance_cm,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>19</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>send_buffer,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>20</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>ano_of.of1_dx,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>21</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>ano_of.of1_dy,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>22</count>
+          <WinNumber>2</WinNumber>
+          <ItemText>t265_x_velocity_cmps_window,0x0A</ItemText>
         </Ww>
       </WatchWindow2>
       <Tracepoint>

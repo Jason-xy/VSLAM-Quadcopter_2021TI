@@ -98,6 +98,6 @@ void Position_calibration(void)
 	else
 		dir_angle_0_360 = - base_dir + ano_dir;
 	
-	Horizontal_Move(distance, 10, dir_angle_0_360);
+	Horizontal_Move(distance, distance * 0.2, base_dir);
 	
 }

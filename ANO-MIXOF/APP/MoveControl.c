@@ -10,6 +10,9 @@ static uint16_t cir_motion_degrees;
 //V-SLAM
 int16_t t265_x_velocity_cmps = 0, t265_y_velocity_cmps = 0, t265_z_velocity_cmps = 0;
 int16_t t265_x_position = 0, t265_y_position = 0, t265_z_position = 0;
+uint8_t t265_usart_update_cnt = 0;
+int16_t t265_x_velocity_cmps_window[WINDOW_SIZE] = {0}, t265_y_velocity_cmps_window[WINDOW_SIZE] = {0}, t265_z_velocity_cmps_window[WINDOW_SIZE] = {0};
+uint8_t t265_x_wp = 0, t265_y_wp = 0, t265_z_wp = 0;
 
 
 
@@ -118,9 +121,19 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 		t265_x_position = (*(data + 5) << 8) | (*(data + 4));
 		t265_y_position = (*(data + 7) << 8) | (*(data + 6));
 		t265_z_position = (*(data + 9) << 8) | (*(data + 8));
-		t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
-		t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
-		t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
+		
+		//window_smooth
+		t265_x_velocity_cmps_window[t265_x_wp++ % WINDOW_SIZE] = (*(data + 11) << 8) | (*(data + 10));
+		t265_y_velocity_cmps_window[t265_y_wp++ % WINDOW_SIZE] = (*(data + 13) << 8) | (*(data + 12));
+		t265_z_velocity_cmps_window[t265_z_wp++ % WINDOW_SIZE] = (*(data + 15) << 8) | (*(data + 14));
+		if(t265_x_wp >= WINDOW_SIZE)t265_x_wp = 0;
+		if(t265_y_wp >= WINDOW_SIZE)t265_y_wp = 0;
+		if(t265_z_wp >= WINDOW_SIZE)t265_z_wp = 0;
+		
+		t265_x_velocity_cmps = window_avg(t265_x_velocity_cmps_window, WINDOW_SIZE);
+		t265_y_velocity_cmps = window_avg(t265_y_velocity_cmps_window, WINDOW_SIZE);
+		t265_z_velocity_cmps = window_avg(t265_z_velocity_cmps_window, WINDOW_SIZE);
+		t265_usart_update_cnt++;
 	}
 	else if(func_code_u2 == 0xe0)
 	{
@@ -141,6 +154,16 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 			FC_Unlock();
 		}
 	}
+}
+
+int16_t window_avg(int16_t* arr, uint8_t len)
+{
+	int16_t sum = 0;
+	for(uint8_t i = 0; i < len; i++)
+	{
+		sum += arr[i];
+	}
+	return sum / len;
 }
 
 static u8 mission_f = 0;
