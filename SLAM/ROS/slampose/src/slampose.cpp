@@ -1,32 +1,9 @@
 #include <ros/ros.h>
 #include <serial/serial.h>
-//#include "geometry_msgs/PoseStamped.h"
+#include "geometry_msgs/Twist.h"
 #include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
 #include <iostream>
-// /camera/accel/sample /camera/gyro/sample sensor_msgs/Imu 
-/*
-std_msgs/Header header
-  uint32 seq
-  time stamp
-  string frame_id
-geometry_msgs/Quaternion orientation
-  float64 x
-  float64 y
-  float64 z
-  float64 w
-float64[9] orientation_covariance
-geometry_msgs/Vector3 angular_velocity
-  float64 x
-  float64 y
-  float64 z
-float64[9] angular_velocity_covariance
-geometry_msgs/Vector3 linear_acceleration
-  float64 x
-  float64 y
-  float64 z
-float64[9] linear_acceleration_covariance
-*/
 // /camera/odom/sample nav_msgs/Odometry
 /*
 std_msgs/Header header
@@ -73,7 +50,11 @@ double now_time, pre_time, dif_time;
 double now_pxcm, now_pycm, now_pzcm;
 double pre_pxcm, pre_pycm, pre_pzcm;
 double dif_pxcm, dif_pycm, dif_pzcm;
-double v_xcms, v_ycms, v_zcms;
+double v_xcms = 0, v_ycms = 0, v_zcms = 0;
+geometry_msgs::Twist t265_msg;
+ros::Publisher pub_t265;
+//数据滤波
+#define a  0.7 //低通滤波系数
 
 // 接收到订阅的消息后，会进入消息回调函数
 //坐标信息回调函数
@@ -83,6 +64,13 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     now_pxcm = msg->pose.pose.position.x * 100;
     now_pycm = msg->pose.pose.position.y * 100;
     now_pzcm = msg->pose.pose.position.z * 100;
+    //验证数据置信度
+    if(msg->pose.covariance[0] >= 0.05){
+      //数据无效，输出0
+      now_pxcm = pre_pxcm;
+      now_pycm = pre_pycm;
+      now_pzcm = pre_pzcm;
+    }
     // 将接收到的消息打印出来
     ROS_INFO("SLAM Pose: \nx:%0.6f\ny:%0.6f\nz:%0.6f\n", now_pxcm, now_pycm, now_pzcm);
     dif_pxcm = now_pxcm - pre_pxcm;
@@ -101,12 +89,20 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     // printf("sec:%lf\n", msg->header.stamp.nsec);
     // printf("dif:%lf\n", dif_time);
 
-    //计算速度cm/s
-    v_xcms = dif_pxcm / dif_time;
-    v_ycms = dif_pycm / dif_time;
-    v_zcms = dif_pzcm / dif_time;
-    ROS_INFO("SLAM Velocity: \nx:%0.6f\ny:%0.6f\nz:%0.6f\n", v_xcms, v_ycms, v_zcms);
+    //计算速度cm/s 低通滤波
+    v_xcms = (1 - a) * (dif_pxcm / dif_time) + a * v_xcms;
+    v_ycms = (1 - a) * (dif_pycm / dif_time) + a * v_ycms;
+    v_zcms = (1 - a) * (dif_pzcm / dif_time) + a * v_zcms;
 
+    //限幅
+    if(v_xcms > 100) v_xcms = 100;
+    if(v_ycms > 100) v_ycms = 100;
+    if(v_zcms > 100) v_zcms = 100;
+    if(v_xcms < -100) v_xcms = -100;
+    if(v_ycms < -100) v_ycms = -100;
+    if(v_zcms < -100) v_zcms = -100;
+    ROS_INFO("SLAM Velocity: \nx:%0.6f\ny:%0.6f\nz:%0.6f\n", v_xcms, v_ycms, v_zcms);
+    
     //发送串口
     short x_position_cm = (short)(now_pxcm);
     short y_position_cm = (short)(now_pycm);
@@ -153,6 +149,12 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     usartBuffer[16] = sumcheck;
     usartBuffer[17] = add_on_check;
     //发送数据
+    //发布数据
+    t265_msg.linear.x = v_xcms;
+    t265_msg.linear.y = v_ycms;
+    t265_msg.linear.z = v_zcms;
+    pub_t265.publish(t265_msg);
+
     sp.write(usartBuffer, 18);
 }
  
@@ -195,6 +197,12 @@ int main(int argc, char **argv)
     // 创建一个Subscriber，订阅名为/camera/odom/sample的topic，注册回调函数poseCallback
     ros::Subscriber pose_sub = n.subscribe("/camera/odom/sample", 1000, poseCallback);
     printf("Subscrib /camera/odom/sample\n");
+
+    //创建一个publisher，创建/t265_pose的topic
+    ros::NodeHandle m;
+    pub_t265 = m.advertise<geometry_msgs::Twist>("/t265_pose", 1000);
+    printf("Publish /t265_pose\n");
+
     // 循环等待回调函数
     ros::spin();
     return 0;
