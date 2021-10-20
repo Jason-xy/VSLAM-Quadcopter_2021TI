@@ -59,8 +59,10 @@ static inline void General_Velocity_Data_Handle()
 			}
 			else
 			{
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+//				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
+//				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0;
 			}
 		
 		}
@@ -69,9 +71,13 @@ static inline void General_Velocity_Data_Handle()
 	{
 		//
 		of_alt_update_cnt = ano_of.alt_update_cnt;
-		//不输入z轴速度，将z速度赋值为无效
-		ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0x8000;
-		//ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = t265_z_velocity_cmps;
+		//T265 Vz
+		if(t265_z_velocity_cmps != 0 && t265_z_velocity_cmps < 100)
+			ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = t265_z_velocity_cmps;
+		else
+			ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0;
+			//ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0x8000;
+
 		//触发发送
 		dt.fun[0x33].WTS = 1;
 		//reset
