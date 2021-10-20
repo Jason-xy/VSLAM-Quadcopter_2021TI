@@ -372,6 +372,11 @@ static void Add_Send_Data(u8 frame_num, u8 *_cnt, u8 send_buffer[])
 		//
 		for (u8 i = 0; i < 6; i++)
 		{
+			if(i % 2 == 0 && ((ext_sens.gen_vel.byte[i] << 8) | ext_sens.gen_vel.byte[i + 1]) == 0x8000)
+			{
+					ext_sens.gen_vel.byte[i] = 0;
+					ext_sens.gen_vel.byte[i + 1] = 0;
+			}
 			send_buffer[(*_cnt)++] = ext_sens.gen_vel.byte[i];
 		}
 	}

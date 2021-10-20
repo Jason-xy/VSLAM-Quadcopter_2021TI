@@ -39,7 +39,8 @@ static inline void General_Velocity_Data_Handle()
 		//XY_VEL
 		if (ano_of.of1_sta && ano_of.work_sta) //光流有效
 		{
-			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100)
+			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100 \
+				&& t265_x_velocity_cmps >= -100 && t265_y_velocity_cmps >= -100)
 			{
 				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
 				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
@@ -52,17 +53,18 @@ static inline void General_Velocity_Data_Handle()
 		}
 		else //无效                                                                                                                                                                                      move to Intel T265
 		{
-			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100)
+			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100 \
+				&& t265_x_velocity_cmps >= -100 && t265_y_velocity_cmps >= -100)
 			{
 				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
 				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
 			}
 			else
 			{
-//				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
-//				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0;
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+//				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0;
+//				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0;
 			}
 		
 		}
@@ -72,11 +74,11 @@ static inline void General_Velocity_Data_Handle()
 		//
 		of_alt_update_cnt = ano_of.alt_update_cnt;
 		//T265 Vz
-		if(t265_z_velocity_cmps != 0 && t265_z_velocity_cmps < 100)
+		if(t265_z_velocity_cmps != 0 && t265_z_velocity_cmps < 100 && t265_z_velocity_cmps >= -100)
 			ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = t265_z_velocity_cmps;
 		else
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0;
-			//ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0x8000;
+			ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0x8000;
+			//ext_sens.gen_vel.st_data.hca_velocity_cmps[2] = 0;
 
 		//触发发送
 		dt.fun[0x33].WTS = 1;
