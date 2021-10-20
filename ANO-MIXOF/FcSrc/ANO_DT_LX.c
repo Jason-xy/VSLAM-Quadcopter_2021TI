@@ -39,19 +39,24 @@ void ANO_DT_Init(void)
 	dt.fun[0x40].D_Addr = 0xff;
 	dt.fun[0x40].fre_ms = 20;	  //触发发送的周期100ms
 	dt.fun[0x40].time_cnt_ms = 0; //设置初始相位，单位1ms
+	//
+	dt.fun[0x32].D_Addr = 0xff;
+	dt.fun[0x32].fre_ms = 20;	  //触发发送的周期20ms
+	dt.fun[0x32].time_cnt_ms = 0; //设置初始相位，单位1ms
+	//
+	dt.fun[0x33].D_Addr = 0xff;
+	dt.fun[0x33].fre_ms = 20;	  //触发发送的周期20ms
+	dt.fun[0x33].time_cnt_ms = 0; //设置初始相位，单位1ms
+	//
+	dt.fun[0xf1].D_Addr = 0xff;
+	dt.fun[0xf1].fre_ms = 20;	  //触发发送的周期20ms
+	dt.fun[0xf1].time_cnt_ms = 0; //设置初始相位，单位1ms
+	
 	//========外部触发
 	//
 	dt.fun[0x30].D_Addr = 0xff;
 	dt.fun[0x30].fre_ms = 0;	  //0 由外部触发
 	dt.fun[0x30].time_cnt_ms = 0; //设置初始相位，单位1ms
-	//
-	dt.fun[0x32].D_Addr = 0xff;
-	dt.fun[0x32].fre_ms = 0;	  //0 由外部触发
-	dt.fun[0x32].time_cnt_ms = 0; //设置初始相位，单位1ms
-	//
-	dt.fun[0x33].D_Addr = 0xff;
-	dt.fun[0x33].fre_ms = 0;	  //0 由外部触发
-	dt.fun[0x33].time_cnt_ms = 0; //设置初始相位，单位1ms
 	//
 	dt.fun[0x34].D_Addr = 0xff;
 	dt.fun[0x34].fre_ms = 0;	  //0 由外部触发
@@ -298,7 +303,7 @@ static void Add_Send_Data(u8 frame_num, u8 *_cnt, u8 send_buffer[])
 		}
 	}
 	break;
-	case 0x32: //t265数据
+	case 0x32: //t265位置数据
 	{
 		//
 		for (u8 i = 0; i < 12; i++)
@@ -307,7 +312,7 @@ static void Add_Send_Data(u8 frame_num, u8 *_cnt, u8 send_buffer[])
 		}
 	}
 	break;
-	case 0x33: //通用速度测量数据
+	case 0x33: //t265速度数据
 	{
 		//
 		for (u8 i = 0; i < 6; i++)
@@ -360,6 +365,15 @@ static void Add_Send_Data(u8 frame_num, u8 *_cnt, u8 send_buffer[])
 		send_buffer[(*_cnt)++] = BYTE1(temp_data_32);
 		send_buffer[(*_cnt)++] = BYTE2(temp_data_32);
 		send_buffer[(*_cnt)++] = BYTE3(temp_data_32);
+	}
+	break;
+	case 0xf1: //t265速度数据
+	{
+		//
+		for (u8 i = 0; i < 6; i++)
+		{
+			send_buffer[(*_cnt)++] = ext_sens.gen_vel.byte[i];
+		}
 	}
 	break;
 	default:
@@ -500,6 +514,7 @@ void ANO_LX_Data_Exchange_Task(float dT_s)
 	Check_To_Send(0xe0);
 	Check_To_Send(0xe2);
 	Check_To_Send(0x0d);
+	Check_To_Send(0xf1);
 }
 
 //===================================================================

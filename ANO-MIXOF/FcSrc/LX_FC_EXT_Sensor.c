@@ -39,20 +39,30 @@ static inline void General_Velocity_Data_Handle()
 		//XY_VEL
 		if (ano_of.of1_sta && ano_of.work_sta) //光流有效
 		{
-//			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
-//			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = ano_of.of1_dx;
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = ano_of.of1_dy;
-//		ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = (ano_of.of1_dx + t265_x_velocity_cmps) / 2;
-//		ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = (ano_of.of1_dy + t265_y_velocity_cmps) / 2;
+			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100)
+			{
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps / 10.0f;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps / 10.0f;
+			}
+			else
+			{
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = ano_of.of1_dx;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = ano_of.of1_dy;
+			}
 		}
 		else //无效                                                                                                                                                                                      move to Intel T265
 		{
-			
-//		ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
-			ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
-//		ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100)
+			{
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps / 10.0f;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps / 10.0f;
+			}
+			else
+			{
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = 0x8000;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = 0x8000;
+			}
+		
 		}
 	}
 	if (of_alt_update_cnt != ano_of.alt_update_cnt)

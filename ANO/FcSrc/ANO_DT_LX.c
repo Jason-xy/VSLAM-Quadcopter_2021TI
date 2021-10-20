@@ -349,6 +349,15 @@ static void Add_Send_Data(u8 frame_num, u8 *_cnt, u8 send_buffer[])
 		send_buffer[(*_cnt)++] = BYTE3(temp_data_32);
 	}
 	break;
+	case 0xf1: //自定义1 通用速度测量数据
+	{
+		//
+		for (u8 i = 0; i < 6; i++)
+		{
+			send_buffer[(*_cnt)++] = ext_sens.gen_vel.byte[i];
+		}
+	}
+	break;
 	default:
 		break;
 	}
@@ -486,6 +495,7 @@ void ANO_LX_Data_Exchange_Task(float dT_s)
 	Check_To_Send(0xe0);
 	Check_To_Send(0xe2);
 	Check_To_Send(0x0d);
+	Check_To_Send(0xf1);
 }
 
 //===================================================================
