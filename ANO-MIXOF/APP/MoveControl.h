@@ -24,7 +24,7 @@ uint8_t Mag_Calibration(void);
 uint8_t SixAxis_Calibration(void);
 
 //smooth
-#define WINDOW_SIZE 2
+#define WINDOW_SIZE 3
 int16_t window_avg(int16_t* arr, uint8_t len);
 
 #endif //__MOVECONTROL_H__

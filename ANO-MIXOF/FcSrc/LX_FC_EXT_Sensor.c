@@ -41,8 +41,8 @@ static inline void General_Velocity_Data_Handle()
 		{
 			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100)
 			{
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps / 10.0f;
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps / 10.0f;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
 			}
 			else
 			{
@@ -54,8 +54,8 @@ static inline void General_Velocity_Data_Handle()
 		{
 			if(t265_x_velocity_cmps != 0 && t265_y_velocity_cmps != 0 && t265_x_velocity_cmps <= 100 && t265_y_velocity_cmps <= 100)
 			{
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps / 10.0f;
-				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps / 10.0f;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[0] = t265_x_velocity_cmps;
+				ext_sens.gen_vel.st_data.hca_velocity_cmps[1] = t265_y_velocity_cmps;
 			}
 			else
 			{
