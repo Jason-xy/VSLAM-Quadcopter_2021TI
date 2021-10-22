@@ -4,6 +4,12 @@
 #include "sensor_msgs/Imu.h"
 #include "nav_msgs/Odometry.h"
 #include <iostream>
+#include <math.h>
+#include <Eigen/Eigen> 
+#include <Eigen/Geometry>  
+#include <Eigen/Core>  
+#include <vector>
+using namespace Eigen;  
 // /camera/accel/sample /camera/gyro/sample sensor_msgs/Imu 
 /*
 std_msgs/Header header
@@ -67,13 +73,17 @@ typedef unsigned char           uint8_t;
 typedef unsigned short int      uint16_t;
 typedef unsigned int            uint32_t;
 
+#define RAD_TO_ANGLE 57.2957795f
 //创建一个serial类
 serial::Serial sp;
+Eigen::Quaterniond q;
+double pitch, roll, yaw;
 double now_time, pre_time, dif_time;
 double now_pxcm, now_pycm, now_pzcm;
 double pre_pxcm, pre_pycm, pre_pzcm;
 double dif_pxcm, dif_pycm, dif_pzcm;
 double v_xcms = 0, v_ycms = 0, v_zcms = 0;
+double v_xcmsE = 0, v_ycmsE = 0, v_zcmsE = 0;
 geometry_msgs::Twist t265_msg;
 ros::Publisher pub_t265;
 //数据滤波
@@ -87,6 +97,16 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     now_pxcm = msg->pose.pose.position.x * 100;
     now_pycm = msg->pose.pose.position.y * 100;
     now_pzcm = msg->pose.pose.position.z * 100;
+    //获取四元数
+    q.w() = msg->pose.pose.orientation.w;
+    q.x() = msg->pose.pose.orientation.x;
+    q.y() = msg->pose.pose.orientation.y;
+    q.z() = msg->pose.pose.orientation.z;
+    // 计算欧拉角
+    pitch = asin(2.0f * (q.w() * q.y() - q.x() * q.z())) * RAD_TO_ANGLE;
+    roll = -atan2(2.0f * (q.w() * q.x() + q.y() * q.z()), q.w() * q.w() - q.x() * q.x() - q.y() * q.y() + q.z() * q.z()) * RAD_TO_ANGLE;
+    yaw = atan2(2.0f * (q.w() * q.z() + q.x() * q.y()), q.w() * q.w() + q.x() * q.x() - q.y() * q.y() - q.z() * q.z()) * RAD_TO_ANGLE;
+    ROS_INFO("SLAM Pose Angle: \nroll:%0.6f\npitch:%0.6f\nyaw:%0.6f\n", roll, pitch, yaw);
     //验证数据置信度
     if(msg->pose.covariance[0] >= 0.05){
       //数据无效，输出0
@@ -113,9 +133,17 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     // printf("dif:%lf\n", dif_time);
 
     //计算速度cm/s 低通滤波
-    v_xcms = (1 - a) * (dif_pxcm / dif_time) + a * v_xcms;
-    v_ycms = (1 - a) * (dif_pycm / dif_time) + a * v_ycms;
-    v_zcms = (1 - a) * (dif_pzcm / dif_time) + a * v_zcms;
+    v_xcmsE = (1 - a) * (dif_pxcm / dif_time) + a * v_xcmsE;
+    v_ycmsE = (1 - a) * (dif_pycm / dif_time) + a * v_ycmsE;
+    v_zcmsE = (1 - a) * (dif_pzcm / dif_time) + a * v_zcmsE;
+
+    //坐标变换地理坐标系到机体坐标系
+    //计算到机体坐标系的旋转矩阵
+    //Eigen::Matrix3d R = q.normalized().toRotationMatrix();
+    yaw = yaw / RAD_TO_ANGLE;
+    v_xcms = v_xcmsE * cos(yaw) + v_ycmsE * sin(yaw);
+    v_ycms = -v_xcmsE * sin(yaw) + v_ycmsE * cos(yaw);
+
 
     //限幅
     if(v_xcms > 100) v_xcms = 100;
@@ -210,7 +238,7 @@ int main(int argc, char **argv)
     //判断串口是否打开成功
     if(sp.isOpen())
     {
-        ROS_INFO_STREAM("/dev/ttyUSB0 is opened.");
+        ROS_INFO_STREAM("/dev/ttyTHS1 is opened.");
     }
     else
     {

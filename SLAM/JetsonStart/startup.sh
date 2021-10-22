@@ -11,6 +11,6 @@ sleep 5
 nohup rosrun slampose slampose &
 # nohup rosrun showpath showpath &
 sleep 10
-cd /home/hcm/catkin_ws/bag
+# cd /home/hcm/catkin_ws/bag
 # nohup rosbag record -a &
 
