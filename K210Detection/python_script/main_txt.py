@@ -2,9 +2,10 @@ import os
 import random
  
 trainval_percent = 0.66
-train_percent = 0.5
-xmlfilepath = '/home/hcm/Desktop/MNIST-VOCdataset/datasets/Annotations'
-txtsavepath = '/home/hcm/Desktop/MNIST-VOCdataset/datasets/ImageSets/Main'
+train_percent = 0.7
+main_path = r'C:\Users\Jason\Desktop\MNIST-VOCdataset'
+xmlfilepath = main_path + r'\Annotations'
+txtsavepath = main_path + r'\ImageSets\Main'
 total_xml = os.listdir(xmlfilepath)
 num=len(total_xml)
 list=range(num)
@@ -13,10 +14,10 @@ tr=int(tv*train_percent)
 trainval= random.sample(list,tv)
 train=random.sample(trainval,tr)
  
-ftrainval = open('/home/hcm/Desktop/MNIST-VOCdataset/datasets/ImageSets/Main/trainval.txt', 'w')
-ftest = open('/home/hcm/Desktop/MNIST-VOCdataset/datasets/ImageSets/Main/test.txt', 'w')
-ftrain = open('/home/hcm/Desktop/MNIST-VOCdataset/datasets/ImageSets/Main/train.txt', 'w')
-fval = open('/home/hcm/Desktop/MNIST-VOCdataset/datasets/ImageSets/Main/val.txt', 'w')
+ftrainval = open(main_path + r'\ImageSets\Main\trainval.txt', 'w')
+ftest = open(main_path + r'\ImageSets\Main\test.txt', 'w')
+ftrain = open(main_path + r'\ImageSets\Main\train.txt', 'w')
+fval = open(main_path + r'\ImageSets\Main\val.txt', 'w')
  
 for i  in list:
     name=total_xml[i][:-4]

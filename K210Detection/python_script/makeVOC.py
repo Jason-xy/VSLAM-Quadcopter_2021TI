@@ -7,9 +7,9 @@ import csv
 
 bg_x = bg_y = 224
 num_x = num_y = 28
-bg_img_num = 1174
+bg_img_num = 1774
 num_img_num = 5500
-data_amount = 1000
+data_amount = 2000
 spin_degrees = (0, 90, 180, 270)
 min_resize = 200
 max_resize = 500
@@ -86,13 +86,13 @@ def save_xml(image_name, xmin, ymin, xmax, ymax, class_name, save_dir, width=224
 
 for i in range(10):
     #构建文件路径
-    bg_path = r"C:\Users\Jason\Desktop\detection_dataset\background"
-    num_path = r"C:\Users\Jason\Desktop\detection_dataset\mnist\MNIST\raw\color_inversion"
-    img_dst_path = r"C:\Users\Jason\Desktop\MNIST-VOCdataset\datasets\images"
-    xml_dst_path = r"C:\Users\Jason\Desktop\MNIST-VOCdataset\datasets\xml"
+    bg_path = r"C:\Users\Jason\Desktop\background"
+    num_path = r"C:\Users\Jason\Desktop\MNIST\raw\color_inversion"
+    img_dst_path = r"C:\Users\Jason\Desktop\MNIST-VOCdataset\JPEGImages"
+    xml_dst_path = r"C:\Users\Jason\Desktop\MNIST-VOCdataset\Annotations"
     num_path = num_path + '\\' + str(i)
-    img_dst_path = img_dst_path + '\\' + str(i)
-    xml_dst_path = xml_dst_path + '\\' + str(i)
+    # img_dst_path = img_dst_path + '\\' + str(i)
+    # xml_dst_path = xml_dst_path + '\\' + str(i)
     for j in range(data_amount):
         #随机抽取图片与变换方式
         bg_random_num = random.randint(0, bg_img_num)
@@ -112,17 +112,17 @@ for i in range(10):
             num_img = cv.resize(num_img, (int(num_x * (resize_random / 100)), int(num_y * (resize_random / 100))), interpolation=cv.INTER_LINEAR)
             M = cv.getRotationMatrix2D((num_img.shape[0] / 2, num_img.shape[1] / 2), spin_degrees[spin_random], 1)
             num_img = cv.warpAffine(num_img, M, (int(num_x * (resize_random / 100)), int(num_y * (resize_random / 100))))
-            print(num_img.shape[0], num_img.shape[1])
+            # print(num_img.shape[0], num_img.shape[1])
             bg_img[x_random: x_random + num_img.shape[0], y_random: y_random + num_img.shape[1]] = num_img
             dst_img = cv.addWeighted(bg_img, transparency_random / 100, bg_img_bak, 1 - transparency_random / 100, 0)
             xmin = x_random
             ymin = y_random
             xmax = x_random + int(num_x * resize_random / 100)
             ymax = y_random + int(num_y * resize_random / 100)
-            save_xml(str(j) + '.jpg', ymin, xmin, ymax, xmax, str(i), xml_dst_path)
-            cv.imwrite(img_dst_path + '\\' + str(j) + '.jpg', dst_img, [int(cv.IMWRITE_PNG_COMPRESSION), 9])
-        print('j=' + str(j))
-    print('i=' + str(i))
+            save_xml(str(i * data_amount + j) + '.jpg', ymin, xmin, ymax, xmax, str(i), xml_dst_path)
+            cv.imwrite(img_dst_path + '\\' + str(i * data_amount + j) + '.jpg', dst_img, [int(cv.IMWRITE_PNG_COMPRESSION), 9])
+    #     print('j=' + str(j))
+    # print('i=' + str(i))
 
 
 
