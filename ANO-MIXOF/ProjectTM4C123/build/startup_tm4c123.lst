@@ -1239,7 +1239,7 @@ IS\Include --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VERSION SETA
 ARM Macro Assembler    Page 20 
 
 
-531" --predefine="TM4C123GH6PM SETA 1" --list=.\build\startup_tm4c123.lst ..\Dr
+532" --predefine="TM4C123GH6PM SETA 1" --list=.\build\startup_tm4c123.lst ..\Dr
 iversMcu\TM4C123\Libraries\src\startup_TM4C123.s
 
 
