@@ -1,9 +1,11 @@
 # coding=utf-8
-import rospy
-from std_msgs.msg import Int8
 import cv2
 import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+from skimage.measure import regionprops
 import math
+ 
+input_img_file = r"c:\Users\35547\Desktop\map.jpg"
 
 # 轮廓检测
 def Contours(img):
@@ -47,7 +49,7 @@ def Contours(img):
     img_maze = cv2.blur(img_maze, (3, 5))  # 模板大小为3*5, 模板的大小是可以设定的
     img_maze = cv2.boxFilter(img_maze, -1, (3, 5))
     cv2.imshow("img_maze", img_maze)
-    # 漫水填充
+
     H_rows, W_cols = img_maze.shape[:2]
     mask = np.zeros([H_rows+2, W_cols+2], np.uint8)
     cv2.floodFill(img_maze, mask, (0, 0), (0, 255, 225), cv2.FLOODFILL_FIXED_RANGE)
@@ -181,15 +183,21 @@ def pointDetect(Harris_img, img):
     pts = np.float32([[upLeftX, upLeftY], [upRightX, upRightY], [downLeftX, downLeftY], [downRightX, downRightY]])
     return pts
 
-# 生成数组地图
+# 填充地图
 def MakeMap(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     H_rows, W_cols = img.shape[:2]
+    # print(H_rows, W_cols)
     Hrate = math.floor(H_rows / 6)
     Wrate = math.floor(W_cols / 6)
+    # print(Hrate, Wrate)
+    # 漫水填充
+    #mask = np.zeros([H_rows+2, W_cols+2], np.uint8)
+    #cv2.floodFill(img, mask, (30, 600), (0, 0, 225), cv2.FLOODFILL_FIXED_RANGE)
     cv2.imshow("fill", img)
     # 封闭图像检测
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(gray, connectivity=8)
+    # print(labels)
     road = 0
     map = np.zeros((6, 6), dtype=np.int)
     for i in range(0,6):
@@ -197,6 +205,16 @@ def MakeMap(img):
             if img[i * Hrate + math.floor(Hrate / 2)][j * Wrate + math.floor(Wrate / 2)][2] == 225:
                 map[i][j] = 1
     return map
+    # print(map)
+    # 标记区域
+    # props = regionprops(labels)
+    # im = Image.open(r"C:\Users\Jason\Desktop\fixed.png")
+    # draw = ImageDraw.Draw(im)
+    # for i in props:
+    #     draw.text((i.centroid[-1], i.centroid[0]), "{0}".format(props.index(i)), fill=(255,225,225))#,font=ttfont)
+    # im.show()
+    # cv2.waitKey() & 0xFF == ord('q') # 等待按键
+
 
 def find_road(map,location,start_x,satrt_y):
     for i in range(0,4):
@@ -349,7 +367,9 @@ def make_location(map,location):
         temp=-1
     return temp,map,location,start_x,start_y
 
-def mapPic2Action(image):
+if __name__ == '__main__':
+    np.set_printoptions(threshold=np.inf)
+    image = cv2.imread(input_img_file)
     image = cv2.resize(image, (1280, 720), fx=1, fy=1, interpolation=cv2.INTER_NEAREST)
     image = Contours(image)
     imagebak = image.copy()
@@ -365,30 +385,16 @@ def mapPic2Action(image):
     cv2.imshow("warp",warp)
     #构建地图输出矩阵
     map = MakeMap(warp)
-    # print(map)
+    print(map)
 
     #寻路
     location=np.zeros((6, 6,4), dtype=np.int)
     state,map,location,start_x,start_y = make_location(map,location)#标记起点终点并构建寻路数据
-    # print(map)
+    print(map)
     if state !=-1:
         find_road(map,location,start_x,start_y)#寻路
         action=make_action(location)#根据路线构建行动
-        # print(action)
-    return state, action
- 
-def talker():
-    pub = rospy.Publisher('cvTask/moveCommand', Int8, queue_size=10)
-    rospy.init_node('cvTask', anonymous=True)
-    rate = rospy.Rate(10) # 10hz
-    while not rospy.is_shutdown():
-        hello_str = "hello world %s" % rospy.get_time()
-        rospy.loginfo(hello_str)
-        pub.publish(hello_str)
-        rate.sleep()
- 
-if __name__ == '__main__':
-    try:
-        talker()
-    except rospy.ROSInterruptException:
-        pass
+        print(action)
+
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
