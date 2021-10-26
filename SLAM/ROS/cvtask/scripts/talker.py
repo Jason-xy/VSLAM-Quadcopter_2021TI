@@ -1,6 +1,8 @@
+#!/usr/bin/env python
 # coding=utf-8
 import rospy
 from std_msgs.msg import Int8
+from std_msgs.msg import String
 import cv2
 import numpy as np
 import math
@@ -378,7 +380,7 @@ def mapPic2Action(image):
     return state, action
  
 def talker():
-    pub = rospy.Publisher('cvTask/moveCommand', Int8, queue_size=10)
+    pub = rospy.Publisher('cvTask/moveCommand', String, queue_size=10)
     rospy.init_node('cvTask', anonymous=True)
     rate = rospy.Rate(10) # 10hz
     while not rospy.is_shutdown():
@@ -386,7 +388,7 @@ def talker():
         rospy.loginfo(hello_str)
         pub.publish(hello_str)
         rate.sleep()
- 
+
 if __name__ == '__main__':
     try:
         talker()
