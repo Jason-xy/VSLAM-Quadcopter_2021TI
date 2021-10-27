@@ -11,59 +11,6 @@
 #include <vector>
 using namespace Eigen;  
 // /camera/accel/sample /camera/gyro/sample sensor_msgs/Imu 
-/*
-std_msgs/Header header
-  uint32 seq
-  time stamp
-  string frame_id
-geometry_msgs/Quaternion orientation
-  float64 x
-  float64 y
-  float64 z
-  float64 w
-float64[9] orientation_covariance
-geometry_msgs/Vector3 angular_velocity
-  float64 x
-  float64 y
-  float64 z
-float64[9] angular_velocity_covariance
-geometry_msgs/Vector3 linear_acceleration
-  float64 x
-  float64 y
-  float64 z
-float64[9] linear_acceleration_covariance
-*/
-// /camera/odom/sample nav_msgs/Odometry
-/*
-std_msgs/Header header
-  uint32 seq
-  time stamp
-  string frame_id
-string child_frame_id
-geometry_msgs/PoseWithCovariance pose
-  geometry_msgs/Pose pose
-    geometry_msgs/Point position
-      float64 x
-      float64 y
-      float64 z
-    geometry_msgs/Quaternion orientation
-      float64 x
-      float64 y
-      float64 z
-      float64 w
-  float64[36] covariance
-geometry_msgs/TwistWithCovariance twist
-  geometry_msgs/Twist twist
-    geometry_msgs/Vector3 linear
-      float64 x
-      float64 y
-      float64 z
-    geometry_msgs/Vector3 angular
-      float64 x
-      float64 y
-      float64 z
-  float64[36] covariance
-*/
 
 typedef signed char             int8_t;
 typedef short int               int16_t;
@@ -199,11 +146,15 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
 
     usartBuffer[16] = sumcheck;
     usartBuffer[17] = add_on_check;
+    
     //发送数据
-    //发布数据
     t265_msg.linear.x = v_xcms;
     t265_msg.linear.y = v_ycms;
     t265_msg.linear.z = v_zcms;
+    t265_msg.angular.x = now_pxcm;
+    t265_msg.angular.y = now_pycm;
+    t265_msg.angular.z = now_pzcm;
+
     pub_t265.publish(t265_msg);
 
     sp.write(usartBuffer, 18);
@@ -247,12 +198,15 @@ int main(int argc, char **argv)
 
     // 创建一个Subscriber，订阅名为/camera/odom/sample的topic，注册回调函数poseCallback
     ros::Subscriber pose_sub = n.subscribe("/camera/odom/sample", 1000, poseCallback);
-    printf("Subscrib /camera/odom/sample\n");
+    ROS_INFO_STREAM("Subscrib /camera/odom/sample");
 
     //创建一个publisher，创建/t265_pose的topic
     ros::NodeHandle m;
     pub_t265 = m.advertise<geometry_msgs::Twist>("/t265_pose", 1000);
-    printf("Publish /t265_pose\n");
+    ROS_INFO_STREAM("Publish /t265_pose");
+
+    // 设置执行频率
+    ros::Rate loop_rate(50);
 
     // 循环等待回调函数
     ros::spin();
