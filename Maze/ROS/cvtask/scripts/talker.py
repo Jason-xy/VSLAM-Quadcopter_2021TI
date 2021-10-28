@@ -257,10 +257,22 @@ def find_way(x,y,det,location,map):
     return 1
 #上：0 下：1 左：2 右：3
 
-def make_action(location):
+def make_action(start_x,start_y,location):
     action=[]
     x=start_x
     y=start_y
+
+    sum=0
+    print(location[start_y][start_x])
+    for i in range(0,4):
+        sum=sum+location[start_y][start_x][i]
+    if sum==4:
+        state=-1
+        return state,action
+    else:
+        state=1
+    #state为-1没有路径，为1有路径
+
     while map[y][x]!=3:
         for i in range(0,4):
             if location[y][x][i]==0:
@@ -283,8 +295,7 @@ def make_action(location):
                     location[y][x][2]=1
             if  map[y][x]==3:
                 break
-    return action
-
+    return state,action
 
 def make_location(map,location):
     temp=2
@@ -375,13 +386,20 @@ def mapPic2Action(image):
     state,map,location,start_x,start_y = make_location(map,location)#标记起点终点并构建寻路数据
     # print(map)
     if state !=-1:
-        find_road(map,location,start_x,start_y)#寻路
-        action=make_action(location)#根据路线构建行动
+        find_road(map,location,start_x,start_y)#寻路 
+        isRoad, action=make_action(location)#根据路线构建行动
         # print(action)
+        if isRoad == -1:
+            state = -1
     return state, action
 
 # 控制逻辑
-def action2command(action):
+def action2command(state, action):
+    if state == -1:
+        return
+    edges = 45 #边长45cm
+    action
+
 
 # 发布者节点
 def talker():
