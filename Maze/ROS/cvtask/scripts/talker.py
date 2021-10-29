@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # coding=utf-8
 import rospy
-from std_msgs.msg import Int8
-from std_msgs.msg import String
+# from std_msgs.msg import Int8
+# from std_msgs.msg import String
 from geometry_msgs.msg import Vector3
+from jetcam.csi_camera import CSICamera
 import cv2
 import numpy as np
 import math
+import time
 
 # 轮廓检测
 def Contours(img):
@@ -387,29 +389,60 @@ def mapPic2Action(image):
     # print(map)
     if state !=-1:
         find_road(map,location,start_x,start_y)#寻路 
-        isRoad, action=make_action(location)#根据路线构建行动
+        isRoad, actions=make_action(location)#根据路线构建行动
         # print(action)
         if isRoad == -1:
             state = -1
-    return state, action
+    return state, actions
 
 # 控制逻辑
-def action2command(state, action):
+def action2command(state, actions, pub):
     if state == -1:
-        return
-    edges = 45 #边长45cm
-    action
+        return state
+    
+    for action in actions:
+        pubCommand(pub, action)
+        time.sleep(8)
+    state = 1
+    return state
 
+# 发布控制命令
+# up=0
+# down=1
+# left=2
+# right=3
+def pubCommand(pub, dir):
+    command = Vector3(0, 0, 0)
+    edges = 45 # 边长45cm
+    speed = 10 # 速度10cms
+    command.x = edges
+    command.y = speed
+    if dir == 0:
+        command.z = 0
+    if dir == 1:
+        command.z = 180
+    if dir == 2:
+        command.z = 270
+    if dir == 3:
+        command.z = 90
+    pub.publish(command)
+
+        
 
 # 发布者节点
 def talker():
+    camera = CSICamera(capture_device=0, width=1280, height=720)
     pub = rospy.Publisher('cvTask/moveCommand', Vector3, queue_size=10)
     rospy.init_node('cvTask', anonymous=True)
-    rate = rospy.Rate(10) # 10hz
+    rate = rospy.Rate(50) # 10hz
     while not rospy.is_shutdown():
-        hello_str = "hello world %s" % rospy.get_time()
+        image = camera.read()
+        state, actions = mapPic2Action(image)
+        state = action2command(state, actions, pub)
+        hello_str = "Attempting %s" % rospy.get_time()
         rospy.loginfo(hello_str)
-        pub.publish(hello_str)
+        if state == 1:
+            rospy.on_shutdown()
         rate.sleep()
 
 if __name__ == '__main__':
