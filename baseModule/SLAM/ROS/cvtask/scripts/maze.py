@@ -1,14 +1,27 @@
 #!/usr/bin/env python
 # coding=utf-8
-import rospy
+# import rospy
 # from std_msgs.msg import Int8
 # from std_msgs.msg import String
-from geometry_msgs.msg import Vector3
+# from geometry_msgs.msg import Vector3
 from jetcam.csi_camera import CSICamera
 import cv2
 import numpy as np
 import math
 import time
+
+class Vector3():
+
+    def __init__(self,x,y,z):
+        self.x = x
+        self.y = y
+        self.z = z
+
+    #置为零向量
+    def zero():
+        self.x = 0
+        self.y = 0
+        self.z = 0
 
 # 轮廓检测
 def Contours(img):
@@ -16,7 +29,7 @@ def Contours(img):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     kernel = np.ones((5,5),np.uint8)  
     erosion = cv2.erode(img_gray,kernel,iterations = 2)
-    cv2.imshow("erosion",erosion)
+    # cv2.imshow("erosion",erosion)
     # 二值化
     ret, thresh = cv2.threshold(erosion, 80, 255, cv2.THRESH_BINARY)
     cv2.imshow("thresh",thresh)
@@ -27,7 +40,7 @@ def Contours(img):
     for i in range(len(contours)):
         area = cv2.contourArea(contours[i], False)
         areas.append(area)
-        print("轮廓%d的面积:%d" % (i, area))
+        # print("轮廓%d的面积:%d" % (i, area))
 
     area_avg = np.average(areas)
     print("轮廓平均面积:", area_avg)
@@ -41,7 +54,7 @@ def Contours(img):
 
         area = cv2.contourArea(contours[i], False)
         if area < img.shape[0] * img.shape[1] * 0.7 and area > area_avg / 10: # area > area_avg / 18(显示每一个边缘) 18是根据统计学计算的，现在用的是显示最大连通域（小心特例）
-            print("轮廓%d的面积是: %d" % (i, area))
+            # print("轮廓%d的面积是: %d" % (i, area))
             # print(contours[i])
             cv2.drawContours(img_maze, contours, i, (0, 0, 255), 10)
             # print(contours[i])
@@ -51,7 +64,7 @@ def Contours(img):
     # 均值滤波
     img_maze = cv2.blur(img_maze, (3, 5))  # 模板大小为3*5, 模板的大小是可以设定的
     img_maze = cv2.boxFilter(img_maze, -1, (3, 5))
-    cv2.imshow("img_maze", img_maze)
+    # cv2.imshow("img_maze", img_maze)
     # 漫水填充
     H_rows, W_cols = img_maze.shape[:2]
     mask = np.zeros([H_rows+2, W_cols+2], np.uint8)
@@ -70,8 +83,8 @@ def HarrisDetect(img):
     dst = cv2.cornerHarris(gray, 5, 5, 0.04)
     # 阈值设定
     img[dst > 0.00001*dst.max()] = [225, 0, 0]
-    cv2.imshow('Harrisimg', img)
-    cv2.imshow('Harris', dst)
+    # cv2.imshow('Harrisimg', img)
+    # cv2.imshow('Harris', dst)
 
     return img
 
@@ -107,7 +120,7 @@ def pointDetect(Harris_img, img):
     upRightY = 0
     downRightX = 0
     downRightY = 0
-    step = 5
+    step = 10
 
     # 求左上顶点
     for j in range(0, int(height/2), step):
@@ -183,6 +196,7 @@ def pointDetect(Harris_img, img):
     cv2.line(img, (downRightX, downRightY), (downLeftX, downLeftY), (255, 0, 0), 1)
     cv2.line(img, (downLeftX, downLeftY), (upLeftX, upLeftY), (255, 0, 0), 1)
     cv2.imshow('result', img)
+    cv2.waitKey(5)
     pts = np.float32([[upLeftX, upLeftY], [upRightX, upRightY], [downLeftX, downLeftY], [downRightX, downRightY]])
     return pts
 
@@ -192,7 +206,7 @@ def MakeMap(img):
     H_rows, W_cols = img.shape[:2]
     Hrate = math.floor(H_rows / 6)
     Wrate = math.floor(W_cols / 6)
-    cv2.imshow("fill", img)
+    # cv2.imshow("fill", img)
     # 封闭图像检测
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(gray, connectivity=8)
     road = 0
@@ -201,9 +215,10 @@ def MakeMap(img):
         for j in range(0,6):
             if img[i * Hrate + math.floor(Hrate / 2)][j * Wrate + math.floor(Wrate / 2)][2] == 225:
                 map[i][j] = 1
+    print(map)
     return map
 
-def find_road(map,location,start_x,satrt_y):
+def find_road(map,location,start_x,start_y):
     for i in range(0,4):
         if location[start_y][start_x][i] == 0:
             if i==0:
@@ -227,10 +242,16 @@ def find_road(map,location,start_x,satrt_y):
     
 def find_way(x,y,det,location,map):
 
+    
     if map[y][x] ==0:
         return -1
     elif map[y][x]==3:
         return 1
+    elif map[y][x]==-1:
+        return -1
+
+    map[y][x]=-1
+
 
     for i in range(0,4):
         if i==det:
@@ -259,10 +280,11 @@ def find_way(x,y,det,location,map):
     return 1
 #上：0 下：1 左：2 右：3
 
-def make_action(start_x,start_y,location):
+def make_action(start_x,start_y,location,map):
     action=[]
     x=start_x
     y=start_y
+
 
     sum=0
     print(location[start_y][start_x])
@@ -274,7 +296,6 @@ def make_action(start_x,start_y,location):
     else:
         state=1
     #state为-1没有路径，为1有路径
-
     while map[y][x]!=3:
         for i in range(0,4):
             if location[y][x][i]==0:
@@ -298,6 +319,7 @@ def make_action(start_x,start_y,location):
             if  map[y][x]==3:
                 break
     return state,action
+
 
 def make_location(map,location):
     temp=2
@@ -353,7 +375,8 @@ def make_location(map,location):
 
             else:
                 location[i][j]=[1,1,1,1]           
-    
+    start_x = 0
+    start_y = 0
     for i in range(5,-1,-1):
         for j in range(5,-1,-1):
             if map[i][j]==2:
@@ -363,6 +386,8 @@ def make_location(map,location):
 
     if temp!=4:
         temp=-1
+    else:
+        temp=1
     return temp,map,location,start_x,start_y
 
 def mapPic2Action(image):
@@ -378,32 +403,41 @@ def mapPic2Action(image):
     M = cv2.getPerspectiveTransform(pts1, pts2)
     
     warp = cv2.warpPerspective(imagebak, M, (W_cols,H_rows))
-    cv2.imshow("warp",warp)
+    # cv2.imshow("warp",warp)
     #构建地图输出矩阵
     map = MakeMap(warp)
     # print(map)
-
+    # map = [[0,0,0,1,0,0],
+    #        [1,0,0,1,0,0],
+    #        [0,0,0,1,1,0],
+    #        [0,0,0,0,1,0],
+    #        [0,0,0,1,1,0],
+    #        [0,0,0,1,0,0]]
     #寻路
-    location=np.zeros((6, 6,4), dtype=np.int)
+    location=np.zeros((6, 6, 4), dtype=np.int)
     state,map,location,start_x,start_y = make_location(map,location)#标记起点终点并构建寻路数据
     # print(map)
-    if state !=-1:
+    # print('[420:]')
+    # print(state)
+    actions = []
+    if state == 1:
         find_road(map,location,start_x,start_y)#寻路 
-        isRoad, actions=make_action(location)#根据路线构建行动
+        isRoad, actions = make_action(start_x,start_y,location,map)#根据路线构建行动
         # print(action)
         if isRoad == -1:
             state = -1
     return state, actions
 
 # 控制逻辑
-def action2command(state, actions, pub):
+def action2command(state, actions):
     if state == -1:
         return state
-    
+
+    print(actions)
     for action in actions:
-        pubCommand(pub, action)
-        time.sleep(8)
-    state = 1
+        pubCommand(action)
+        # time.sleep(8)
+
     return state
 
 # 发布控制命令
@@ -411,7 +445,7 @@ def action2command(state, actions, pub):
 # down=1
 # left=2
 # right=3
-def pubCommand(pub, dir):
+def pubCommand(dir):
     command = Vector3(0, 0, 0)
     edges = 45 # 边长45cm
     speed = 10 # 速度10cms
@@ -425,28 +459,31 @@ def pubCommand(pub, dir):
         command.z = 270
     if dir == 3:
         command.z = 90
-    pub.publish(command)
+    print("[Command:]")
+    print(command)
 
         
 
 # 发布者节点
 def talker():
     camera = CSICamera(capture_device=0, width=1280, height=720)
-    pub = rospy.Publisher('cvTask/moveCommand', Vector3, queue_size=10)
-    rospy.init_node('cvTask', anonymous=True)
-    rate = rospy.Rate(50) # 10hz
-    while not rospy.is_shutdown():
+    # pub = rospy.Publisher('cvTask/moveCommand', Vector3, queue_size=10)
+    # rospy.init_node('cvTask', anonymous=True)
+    # rate = rospy.Rate(50) # 10hz
+    # while not rospy.is_shutdown():
+    while True:
         image = camera.read()
+        # cv2.imshow("image", image)
+        # cv2.waitKey(5)
         state, actions = mapPic2Action(image)
-        state = action2command(state, actions, pub)
-        hello_str = "Attempting %s" % rospy.get_time()
-        rospy.loginfo(hello_str)
         if state == 1:
-            rospy.on_shutdown()
-        rate.sleep()
+            state = action2command(state, actions)
+        # hello_str = "Attempting %s" % rospy.get_time()
+        # rospy.loginfo(hello_str)
+        if state == 1:
+            print('rospy.on_shutdown()')
+            break
+        # rate.sleep()
 
 if __name__ == '__main__':
-    try:
-        talker()
-    except rospy.ROSInterruptException:
-        pass
+    talker()
