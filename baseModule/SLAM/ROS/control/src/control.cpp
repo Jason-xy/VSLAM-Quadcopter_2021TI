@@ -16,10 +16,10 @@ typedef unsigned int            uint32_t;
 
 // 接收到订阅的消息后，会进入消息回调函数
 // 坐标信息回调函数
-void poseCallback(const geometry_msgs::twist::ConstPtr& msg);
+void poseCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
 // 视觉信息回调函数
-void cvTaskCallback(const geometry_msgs::twist::ConstPtr& msg);
+void cvTaskCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
 // 位置环PID控制
 void pidControl_x(double start, double end);
@@ -81,7 +81,7 @@ int main(int argc, char **argv)
 }
 
 double t265_vxcms, t265_vycms, t265_vzcms, t265_pxcm, t265_pycm, t265_pzcm;
-void poseCallback(const geometry_msgs::twist::ConstPtr& msg)
+void poseCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
     //接收数据
     t265_vxcms = msg->linear.x;
@@ -140,7 +140,7 @@ void poseCallback(const geometry_msgs::twist::ConstPtr& msg)
 }
 
 double cv_pxcm, cv_pycm, cv_pzcm;
-void cvTaskCallback(const geometry_msgs::twist::ConstPtr& msg)
+void cvTaskCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
     const int pidThreshold = 5;
     static int state;
@@ -165,7 +165,7 @@ void cvTaskCallback(const geometry_msgs::twist::ConstPtr& msg)
     }
 }
 
-const double P = 1, I = 0.01, D = 0.1;
+const double P = 0.5, I = 0.01, D = 0.1;
 void pidControl_x(double start, double end)
 {
     const int maxSpeed = 20;
@@ -210,6 +210,7 @@ void pidControl_x(double start, double end)
     usartBuffer[11] = add_on_check;
     sp.write(usartBuffer, 12);
 
+    ROS_INFO("[Dir X]:dif %d\tspeed %d\t dir %d\t", dif, speed, dir);
 }
 void pidControl_y(double start, double end)
 {
@@ -254,4 +255,5 @@ void pidControl_y(double start, double end)
     usartBuffer[10] = sumcheck;
     usartBuffer[11] = add_on_check;
     sp.write(usartBuffer, 12);
+    ROS_INFO("[Dir Y]:dif %d\tspeed %d\t dir %d\t", dif, speed, dir);
 }

@@ -12,6 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   serial
   std_msgs
+  geometry_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -205,3 +206,5 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
+add_executable(control src/control.cpp)
+target_link_libraries(control ${catkin_LIBRARIES})

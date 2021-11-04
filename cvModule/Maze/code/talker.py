@@ -1,28 +1,11 @@
 #!/usr/bin/env python
-# coding=utf-8
-# import rospy
-# from std_msgs.msg import Int8
-# from std_msgs.msg import String
-# from geometry_msgs.msg import Vector3
-from jetcam.csi_camera import CSICamera
+# license removed for brevity
+import rospy
+from std_msgs.msg import Int8
 import cv2
-import numpy as np
-import math
-import time
 
-class Vector3():
-
-    def __init__(self,x,y,z):
-        self.x = x
-        self.y = y
-        self.z = z
-
-    #置为零向量
-    def zero():
-        self.x = 0
-        self.y = 0
-        self.z = 0
-
+# input_img_file = "/home/jason/cvtask/map1.jpg"
+input_img_file = "csi://0"
 # 轮廓检测
 def Contours(img):
     # 灰度化
@@ -32,7 +15,7 @@ def Contours(img):
     # cv2.imshow("erosion",erosion)
     # 二值化
     ret, thresh = cv2.threshold(erosion, 80, 255, cv2.THRESH_BINARY)
-    cv2.imshow("thresh",thresh)
+    # cv2.imshow("thresh",thresh)
     # 寻找轮廓
     contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     # 计算平均面积
@@ -40,7 +23,7 @@ def Contours(img):
     for i in range(len(contours)):
         area = cv2.contourArea(contours[i], False)
         areas.append(area)
-        # print("轮廓%d的面积:%d" % (i, area))
+        print("轮廓%d的面积:%d" % (i, area))
 
     area_avg = np.average(areas)
     print("轮廓平均面积:", area_avg)
@@ -53,8 +36,8 @@ def Contours(img):
         img_contours.append(img_temp)
 
         area = cv2.contourArea(contours[i], False)
-        if area < img.shape[0] * img.shape[1] * 0.7 and area > area_avg / 10: # area > area_avg / 18(显示每一个边缘) 18是根据统计学计算的，现在用的是显示最大连通域（小心特例）
-            # print("轮廓%d的面积是: %d" % (i, area))
+        if area < img.shape[0] * img.shape[1] * 0.7 and area > area_avg/2 : # area > area_avg / 18(显示每一个边缘) 18是根据统计学计算的，现在用的是显示最大连通域（小心特例）
+            print("轮廓%d的面积是: %d" % (i, area))
             # print(contours[i])
             cv2.drawContours(img_maze, contours, i, (0, 0, 255), 10)
             # print(contours[i])
@@ -65,7 +48,7 @@ def Contours(img):
     img_maze = cv2.blur(img_maze, (3, 5))  # 模板大小为3*5, 模板的大小是可以设定的
     img_maze = cv2.boxFilter(img_maze, -1, (3, 5))
     # cv2.imshow("img_maze", img_maze)
-    # 漫水填充
+
     H_rows, W_cols = img_maze.shape[:2]
     mask = np.zeros([H_rows+2, W_cols+2], np.uint8)
     cv2.floodFill(img_maze, mask, (0, 0), (0, 255, 225), cv2.FLOODFILL_FIXED_RANGE)
@@ -105,7 +88,6 @@ def aroundCorner(Harris_img, y, x, pix):
                 return True
     return False
 
-# 四角检测
 def pointDetect(Harris_img, img):
     # 求图像大小
     shape = img.shape
@@ -120,7 +102,7 @@ def pointDetect(Harris_img, img):
     upRightY = 0
     downRightX = 0
     downRightY = 0
-    step = 10
+    step = 5
 
     # 求左上顶点
     for j in range(0, int(height/2), step):
@@ -196,29 +178,43 @@ def pointDetect(Harris_img, img):
     cv2.line(img, (downRightX, downRightY), (downLeftX, downLeftY), (255, 0, 0), 1)
     cv2.line(img, (downLeftX, downLeftY), (upLeftX, upLeftY), (255, 0, 0), 1)
     cv2.imshow('result', img)
-    cv2.waitKey(5)
     pts = np.float32([[upLeftX, upLeftY], [upRightX, upRightY], [downLeftX, downLeftY], [downRightX, downRightY]])
     return pts
 
-# 生成数组地图
+# 填充地图
 def MakeMap(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     H_rows, W_cols = img.shape[:2]
+    # print(H_rows, W_cols)
     Hrate = math.floor(H_rows / 6)
     Wrate = math.floor(W_cols / 6)
+    # print(Hrate, Wrate)
+    # 漫水填充
+    # mask = np.zeros([H_rows+2, W_cols+2], np.uint8)
+    # cv2.floodFill(img, mask, (30, 600), (0, 0, 225), cv2.FLOODFILL_FIXED_RANGE)
     # cv2.imshow("fill", img)
     # 封闭图像检测
     num_labels, labels, stats, centroids = cv2.connectedComponentsWithStats(gray, connectivity=8)
+    # print(labels)
     road = 0
     map = np.zeros((6, 6), dtype=np.int)
     for i in range(0,6):
         for j in range(0,6):
             if img[i * Hrate + math.floor(Hrate / 2)][j * Wrate + math.floor(Wrate / 2)][2] == 225:
                 map[i][j] = 1
-    print(map)
     return map
+    # print(map)
+    # 标记区域
+    # props = regionprops(labels)
+    # im = Image.open(r"C:\Users\Jason\Desktop\fixed.png")
+    # draw = ImageDraw.Draw(im)
+    # for i in props:
+    #     draw.text((i.centroid[-1], i.centroid[0]), "{0}".format(props.index(i)), fill=(255,225,225))#,font=ttfont)
+    # im.show()
+    # cv2.waitKey() & 0xFF == ord('q') # 等待按键
 
-def find_road(map,location,start_x,start_y):
+
+def find_road(map,location,start_x,satrt_y):
     for i in range(0,4):
         if location[start_y][start_x][i] == 0:
             if i==0:
@@ -242,16 +238,10 @@ def find_road(map,location,start_x,start_y):
     
 def find_way(x,y,det,location,map):
 
-    
     if map[y][x] ==0:
         return -1
     elif map[y][x]==3:
         return 1
-    elif map[y][x]==-1:
-        return -1
-
-    map[y][x]=-1
-
 
     for i in range(0,4):
         if i==det:
@@ -280,22 +270,10 @@ def find_way(x,y,det,location,map):
     return 1
 #上：0 下：1 左：2 右：3
 
-def make_action(start_x,start_y,location,map):
+def make_action(location):
     action=[]
     x=start_x
     y=start_y
-
-
-    sum=0
-    print(location[start_y][start_x])
-    for i in range(0,4):
-        sum=sum+location[start_y][start_x][i]
-    if sum==4:
-        state=-1
-        return state,action
-    else:
-        state=1
-    #state为-1没有路径，为1有路径
     while map[y][x]!=3:
         for i in range(0,4):
             if location[y][x][i]==0:
@@ -318,7 +296,7 @@ def make_action(start_x,start_y,location,map):
                     location[y][x][2]=1
             if  map[y][x]==3:
                 break
-    return state,action
+    return action
 
 
 def make_location(map,location):
@@ -375,22 +353,21 @@ def make_location(map,location):
 
             else:
                 location[i][j]=[1,1,1,1]           
-    start_x = 0
-    start_y = 0
+    
     for i in range(5,-1,-1):
         for j in range(5,-1,-1):
             if map[i][j]==2:
                 start_x=j
                 start_y=i
                 break
-
     if temp!=4:
-        temp=-1
+        state=-1
     else:
-        temp=1
-    return temp,map,location,start_x,start_y
+        state=1
+    return state,map,location,start_x,start_y
 
-def mapPic2Action(image):
+def mapPic2Array(img):
+    image = cv2.imread(input_img_file)
     image = cv2.resize(image, (1280, 720), fx=1, fy=1, interpolation=cv2.INTER_NEAREST)
     image = Contours(image)
     imagebak = image.copy()
@@ -404,86 +381,32 @@ def mapPic2Action(image):
     
     warp = cv2.warpPerspective(imagebak, M, (W_cols,H_rows))
     # cv2.imshow("warp",warp)
-    #构建地图输出矩阵
+    # 构建地图输出矩阵
     map = MakeMap(warp)
     # print(map)
-    # map = [[0,0,0,1,0,0],
-    #        [1,0,0,1,0,0],
-    #        [0,0,0,1,1,0],
-    #        [0,0,0,0,1,0],
-    #        [0,0,0,1,1,0],
-    #        [0,0,0,1,0,0]]
+
     #寻路
-    location=np.zeros((6, 6, 4), dtype=np.int)
+    location=np.zeros((6, 6,4), dtype=np.int)
     state,map,location,start_x,start_y = make_location(map,location)#标记起点终点并构建寻路数据
-    # print(map)
-    # print('[420:]')
-    # print(state)
-    actions = []
-    if state == 1:
-        find_road(map,location,start_x,start_y)#寻路 
-        isRoad, actions = make_action(start_x,start_y,location,map)#根据路线构建行动
-        # print(action)
-        if isRoad == -1:
-            state = -1
-    return state, actions
+    if state!=-1:
+        find_road(map,location,start_x,start_y)#寻路
+        action=make_action(location)#根据路线构建行动
+        # sprint(action)
 
-# 控制逻辑
-def action2command(state, actions):
-    if state == -1:
-        return state
-
-    print(actions)
-    for action in actions:
-        pubCommand(action)
-        # time.sleep(8)
-
-    return state
-
-# 发布控制命令
-# up=0
-# down=1
-# left=2
-# right=3
-def pubCommand(dir):
-    command = Vector3(0, 0, 0)
-    edges = 45 # 边长45cm
-    speed = 10 # 速度10cms
-    command.x = edges
-    command.y = speed
-    if dir == 0:
-        command.z = 0
-    if dir == 1:
-        command.z = 180
-    if dir == 2:
-        command.z = 270
-    if dir == 3:
-        command.z = 90
-    print("[Command:]")
-    print(command)
-
-        
-
-# 发布者节点
+    return action
+ 
 def talker():
-    camera = CSICamera(capture_device=0, width=1280, height=720)
-    # pub = rospy.Publisher('cvTask/moveCommand', Vector3, queue_size=10)
-    # rospy.init_node('cvTask', anonymous=True)
-    # rate = rospy.Rate(50) # 10hz
-    # while not rospy.is_shutdown():
-    while True:
-        image = camera.read()
-        # cv2.imshow("image", image)
-        # cv2.waitKey(5)
-        state, actions = mapPic2Action(image)
-        if state == 1:
-            state = action2command(state, actions)
-        # hello_str = "Attempting %s" % rospy.get_time()
-        # rospy.loginfo(hello_str)
-        if state == 1:
-            print('rospy.on_shutdown()')
-            break
-        # rate.sleep()
-
+    pub = rospy.Publisher('cvTask/moveCommand', Int8, queue_size=10)
+    rospy.init_node('cvTask', anonymous=True)
+    rate = rospy.Rate(10) # 10hz
+    while not rospy.is_shutdown():
+        hello_str = "hello world %s" % rospy.get_time()
+        rospy.loginfo(hello_str)
+        pub.publish(hello_str)
+        rate.sleep()
+ 
 if __name__ == '__main__':
-    talker()
+    try:
+        talker()
+    except rospy.ROSInterruptException:
+        pass
