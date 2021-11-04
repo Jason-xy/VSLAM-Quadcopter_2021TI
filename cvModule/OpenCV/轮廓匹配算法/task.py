@@ -22,22 +22,25 @@ def contours_matching(model_img,train_frame):
     # 处理轮廓
     ret, thresh = cv2.threshold(model_img, 127, 255,0)
     ret, thresh2 = cv2.threshold(train_frame, 127, 255,0)
-    model_img_after, contours, hierarchy = cv2.findContours(thresh,2,1)
-    cnt1 = contours[0]
-    train_frame_after, contours, hierarchy = cv2.findContours(thresh2,2,1)
-    cnt2 = contours[0]
+    contours, hierarchy = cv2.findContours(thresh,2,1)
+    if contours:
+        cnt1 = contours[0]
+    contours, hierarchy = cv2.findContours(thresh2,2,1)
+    if contours:
+        cnt2 = contours[0]
     # 计算匹配度
     matching_value = cv2.matchShapes(cnt1,cnt2,1,0.0)
-    print('匹配度：', matching_value)
+    # print('匹配度：', matching_value)
     # 匹配成功;匹配闸值为调整参数
     if matching_value<=0.2:
         # 计算检测到目标物的重心坐标
         M = cv2.moments(cnt2)
         cX = int(M["m10"] / (M["m00"] + 0.0001))
         cY = int(M["m01"] / (M["m00"] + 0.0001))
+        print("x = "+ str(cX) + "\tY = " + str(cY))
+    
  
- 
-    return train_frame_after,matching_value, cX, cY
+    return matching_value, cX, cY
  
  
 # 导入图像
@@ -50,12 +53,12 @@ cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
 while cap.isOpened():
  
     ret, train_frame = cap.read()
-    model_img = cv2.imread('../images/alphabets/O.jpg')
+    model_img = cv2.imread(r'C:\Users\Jason\Desktop\A.png')
  
-    train_frame_after, mathing_value, x, y = contours_matching(model_img,train_frame)
+    mathing_value, x, y = contours_matching(model_img,train_frame)
     if mathing_value<0.2:
-        cv2.circle(train_frame_after, (x, y), 2, (0, 255, 0), 8)  # 做出中心坐标
-    cv2.imshow('test',train_frame_after)
+        cv2.circle(train_frame, (x, y), 2, (0, 255, 0), 8)  # 做出中心坐标
+    cv2.imshow('test',train_frame)
  
     # 按下esc键退出
     key = cv2.waitKey(delay=2)

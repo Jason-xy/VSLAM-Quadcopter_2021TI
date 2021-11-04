@@ -15,13 +15,23 @@ typedef unsigned short int      uint16_t;
 typedef unsigned int            uint32_t;
 
 // 接收到订阅的消息后，会进入消息回调函数
-//坐标信息回调函数
+// 坐标信息回调函数
 void poseCallback(const geometry_msgs::twist::ConstPtr& msg);
+
+// 视觉信息回调函数
+void cvTaskCallback(const geometry_msgs::twist::ConstPtr& msg);
+
+// 位置环PID控制
+void pidControl_x(double start, double end);
+void pidControl_y(double start, double end);
+
+//创建一个serial类
+serial::Serial sp;
 
 int main(int argc, char **argv)
 {
     // 初始化ROS节点
-    ros::init(argc, argv, "slam_pose_transfer");
+    ros::init(argc, argv, "position_control");
     // 创建节点句柄
     ros::NodeHandle n;
 
@@ -127,4 +137,121 @@ void poseCallback(const geometry_msgs::twist::ConstPtr& msg)
     usartBuffer[16] = sumcheck;
     usartBuffer[17] = add_on_check;
     sp.write(usartBuffer, 18);
+}
+
+double cv_pxcm, cv_pycm, cv_pzcm;
+void cvTaskCallback(const geometry_msgs::twist::ConstPtr& msg)
+{
+    const int pidThreshold = 5;
+    static int state;
+    cv_pxcm = msg->linear.x;
+    cv_pycm = msg->linear.y;
+    cv_pzcm = msg->linear.z;
+    if(abs(cv_pxcm - t265_pxcm) > pidThreshold && state == 0)
+    {
+        pidControl_x(t265_pxcm, cv_pxcm);
+    }
+    else
+    {
+        state = 1;
+    }
+    if(abs(cv_pycm - t265_pycm) > pidThreshold && state == 1)
+    {
+        pidControl_y(t265_pycm, cv_pycm);
+    }
+    else
+    {
+        state = 0;
+    }
+}
+
+const double P = 1, I = 0.01, D = 0.1;
+void pidControl_x(double start, double end)
+{
+    const int maxSpeed = 20;
+    static int dif, speed, dir;
+    dif = end - start;
+    speed = P * dif - D * t265_vxcms;
+    if(speed > maxSpeed) speed = maxSpeed;
+
+    //发送串口
+    uint8_t i = 0;
+    uint8_t sumcheck = 0, add_on_check =0;
+    uint8_t usartBuffer[100] = {0};
+    
+    usartBuffer[0] = 0xAA;
+    usartBuffer[1] = 0x62;
+    usartBuffer[2] = 0x80;
+    usartBuffer[3] = 0x0A;
+
+    //dif
+    usartBuffer[5] = abs(dif) >> 8;
+    usartBuffer[4] = abs(dif) - (usartBuffer[5] << 8);
+
+    //speed
+    usartBuffer[7] = abs(speed) >> 8;
+    usartBuffer[6] = abs(speed) - (usartBuffer[7] << 8);
+
+    //dir
+    if(speed > 0) dir = 0;
+    else dir = 180;
+    usartBuffer[9] = dir >> 8;
+    usartBuffer[8] = dir - (usartBuffer[9] << 8);
+
+    for(i = 0; i<= 9; i++)
+    {
+        sumcheck += usartBuffer[i];
+        add_on_check += sumcheck;
+    }
+    sumcheck %= 256;
+    add_on_check %= 256;
+
+    usartBuffer[10] = sumcheck;
+    usartBuffer[11] = add_on_check;
+    sp.write(usartBuffer, 12);
+
+}
+void pidControl_y(double start, double end)
+{
+    const int maxSpeed = 20;
+    static int dif, speed, dir;
+    dif = end - start;
+    speed = P * dif - D * t265_vycms;
+    if(speed > maxSpeed) speed = maxSpeed;
+
+    //发送串口
+    uint8_t i = 0;
+    uint8_t sumcheck = 0, add_on_check =0;
+    uint8_t usartBuffer[100] = {0};
+    
+    usartBuffer[0] = 0xAA;
+    usartBuffer[1] = 0x62;
+    usartBuffer[2] = 0x80;
+    usartBuffer[3] = 0x0A;
+
+    //dif
+    usartBuffer[5] = abs(dif) >> 8;
+    usartBuffer[4] = abs(dif) - (usartBuffer[5] << 8);
+
+    //speed
+    usartBuffer[7] = abs(speed) >> 8;
+    usartBuffer[6] = abs(speed) - (usartBuffer[7] << 8);
+
+    //dir
+    if(speed > 0) dir = 270;
+    else dir = 90;
+    usartBuffer[9] = dir >> 8;
+    usartBuffer[8] = dir - (usartBuffer[9] << 8);
+
+    for(i = 0; i<= 9; i++)
+    {
+        sumcheck += usartBuffer[i];
+        add_on_check += sumcheck;
+    }
+    sumcheck %= 256;
+    add_on_check %= 256;
+
+    usartBuffer[10] = sumcheck;
+    usartBuffer[11] = add_on_check;
+    sp.write(usartBuffer, 12);
 }

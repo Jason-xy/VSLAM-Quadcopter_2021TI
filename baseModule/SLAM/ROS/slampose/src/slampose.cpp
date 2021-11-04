@@ -11,6 +11,59 @@
 #include <vector>
 using namespace Eigen;  
 // /camera/accel/sample /camera/gyro/sample sensor_msgs/Imu 
+/*
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+geometry_msgs/Quaternion orientation
+  float64 x
+  float64 y
+  float64 z
+  float64 w
+float64[9] orientation_covariance
+geometry_msgs/Vector3 angular_velocity
+  float64 x
+  float64 y
+  float64 z
+float64[9] angular_velocity_covariance
+geometry_msgs/Vector3 linear_acceleration
+  float64 x
+  float64 y
+  float64 z
+float64[9] linear_acceleration_covariance
+*/
+// /camera/odom/sample nav_msgs/Odometry
+/*
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+string child_frame_id
+geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/Pose pose
+    geometry_msgs/Point position
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Quaternion orientation
+      float64 x
+      float64 y
+      float64 z
+      float64 w
+  float64[36] covariance
+geometry_msgs/TwistWithCovariance twist
+  geometry_msgs/Twist twist
+    geometry_msgs/Vector3 linear
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Vector3 angular
+      float64 x
+      float64 y
+      float64 z
+  float64[36] covariance
+*/
 
 typedef signed char             int8_t;
 typedef short int               int16_t;
@@ -21,8 +74,8 @@ typedef unsigned short int      uint16_t;
 typedef unsigned int            uint32_t;
 
 #define RAD_TO_ANGLE 57.2957795f
-//创建一个serial类
-serial::Serial sp;
+// //创建一个serial类
+// serial::Serial sp;
 Eigen::Quaterniond q;
 double pitch, roll, yaw;
 double now_time, pre_time, dif_time;
@@ -85,8 +138,6 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     v_zcmsE = (1 - a) * (dif_pzcm / dif_time) + a * v_zcmsE;
 
     //坐标变换地理坐标系到机体坐标系
-    //计算到机体坐标系的旋转矩阵
-    //Eigen::Matrix3d R = q.normalized().toRotationMatrix();
     yaw = yaw / RAD_TO_ANGLE;
     v_xcms = v_xcmsE * cos(yaw) + v_ycmsE * sin(yaw);
     v_ycms = -v_xcmsE * sin(yaw) + v_ycmsE * cos(yaw);
@@ -100,64 +151,63 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     if(v_ycms < -100) v_ycms = -100;
     if(v_zcms < -100) v_zcms = -100;
     ROS_INFO("SLAM Velocity: \nx:%0.6f\ny:%0.6f\nz:%0.6f\n", v_xcms, v_ycms, v_zcms);
-    
-    //发送串口
-    short x_position_cm = (short)(now_pxcm);
-    short y_position_cm = (short)(now_pycm);
-    short z_position_cm = (short)(now_pzcm);
-    short x_velocity_cms = (short)(v_xcms);
-    short y_velocity_cms = (short)(v_ycms);
-    short z_velocity_cms = (short)(v_zcms);
 
-    uint8_t i = 0;
-    uint8_t sumcheck = 0, add_on_check =0;
-    uint8_t usartBuffer[100] = {0};
-    
-    usartBuffer[0] = 0xAA;
-    usartBuffer[1] = 0x62;
-    usartBuffer[2] = 0x91;
-    usartBuffer[3] = 0x0C;
-    //x_position_cm
-    usartBuffer[5] = x_position_cm >> 8;
-    usartBuffer[4] = x_position_cm - (usartBuffer[5] << 8);
-    //y_position_cm
-    usartBuffer[7] = y_position_cm >> 8;
-    usartBuffer[6] = y_position_cm - (usartBuffer[7] << 8);
-    //z_position_cm
-    usartBuffer[9] = z_position_cm >> 8;
-    usartBuffer[8] = z_position_cm - (usartBuffer[9] << 8);
-    //x_velocity_cms
-    usartBuffer[11] = x_velocity_cms >> 8;
-    usartBuffer[10] = x_velocity_cms - (usartBuffer[11] << 8);
-    //y_velocity_cms
-    usartBuffer[13] = y_velocity_cms >> 8;
-    usartBuffer[12] = y_velocity_cms - (usartBuffer[13] << 8);
-    //z_velocity_cms
-    usartBuffer[15] = z_velocity_cms >> 8;
-    usartBuffer[14] = z_velocity_cms - (usartBuffer[15] << 8);
-
-    for(i = 0; i<= 15; i++)
-    {
-        sumcheck += usartBuffer[i];
-        add_on_check += sumcheck;
-    }
-    sumcheck %= 256;
-    add_on_check %= 256;
-
-    usartBuffer[16] = sumcheck;
-    usartBuffer[17] = add_on_check;
-    
-    //发送数据
+    //发布数据
     t265_msg.linear.x = v_xcms;
     t265_msg.linear.y = v_ycms;
     t265_msg.linear.z = v_zcms;
     t265_msg.angular.x = now_pxcm;
     t265_msg.angular.y = now_pycm;
     t265_msg.angular.z = now_pzcm;
-
     pub_t265.publish(t265_msg);
+    
+    // //发送串口
+    // short x_position_cm = (short)(now_pxcm);
+    // short y_position_cm = (short)(now_pycm);
+    // short z_position_cm = (short)(now_pzcm);
+    // short x_velocity_cms = (short)(v_xcms);
+    // short y_velocity_cms = (short)(v_ycms);
+    // short z_velocity_cms = (short)(v_zcms);
 
-    sp.write(usartBuffer, 18);
+    // uint8_t i = 0;
+    // uint8_t sumcheck = 0, add_on_check =0;
+    // uint8_t usartBuffer[100] = {0};
+    
+    // usartBuffer[0] = 0xAA;
+    // usartBuffer[1] = 0x62;
+    // usartBuffer[2] = 0x91;
+    // usartBuffer[3] = 0x0C;
+    // //x_position_cm
+    // usartBuffer[5] = x_position_cm >> 8;
+    // usartBuffer[4] = x_position_cm - (usartBuffer[5] << 8);
+    // //y_position_cm
+    // usartBuffer[7] = y_position_cm >> 8;
+    // usartBuffer[6] = y_position_cm - (usartBuffer[7] << 8);
+    // //z_position_cm
+    // usartBuffer[9] = z_position_cm >> 8;
+    // usartBuffer[8] = z_position_cm - (usartBuffer[9] << 8);
+    // //x_velocity_cms
+    // usartBuffer[11] = x_velocity_cms >> 8;
+    // usartBuffer[10] = x_velocity_cms - (usartBuffer[11] << 8);
+    // //y_velocity_cms
+    // usartBuffer[13] = y_velocity_cms >> 8;
+    // usartBuffer[12] = y_velocity_cms - (usartBuffer[13] << 8);
+    // //z_velocity_cms
+    // usartBuffer[15] = z_velocity_cms >> 8;
+    // usartBuffer[14] = z_velocity_cms - (usartBuffer[15] << 8);
+
+    // for(i = 0; i<= 15; i++)
+    // {
+    //     sumcheck += usartBuffer[i];
+    //     add_on_check += sumcheck;
+    // }
+    // sumcheck %= 256;
+    // add_on_check %= 256;
+
+    // usartBuffer[16] = sumcheck;
+    // usartBuffer[17] = add_on_check;
+
+    // sp.write(usartBuffer, 18);
 }
  
 int main(int argc, char **argv)
@@ -167,46 +217,43 @@ int main(int argc, char **argv)
      // 创建节点句柄
     ros::NodeHandle n;
 
-    //创建timeout
-    serial::Timeout time_out = serial::Timeout::simpleTimeout(100);
-    //设置要打开的串口名称
-    sp.setPort("/dev/ttyTHS1");
-    //设置串口通信的波特率
-    sp.setBaudrate(115200);
-    //串口设置timeout
-    sp.setTimeout(time_out);
+    // //创建timeout
+    // serial::Timeout time_out = serial::Timeout::simpleTimeout(100);
+    // //设置要打开的串口名称
+    // sp.setPort("/dev/ttyTHS1");
+    // //设置串口通信的波特率
+    // sp.setBaudrate(115200);
+    // //串口设置timeout
+    // sp.setTimeout(time_out);
 
-    try
-    {   //打开串口
-        sp.open();
-    }
-    catch(serial::IOException& e)
-    {
-        ROS_ERROR_STREAM("Unable to open port.");
-        return -1;
-    }
+    // try
+    // {   //打开串口
+    //     sp.open();
+    // }
+    // catch(serial::IOException& e)
+    // {
+    //     ROS_ERROR_STREAM("Unable to open port.");
+    //     return -1;
+    // }
     
-    //判断串口是否打开成功
-    if(sp.isOpen())
-    {
-        ROS_INFO_STREAM("/dev/ttyTHS1 is opened.");
-    }
-    else
-    {
-        return -1;
-    }
+    // //判断串口是否打开成功
+    // if(sp.isOpen())
+    // {
+    //     ROS_INFO_STREAM("/dev/ttyTHS1 is opened.");
+    // }
+    // else
+    // {
+    //     return -1;
+    // }
 
     // 创建一个Subscriber，订阅名为/camera/odom/sample的topic，注册回调函数poseCallback
     ros::Subscriber pose_sub = n.subscribe("/camera/odom/sample", 1000, poseCallback);
-    ROS_INFO_STREAM("Subscrib /camera/odom/sample");
+    printf("Subscrib /camera/odom/sample\n");
 
     //创建一个publisher，创建/t265_pose的topic
     ros::NodeHandle m;
     pub_t265 = m.advertise<geometry_msgs::Twist>("/t265_pose", 1000);
-    ROS_INFO_STREAM("Publish /t265_pose");
-
-    // 设置执行频率
-    ros::Rate loop_rate(50);
+    printf("Publish /t265_pose\n");
 
     // 循环等待回调函数
     ros::spin();
