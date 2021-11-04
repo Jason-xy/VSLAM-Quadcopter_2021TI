@@ -88,15 +88,16 @@ geometry_msgs::Twist t265_msg;
 ros::Publisher pub_t265;
 //数据滤波
 #define a  0.7 //低通滤波系数
+#define SCALE 0.9
 
 // 接收到订阅的消息后，会进入消息回调函数
 //坐标信息回调函数
 void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
 {
     //计算坐标
-    now_pxcm = msg->pose.pose.position.x * 100;
-    now_pycm = msg->pose.pose.position.y * 100;
-    now_pzcm = msg->pose.pose.position.z * 100;
+    now_pxcm = msg->pose.pose.position.x * 100 * SCALE;
+    now_pycm = msg->pose.pose.position.y * 100 * SCALE;
+    now_pzcm = msg->pose.pose.position.z * 100 * SCALE;
     //获取四元数
     q.w() = msg->pose.pose.orientation.w;
     q.x() = msg->pose.pose.orientation.x;
