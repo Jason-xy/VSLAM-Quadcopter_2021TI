@@ -89,14 +89,13 @@ ros::Publisher pub_t265;
 //数据滤波
 #define a  0.7 //低通滤波系数
 #define SCALE 0.9
-
 // 接收到订阅的消息后，会进入消息回调函数
 //坐标信息回调函数
 void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
 {
     //计算坐标
-    now_pxcm = msg->pose.pose.position.x * 100 * SCALE;
-    now_pycm = msg->pose.pose.position.y * 100 * SCALE;
+    now_pxcm = msg->pose.pose.position.x * 100 * 0.87;
+    now_pycm = msg->pose.pose.position.y * 100 * 0.89;
     now_pzcm = msg->pose.pose.position.z * 100 * SCALE;
     //获取四元数
     q.w() = msg->pose.pose.orientation.w;
@@ -256,6 +255,8 @@ int main(int argc, char **argv)
     pub_t265 = m.advertise<geometry_msgs::Twist>("/t265_pose", 1000);
     printf("Publish /t265_pose\n");
 
+    // 设置执行频率
+    ros::Rate loop_rate(50);
     // 循环等待回调函数
     ros::spin();
     return 0;
