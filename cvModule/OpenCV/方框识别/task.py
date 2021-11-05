@@ -17,9 +17,9 @@ import time
 # 初始化函数
 def Init():
     # cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture('./1.mp4')
-    cap.set(3,320)  # 设置摄像头输出宽
-    cap.set(4,240)  # 设置摄像头输出高
+    cap = cv2.VideoCapture('./2.mp4')
+    cap.set(3,720)  # 设置摄像头输出宽
+    cap.set(4,720)  # 设置摄像头输出高
     # 设置摄像头分辨率
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 240)
@@ -38,22 +38,23 @@ while cap.isOpened():
     hsv_frame_after = cv2.GaussianBlur(hsv_frame,(19,19),0) # 高斯滤波进行平滑处理
  
     # 依据之前的脚本获取的阈值设置最高值与最低值
-    lower = np.array([76, 19, 56])
-    upper = np.array([124, 73, 125])
+    lower = np.array([0, 0, 134])
+    upper = np.array([82, 88, 225])
  
     mask = cv2.inRange(hsv_frame_after, lower, upper)  # 构建掩膜
     # thresh = cv2.threshold(hsv_frame_after, 60, 255, cv2.THRESH_BINARY)[1]  # 进行闸值化
     conts, hier = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)  # 找出边界
     cv2.drawContours(frame, conts, -1, (0, 255, 0), 3)  # 画出边框
     # 计算出中心坐标并输出
-    cnts = conts[0]
-    M = cv2.moments(cnts)
-    cX = int(M["m10"] / (M["m00"] + 0.0001))
-    cY = int(M["m01"] / (M["m00"] + 0.0001))
-    if cX != 0 and cY != 0:
-        print('中心坐标',cX,cY)
-    if cX == 0 or cY == 0:
-        print('识别有误！')
+    if conts:
+        cnts = conts[0]
+        M = cv2.moments(cnts)
+        cX = int(M["m10"] / (M["m00"] + 0.0001))
+        cY = int(M["m01"] / (M["m00"] + 0.0001))
+        if cX != 0 and cY != 0:
+            print('中心坐标',cX,cY)
+        if cX == 0 or cY == 0:
+            print('识别有误！')
  
     dst = cv2.bitwise_and(frame, frame, mask=mask)  # 对每一帧进行位与操作，滤去除要目标物体之外的图像
  

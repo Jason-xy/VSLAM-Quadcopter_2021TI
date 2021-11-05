@@ -233,7 +233,15 @@ void MoveControl_Output(void)
 				}
 			}
 			break;
-			case 6: //user instructions
+			case 6:
+			{
+				 //heigt control
+				if(t265_z_position != 256)
+					heightcontrol(80, t265_z_position);
+				t265_z_position = 256;
+			}
+			break;
+			case 7: //user instructions
 			{
 				if (!UNLOCK_STATE)//暂时停用
 				//if(1)
@@ -410,6 +418,70 @@ uint8_t SixAxis_Calibration(void)
 		dt.cmd_send.CID = 0x01;
 		dt.cmd_send.CMD[0] = 0x00;
 		dt.cmd_send.CMD[1] = 0x05;
+		CMD_Send(0xff, &dt.cmd_send);
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+void heightcontrol(int dst, int pos)
+{
+	const int P = 1;
+	static int speed;
+	speed = P * (dst - pos);
+	if(speed < 0)
+	{
+		if(speed < -5) speed = -5;
+		Height_Move_Down(dst, -speed);
+	}
+	else
+	{
+		if(speed > 5) speed = 5;
+		Height_Move_Down(dst, speed);
+	}
+}
+
+//高度调整
+u8 Height_Move_Up(u16 distance_cm, u16 velocity_cmps)
+{
+	//
+	if (dt.wait_ck == 0)
+	{
+		dt.cmd_send.CID = 0X10;
+		dt.cmd_send.CMD[0] = 0X02;
+		dt.cmd_send.CMD[1] = 0X01;
+		//
+		dt.cmd_send.CMD[2] = BYTE0(distance_cm);
+		dt.cmd_send.CMD[3] = BYTE1(distance_cm);
+		dt.cmd_send.CMD[4] = BYTE0(velocity_cmps);
+		dt.cmd_send.CMD[5] = BYTE1(velocity_cmps);
+		//
+		CMD_Send(0xff, &dt.cmd_send);
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
+{
+	//
+	if (dt.wait_ck == 0)
+	{
+		dt.cmd_send.CID = 0X10;
+		dt.cmd_send.CMD[0] = 0X02;
+		dt.cmd_send.CMD[1] = 0X02;
+		//
+		dt.cmd_send.CMD[2] = BYTE0(distance_cm);
+		dt.cmd_send.CMD[3] = BYTE1(distance_cm);
+		dt.cmd_send.CMD[4] = BYTE0(velocity_cmps);
+		dt.cmd_send.CMD[5] = BYTE1(velocity_cmps);
+		//
 		CMD_Send(0xff, &dt.cmd_send);
 		return 1;
 	}

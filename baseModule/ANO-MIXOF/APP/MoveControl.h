@@ -27,4 +27,9 @@ uint8_t SixAxis_Calibration(void);
 #define WINDOW_SIZE 3
 int16_t window_avg(int16_t* arr, uint8_t len);
 
+//height control
+void heightcontrol(int dst, int pos);
+u8 Height_Move_Up(u16 distance_cm, u16 velocity_cmps);
+u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps);
+
 #endif //__MOVECONTROL_H__

@@ -138,7 +138,7 @@ def laser_detect(img):
  
  
 # cap = cv2.VideoCapture('../video/laser_2.mp4')
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 # 设置分辨率
 cap.set(3, 640)
 cap.set(4, 240)

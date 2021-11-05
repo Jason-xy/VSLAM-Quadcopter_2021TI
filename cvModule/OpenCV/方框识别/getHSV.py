@@ -7,7 +7,7 @@ import numpy as np
 # cap = cv2.VideoCapture(0)  # 获取摄像头图像
 # cap = cv2.VideoCapture('../video/test_rectangle_1.mp4')
  
-img = cv2.imread("./getHSV.png")
+img = cv2.imread("./1.jpg")
 img = cv2.resize(img,(960,600))
 hsv_frame = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
  
