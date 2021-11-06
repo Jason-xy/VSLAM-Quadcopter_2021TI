@@ -8,6 +8,7 @@ project(slampose)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  dynamic_reconfigure
   geometry_msgs
   # orb_slam2_ros
   serial
@@ -91,10 +92,9 @@ find_package(catkin REQUIRED COMPONENTS
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
-#   cfg/DynReconf2.cfg
-# )
+generate_dynamic_reconfigure_options(
+  cfg/slampose.cfg
+)
 
 ###################################
 ## catkin specific configuration ##
@@ -110,6 +110,8 @@ catkin_package(
 #  LIBRARIES slampose
 #  CATKIN_DEPENDS geometry_msgs orb_slam2_rgbd roscpp rospy std_msgs
 #  DEPENDS system_lib
+  LIBRARIES slampose
+  CATKIN_DEPENDS dynamic_reconfigure geometry_msgs roscpp rospy std_msgs
 )
 
 ###########

@@ -9,6 +9,8 @@
 #include <Eigen/Geometry>  
 #include <Eigen/Core>  
 #include <vector>
+#include <dynamic_reconfigure/server.h>
+#include "slampose/slamposeConfig.h"
 using namespace Eigen;  
 // /camera/accel/sample /camera/gyro/sample sensor_msgs/Imu 
 /*
@@ -88,16 +90,30 @@ geometry_msgs::Twist t265_msg;
 ros::Publisher pub_t265;
 //数据滤波
 #define a  0.7 //低通滤波系数
-#define SCALE 0.9
+double scale_x = 1;
+double scale_y = 1;
+double scale_z = 1;
+
+//动态参数调节
+void callback(slampose::slamposeConfig &config)
+{
+  ROS_INFO("Reconfigure Request: %lf %lf %lf",
+           config.scale_x,
+           config.scale_y,
+           config.scale_z);
+  scale_x = config.scale_x;
+  scale_y = config.scale_y;
+  scale_z = config.scale_z;
+}
 
 // 接收到订阅的消息后，会进入消息回调函数
 //坐标信息回调函数
 void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
 {
     //计算坐标
-    now_pxcm = msg->pose.pose.position.x * 100 * SCALE;
-    now_pycm = msg->pose.pose.position.y * 100 * SCALE;
-    now_pzcm = msg->pose.pose.position.z * 100 * SCALE;
+    now_pxcm = msg->pose.pose.position.x * 100 * scale_x;
+    now_pycm = msg->pose.pose.position.y * 100 * scale_y;
+    now_pzcm = msg->pose.pose.position.z * 100 * scale_z;
     //获取四元数
     q.w() = msg->pose.pose.orientation.w;
     q.x() = msg->pose.pose.orientation.x;
@@ -217,6 +233,10 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "slam_pose_transfer");
      // 创建节点句柄
     ros::NodeHandle n;
+    dynamic_reconfigure::Server<slampose::slamposeConfig> server;
+    dynamic_reconfigure::Server<slampose::slamposeConfig>::CallbackType f;
+    f = boost::bind(&callback, _1); //绑定回调函数
+    server.setCallback(f); //为服务器设置回调函数， 节点程序运行时会调用一次回调函数来输出当前的参数配置情况
 
     // //创建timeout
     // serial::Timeout time_out = serial::Timeout::simpleTimeout(100);
@@ -256,6 +276,8 @@ int main(int argc, char **argv)
     pub_t265 = m.advertise<geometry_msgs::Twist>("/t265_pose", 1000);
     printf("Publish /t265_pose\n");
 
+    // 设置执行频率
+    ros::Rate loop_rate(50);
     // 循环等待回调函数
     ros::spin();
     return 0;
