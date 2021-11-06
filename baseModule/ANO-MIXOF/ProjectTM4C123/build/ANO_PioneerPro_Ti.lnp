@@ -1,4 +1,4 @@
---cpu=Cortex-M4.fp
+--cpu=Cortex-M4.fp.sp
 ".\build\main.o"
 ".\build\ano_scheduler.o"
 ".\build\user_task.o"

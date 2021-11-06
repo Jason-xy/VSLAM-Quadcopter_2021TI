@@ -218,6 +218,7 @@ void MoveControl_Output(void)
 			{
 				//takeoff
 				//mission_step += OneKey_Takeoff(30);
+				mission_step++;
 			}
 			break;
 			case 5:
@@ -237,8 +238,12 @@ void MoveControl_Output(void)
 			{
 				 //heigt control
 				if(t265_z_position != 256)
-					heightcontrol(80, t265_z_position);
+					heightcontrol(150, t265_z_position);
 				t265_z_position = 256;
+				//move control
+				if(velocity_cmps != 25)
+					Horizontal_Move(distance_cm, velocity_cmps, dir_angle_0_360);
+				velocity_cmps = 25;
 			}
 			break;
 			case 7: //user instructions
@@ -434,13 +439,13 @@ void heightcontrol(int dst, int pos)
 	speed = P * (dst - pos);
 	if(speed < 0)
 	{
-		if(speed < -5) speed = -5;
-		Height_Move_Down(dst, -speed);
+		if(speed < 5) speed = 5;
+		Height_Move_Down(2 * speed, speed);
 	}
 	else
 	{
 		if(speed > 5) speed = 5;
-		Height_Move_Down(dst, speed);
+		Height_Move_Up(2 * speed, speed);
 	}
 }
 
