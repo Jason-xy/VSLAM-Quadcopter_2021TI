@@ -48,12 +48,17 @@ static void Loop_50Hz(void) //20ms执行一次
 //	uint8_t dataToSend[] = {0xaa, 0xff, 0x35, 0x0c, 0x02, 0x00, 0x00, 0x00, 0x05, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0xef, 0x2d};
 //	UartSendLXIMU(dataToSend, 18);
 	//////////////////////////////////////////////////////////////////////
+	MoveControl_Output();
 }
 
 static void Loop_20Hz(void) //50ms执行一次
 {
 	//////////////////////////////////////////////////////////////////////
-	MoveControl_Output();
+	//heigt control
+//	if(t265_z_position != 256)
+//			heightcontrol(150, t265_z_position);
+//	t265_z_position = 256;
+	
 	//////////////////////////////////////////////////////////////////////
 }
 

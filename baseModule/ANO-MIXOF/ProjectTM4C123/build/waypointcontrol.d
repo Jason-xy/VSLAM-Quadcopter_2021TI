@@ -26,3 +26,5 @@
 .\build\waypointcontrol.o: ..\FcSrc\ANO_DT_LX.h
 .\build\waypointcontrol.o: ..\FcSrc\LX_FC_State.h
 .\build\waypointcontrol.o: ..\DriversBsp\Ano_math.h
+.\build\waypointcontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\build\waypointcontrol.o: ..\FcSrc\LX_FC_EXT_Sensor.h

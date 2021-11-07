@@ -118,8 +118,8 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 	else if(func_code_u2 == 0x91)
 	{
 		//V-SLAM
-		t265_x_position = (*(data + 5) << 8) | (*(data + 4));
-		t265_y_position = (*(data + 7) << 8) | (*(data + 6));
+		t265_x_position = (*(data + 5) << 8) | (*(data + 4)) + 10;
+		t265_y_position = (*(data + 7) << 8) | (*(data + 6)) - 15;
 		t265_z_position = (*(data + 9) << 8) | (*(data + 8));
 		
 		//window_smooth
@@ -236,45 +236,223 @@ void MoveControl_Output(void)
 			break;
 			case 6:
 			{
-				 //heigt control
-				if(t265_z_position != 256)
-					heightcontrol(150, t265_z_position);
-				t265_z_position = 256;
 				//move control
-				if(velocity_cmps != 25)
-					Horizontal_Move(distance_cm, velocity_cmps, dir_angle_0_360);
-				velocity_cmps = 25;
+				mission_step += fly2height(150);
 			}
 			break;
-			case 7: //user instructions
+			case 7:
+			{
+				//move to A
+				mission_step += fly2field(50, 200, 150);
+			}
+			break;
+			case 8:
+			{
+				//move to 28
+				mission_step += fly2field(50, 250, 150);
+			}
+			break;
+			case 9:
+			{
+				//move to 27
+				mission_step += fly2field(100, 250, 150);
+			}
+			break;
+			case 10:
+			{
+				//move to 26
+				mission_step += fly2field(150, 250, 150);
+			}
+			break;
+			case 11:
+			{
+				//move to 25
+				mission_step += fly2field(200, 250, 150);
+			}
+			break;
+			case 12:
+			{
+				//move to 24
+				mission_step += fly2field(250, 250, 150);
+			}
+			break;
+			case 13:
+			{
+				//move to 23
+				mission_step += fly2field(300, 260, 150);
+			}
+			break;
+			case 14:
+			{
+				//move to 22
+				mission_step += fly2field(340, 240, 150);
+			}
+			break;
+			case 15:
+			{
+				//move to 15
+				mission_step += fly2field(360, 200, 150);
+			}
+			break;
+			case 16:
+			{
+				//move to 11
+				mission_step += fly2field(350, 150, 150);
+			}
+			break;
+			case 17:
+			{
+				//move to B1
+				mission_step += fly2field(350, 100, 150);
+			}
+			break;
+			case 18:
+			{
+				//move to 5
+				mission_step += fly2field(350, 50, 150);
+			}
+			break;
+			case 19:
+			{
+				//move to 1
+				mission_step += fly2field(350, 0, 150);
+			}
+			break;
+			case 20:
+			{
+				//move to 2
+				mission_step += fly2field(300, 0, 150);
+			}
+			break;
+			case 21:
+			{
+				//move to 6
+				mission_step += fly2field(300, 50, 150);
+			}
+			break;
+			case 22:
+			{
+				//move to B2
+				mission_step += fly2field(300, 100, 150);
+			}
+			break;
+			case 23:
+			{
+				//move to 12
+				mission_step += fly2field(300, 150, 150);
+			}
+			break;
+			case 24:
+			{
+				//move to 16
+				mission_step += fly2field(300, 200, 150);
+			}
+			break;
+			case 25:
+			{
+				//move to 17
+				mission_step += fly2field(250, 200, 150);
+			}
+			break;
+			case 26:
+			{
+				//move to 13
+				mission_step += fly2field(250, 150, 150);
+			}
+			break;
+			case 27:
+			{
+				//move to 9
+				mission_step += fly2field(250, 100, 150);
+			}
+			break;
+			case 28:
+			{
+				//move to 7
+				mission_step += fly2field(250, 50, 150);
+			}
+			break;
+			case 29:
+			{
+				//move to 3
+				mission_step += fly2field(250, 0, 150);
+			}
+			break;
+			case 30:
+			{
+				//move to 4
+				mission_step += fly2field(200, 0, 150);
+			}
+			break;
+			case 31:
+			{
+				//move to 8
+				mission_step += fly2field(200, 50, 150);
+			}
+			break;
+			case 32:
+			{
+				//move to 10
+				mission_step += fly2field(200, 100, 150);
+			}
+			break;
+			case 33:
+			{
+				//move to 14
+				mission_step += fly2field(200, 150, 150);
+			}
+			break;
+			case 34:
+			{
+				//move to 18
+				mission_step += fly2field(200, 200, 150);
+			}
+			break;
+			case 35:
+			{
+				//move to 19
+				mission_step += fly2field(150, 200, 150);
+			}
+			break;
+			case 36:
+			{
+				//move to 20
+				mission_step += fly2field(100, 200, 150);
+			}
+			break;
+			case 37:
+			{
+				//move to 21
+				mission_step += fly2field(50, 200, 150);
+			}
+			break;
+			case 38:
+			{
+				//move to 0,0
+				mission_step += fly2field(0, 0, 150);
+			}
+			break;
+			case 39:
+			{
+				mission_step += fly2height(30);
+			}
+			break;
+			case 40:
+			{
+				//move to 0,0
+				mission_step += fly2field(0, 0, 150);
+			}
+			break;
+			case 41:
+			{
+				OneKey_Land();
+			}
+			break;
+			case 50: //user instructions
 			{
 				if (!UNLOCK_STATE)//暂时停用
-				//if(1)
 				{
-					if (func_code_u2 == 0x80) //fly control
-					{
-
-						time_dly_cnt_ms = 0;
-						if (control_stat == 1)
-						{
-							Horizontal_Move(distance_cm, velocity_cmps, dir_angle_0_360);
-							control_stat = 0;
-						}
-						else
-						{
-							control_stat = 1;
-							MoveControl_Spin(spin_angle_0_360, spin_speed_dps);
-						}
-					}
-					else if (func_code_u2 == 0x81) //land
-					{
-						time_dly_cnt_ms += 50;
-						if (time_dly_cnt_ms >= 3000)
-						{
-							OneKey_Land();
-							mission_step = 2;
-						}
-					}
+	
 				}
 			}
 		}
@@ -432,6 +610,7 @@ uint8_t SixAxis_Calibration(void)
 	}
 }
 
+//高度控制
 void heightcontrol(int dst, int pos)
 {
 	const int P = 1;
@@ -492,6 +671,63 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 	}
 	else
 	{
+		return 0;
+	}
+}
+
+//Position control
+const double P = 0.15, I = 0.01, D = 0;
+void PositionControl(int dif_x, int dif_y)
+{
+	const int maxSpeed = 15;
+  static int speed, dir, dif;
+  dif = sqrt(dif_x * dif_x + dif_y * dif_y);
+  speed = P * dif - D * t265_x_velocity_cmps;
+  if(dif_y > 0 && dif_x > 0)
+      dir = 360 - atan((float)dif_y / (float)dif_x) * 57.3;
+  else if(dif_y > 0 && dif_x < 0)
+      dir = 180 - atan((float)dif_y / (float)dif_x) * 57.3;
+  else if(dif_y < 0 && dif_x > 0)
+      dir = -atan((float)dif_y / (float)dif_x) * 57.3;
+  else if(dif_y < 0 && dif_x < 0)
+      dir = 180 - atan((float)dif_y / (float)dif_x) * 57.3;
+  if(speed > maxSpeed) speed = maxSpeed;
+	
+	Horizontal_Move(dif, speed, dir);
+}
+
+int time_task = 0;
+int fly2field(int x, int y, int z)
+{	
+	PositionControl(x - t265_x_position, y - t265_y_position);
+	if(x - t265_x_position < 25 && x - t265_x_position > -25 && y - t265_y_position < 25 && y - t265_y_position > -25)
+	{
+		PositionControl(0, 0);
+		if(time_task > 0)
+			return 1;
+		time_task++;
+		return 0;
+	}
+	else
+	{
+		time_task = 0;
+		return 0;
+	}
+}
+
+int fly2height(int z)
+{
+	if(z - t265_z_position > 10 || z - t265_z_position < -10)
+	{
+		time_task = 0;
+		heightcontrol(z, t265_z_position);
+		return 0;
+	}
+	else
+	{
+		if(time_task > 2)
+			return 1;
+		time_task++;
 		return 0;
 	}
 }

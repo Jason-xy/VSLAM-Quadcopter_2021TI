@@ -28,3 +28,4 @@
 .\build\lx_fc_ext_sensor.o: ..\FcSrc\ANO_DT_LX.h
 .\build\lx_fc_ext_sensor.o: ..\FcSrc\LX_FC_State.h
 .\build\lx_fc_ext_sensor.o: ..\DriversBsp\Ano_math.h
+.\build\lx_fc_ext_sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h

@@ -33,3 +33,5 @@
 .\build\drv_uart.o: ..\FcSrc\LX_FC_Fun.h
 .\build\drv_uart.o: ..\FcSrc\LX_FC_State.h
 .\build\drv_uart.o: ..\DriversBsp\Ano_math.h
+.\build\drv_uart.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\build\drv_uart.o: ..\FcSrc\LX_FC_EXT_Sensor.h

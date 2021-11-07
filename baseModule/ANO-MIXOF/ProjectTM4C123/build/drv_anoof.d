@@ -27,3 +27,5 @@
 .\build\drv_anoof.o: ..\FcSrc\ANO_DT_LX.h
 .\build\drv_anoof.o: ..\FcSrc\LX_FC_State.h
 .\build\drv_anoof.o: ..\DriversBsp\Ano_math.h
+.\build\drv_anoof.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+.\build\drv_anoof.o: ..\FcSrc\LX_FC_EXT_Sensor.h

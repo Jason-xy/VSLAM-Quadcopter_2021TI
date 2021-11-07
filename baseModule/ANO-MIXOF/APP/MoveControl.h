@@ -5,6 +5,8 @@
 #include "ANO_DT_LX.h"
 #include "LX_FC_State.h"
 #include "Ano_math.h"
+#include "math.h"
+#include "LX_FC_EXT_Sensor.h"
 
 //fly control variable
 extern uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, spin_speed_dps;
@@ -31,5 +33,9 @@ int16_t window_avg(int16_t* arr, uint8_t len);
 void heightcontrol(int dst, int pos);
 u8 Height_Move_Up(u16 distance_cm, u16 velocity_cmps);
 u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps);
+
+//position control
+int fly2field(int x, int y, int z);
+int fly2height(int z);
 
 #endif //__MOVECONTROL_H__
