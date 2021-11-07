@@ -28,3 +28,4 @@
 .\build\waypointcontrol.o: ..\DriversBsp\Ano_math.h
 .\build\waypointcontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\build\waypointcontrol.o: ..\FcSrc\LX_FC_EXT_Sensor.h
+.\build\waypointcontrol.o: ..\DriversBsp\Drv_AnoOf.h

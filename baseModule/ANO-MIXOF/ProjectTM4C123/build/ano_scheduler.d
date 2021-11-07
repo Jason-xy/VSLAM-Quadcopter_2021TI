@@ -28,6 +28,8 @@
 .\build\ano_scheduler.o: ..\DriversBsp\Ano_math.h
 .\build\ano_scheduler.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\build\ano_scheduler.o: ..\FcSrc\LX_FC_EXT_Sensor.h
+.\build\ano_scheduler.o: ..\DriversBsp\Drv_AnoOf.h
 .\build\ano_scheduler.o: ..\APP\WaypointControl.h
 .\build\ano_scheduler.o: ..\APP\WaypointControl.h
+.\build\ano_scheduler.o: ..\APP\MoveControl.h
 .\build\ano_scheduler.o: ..\DriversMcu\TM4C123\Drivers\Drv_Uart.h

@@ -29,3 +29,4 @@
 .\build\main.o: ..\DriversBsp\Ano_math.h
 .\build\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\build\main.o: ..\FcSrc\LX_FC_EXT_Sensor.h
+.\build\main.o: ..\DriversBsp\Drv_AnoOf.h

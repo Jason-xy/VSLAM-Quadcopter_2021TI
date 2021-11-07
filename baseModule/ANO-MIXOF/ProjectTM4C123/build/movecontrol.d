@@ -26,3 +26,7 @@
 .\build\movecontrol.o: ..\DriversBsp\Ano_math.h
 .\build\movecontrol.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\build\movecontrol.o: ..\FcSrc\LX_FC_EXT_Sensor.h
+.\build\movecontrol.o: ..\DriversBsp\Drv_AnoOf.h
+.\build\movecontrol.o: ..\APP\WaypointControl.h
+.\build\movecontrol.o: ..\APP\WaypointControl.h
+.\build\movecontrol.o: ..\APP\MoveControl.h

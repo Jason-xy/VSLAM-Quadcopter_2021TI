@@ -7,7 +7,7 @@
 #include "Ano_math.h"
 #include "math.h"
 #include "LX_FC_EXT_Sensor.h"
-
+#include "Drv_AnoOf.h"
 //fly control variable
 extern uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, spin_speed_dps;
 //V-SLAM

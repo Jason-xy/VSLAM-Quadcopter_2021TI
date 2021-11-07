@@ -243,55 +243,57 @@ void MoveControl_Output(void)
 			case 7:
 			{
 				//move to A
-				mission_step += fly2field(50, 200, 150);
+//				mission_step += fly2field(50, 200, 150);
+				mission_step += 1;
 			}
 			break;
 			case 8:
 			{
 				//move to 28
-				mission_step += fly2field(50, 250, 150);
+				mission_step += fly2field(50, 240, 150);
 			}
 			break;
 			case 9:
 			{
 				//move to 27
-				mission_step += fly2field(100, 250, 150);
+				mission_step += fly2field(100, 240, 150);
 			}
 			break;
 			case 10:
 			{
 				//move to 26
-				mission_step += fly2field(150, 250, 150);
+				mission_step += fly2field(150, 240, 150);
 			}
 			break;
 			case 11:
 			{
 				//move to 25
-				mission_step += fly2field(200, 250, 150);
+				mission_step += fly2field(200, 240, 150);
 			}
 			break;
 			case 12:
 			{
 				//move to 24
-				mission_step += fly2field(250, 250, 150);
+				mission_step += fly2field(250, 240, 150);
 			}
 			break;
 			case 13:
 			{
 				//move to 23
-				mission_step += fly2field(300, 260, 150);
+				mission_step += fly2field(300, 240, 150);
 			}
 			break;
 			case 14:
 			{
 				//move to 22
-				mission_step += fly2field(340, 240, 150);
+//				mission_step += fly2field(350, 250, 150);
+				mission_step += 1;
 			}
 			break;
 			case 15:
 			{
 				//move to 15
-				mission_step += fly2field(360, 200, 150);
+				mission_step += fly2field(350, 200, 150);
 			}
 			break;
 			case 16:
@@ -434,7 +436,7 @@ void MoveControl_Output(void)
 			break;
 			case 39:
 			{
-				mission_step += fly2height(30);
+				mission_step += fly2height(10);
 			}
 			break;
 			case 40:
@@ -613,17 +615,17 @@ uint8_t SixAxis_Calibration(void)
 //高度控制
 void heightcontrol(int dst, int pos)
 {
-	const int P = 1;
+	const double P = 0.2;
 	static int speed;
 	speed = P * (dst - pos);
 	if(speed < 0)
 	{
-		if(speed < 5) speed = 5;
-		Height_Move_Down(2 * speed, speed);
+		if(speed < -10) speed = -10;
+		Height_Move_Down(- 2 * speed, -speed);
 	}
 	else
 	{
-		if(speed > 5) speed = 5;
+		if(speed > 10) speed = 10;
 		Height_Move_Up(2 * speed, speed);
 	}
 }
@@ -676,12 +678,12 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 }
 
 //Position control
-const double P = 0.15, I = 0.01, D = 0;
+const double P = 0.2, I = 0.01, D = 0;
 void PositionControl(int dif_x, int dif_y)
 {
-	const int maxSpeed = 15;
+	const int maxSpeed = 15 ;
   static int speed, dir, dif;
-  dif = sqrt(dif_x * dif_x + dif_y * dif_y);
+  dif = sqrt(dif_x * dif_x + dif_y * dif_y) / 2.0f;
   speed = P * dif - D * t265_x_velocity_cmps;
   if(dif_y > 0 && dif_x > 0)
       dir = 360 - atan((float)dif_y / (float)dif_x) * 57.3;
@@ -700,10 +702,9 @@ int time_task = 0;
 int fly2field(int x, int y, int z)
 {	
 	PositionControl(x - t265_x_position, y - t265_y_position);
-	if(x - t265_x_position < 25 && x - t265_x_position > -25 && y - t265_y_position < 25 && y - t265_y_position > -25)
+	if(x - t265_x_position < 30 && x - t265_x_position > -30 && y - t265_y_position < 30 && y - t265_y_position > -30)
 	{
-		PositionControl(0, 0);
-		if(time_task > 0)
+		if(time_task >= 0)
 			return 1;
 		time_task++;
 		return 0;
@@ -717,10 +718,10 @@ int fly2field(int x, int y, int z)
 
 int fly2height(int z)
 {
-	if(z - t265_z_position > 10 || z - t265_z_position < -10)
+	if(z - ano_of.of_alt_cm > 10 || z - ano_of.of_alt_cm < -10)
 	{
 		time_task = 0;
-		heightcontrol(z, t265_z_position);
+		heightcontrol(z, ano_of.of_alt_cm);
 		return 0;
 	}
 	else

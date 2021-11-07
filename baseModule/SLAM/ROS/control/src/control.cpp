@@ -23,8 +23,6 @@ void poseCallback(const geometry_msgs::Twist::ConstPtr& msg);
 void cvTaskCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
 // 位置环PID控制
-void pidControl_x(int dif);
-void pidControl_y(int dif);
 void pidControl_xy(int dif_x, int dif_y);
 
 //功能控制
@@ -33,11 +31,9 @@ void funcCallback(const std_msgs::Int8::ConstPtr& msg);
 //创建一个serial类
 serial::Serial sp;
 uint8_t t265_usartBuffer[100] = {0};
-uint8_t x_usartBuffer[100] = {0};
-uint8_t y_usartBuffer[100] = {0};
 uint8_t xy_usartBuffer[100] = {0};
 uint8_t func_usartBuffer[100] = {0};
-uint8_t t265_usart_state = 0, x_usart_state = 0, y_usart_state = 0, xy_usart_state = 0, func_usart_state = 0;
+uint8_t t265_usart_state = 0, xy_usart_state = 0, func_usart_state = 0;
 
 int main(int argc, char **argv)
 {
@@ -89,37 +85,9 @@ int main(int argc, char **argv)
 
     // 设置执行频率
     ros::Rate loop_rate(50);
-    while(1)
-    {
-        if(t265_usart_state == 1)
-        {
-            sp.write(t265_usartBuffer, 18);
-            t265_usart_state = 0;
-        }
-        if(x_usart_state == 1)
-        {
-            sp.write(x_usartBuffer, 12);
-            x_usart_state = 0;
-        }
-        if(y_usart_state == 1)
-        {
-            sp.write(y_usartBuffer, 12);
-            y_usart_state = 0;
-        }
-        if(xy_usart_state == 1)
-        {
-            sp.write(xy_usartBuffer, 12);
-            xy_usart_state = 0;
-        }
-        if(func_usart_state == 1)
-        {
-            sp.write(func_usartBuffer, 7);
-            func_usart_state = 0;
-        }  
-        loop_rate.sleep();
-        // 循环等待回调函数
-        ros::spinOnce();
-    }
+    loop_rate.sleep();
+    // 循环等待回调函数
+    ros::spin();
 
     return 0;
 }
@@ -131,8 +99,8 @@ void poseCallback(const geometry_msgs::Twist::ConstPtr& msg)
     t265_vxcms = msg->linear.x;
     t265_vycms = msg->linear.y;
     t265_vzcms = msg->linear.z;
-    t265_pxcm = msg->angular.x - 15;
-    t265_pycm = msg->angular.y - 8;
+    t265_pxcm = msg->angular.x;
+    t265_pycm = msg->angular.y;
     t265_pzcm = msg->angular.z;
 
     if(t265_usart_state == 0){
@@ -180,7 +148,8 @@ void poseCallback(const geometry_msgs::Twist::ConstPtr& msg)
 
         t265_usartBuffer[16] = sumcheck;
         t265_usartBuffer[17] = add_on_check;
-        t265_usart_state = 1;
+
+        sp.write(t265_usartBuffer, 18);
     }
 }
 
@@ -189,156 +158,59 @@ void cvTaskCallback(const geometry_msgs::Twist::ConstPtr& msg)
 {
     const int pidThreshold = 5;
     static int state, dif_x, dif_y;
-    if (msg->linear.x == 0 && msg->linear.y == 0 && msg->linear.z == 0)
-    {
-        dif_x = msg->angular.x;
-        dif_y = msg->angular.y;
-        ROS_INFO("[dif_x]: %d\t [dif_y]: %d");
-        if(abs(dif_x) > pidThreshold && state == 0)
-        {
-            pidControl_x(dif_x);
-        }
-        else
-        {
-            pidControl_x(0);
-            state = 1;
-        }
-        if(abs(dif_y) > pidThreshold && state == 1)
-        {
-            pidControl_y(dif_y);
-        }
-        else
-        {
-            pidControl_y(0);
-            state = 0;
-        }
-    }
-    else
-    {
-        cv_pxcm = msg->linear.x;
-        cv_pycm = msg->linear.y;
-        cv_pzcm = msg->linear.z;
-        ROS_INFO("[cv_pxcm]: %d\t [cv_pycm]: %d\t [cv_pzcm]: %d");
-        pidControl_xy(cv_pxcm - t265_pxcm, cv_pycm - t265_pycm);
-        // if(abs(cv_pxcm - t265_pxcm) > pidThreshold && state == 0)
-        // {
-        //     pidControl_x(cv_pxcm - t265_pxcm);
-        // }
-        // else
-        // {
-        //     state = 1;
-        // }
-        // if(abs(cv_pycm - t265_pycm) > pidThreshold && state == 1)
-        // {
-        //     pidControl_y(cv_pycm - t265_pycm);
-        // }
-        // else
-        // {
-        //     state = 0;
-        // }
-    }
-}
-
-const double P = 0.3, I = 0.01, D = 0.1;
-void pidControl_x(int dif)
-{
-    const int maxSpeed = 10;
-    static int speed, dir;
-    speed = P * dif - D * t265_vxcms;
-    if(speed > maxSpeed) speed = maxSpeed;
-
-    if(x_usart_state == 0)
-    {
-        //发送串口
-        uint8_t i = 0;
-        uint8_t sumcheck = 0, add_on_check =0;
-        
-        x_usartBuffer[0] = 0xAA;
-        x_usartBuffer[1] = 0x62;
-        x_usartBuffer[2] = 0x80;
-        x_usartBuffer[3] = 0x06;
-
-        //dif
-        x_usartBuffer[5] = abs(dif) >> 8;
-        x_usartBuffer[4] = abs(dif) - (x_usartBuffer[5] << 8);
-
-        //speed
-        x_usartBuffer[7] = abs(speed) >> 8;
-        x_usartBuffer[6] = abs(speed) - (x_usartBuffer[7] << 8);
-
-        //dir
-        if(speed > 0) dir = 0;
-        else dir = 180;
-        x_usartBuffer[9] = dir >> 8;
-        x_usartBuffer[8] = dir - (x_usartBuffer[9] << 8);
-
-        for(i = 0; i<= 9; i++)
-        {
-            sumcheck += x_usartBuffer[i];
-            add_on_check += sumcheck;
-        }
-        sumcheck %= 256;
-        add_on_check %= 256;
-
-        x_usartBuffer[10] = sumcheck;
-        x_usartBuffer[11] = add_on_check;
-
-        ROS_INFO("[Dir X]:dif %d\tspeed %d\t dir %d\t", dif, speed, dir);
-        x_usart_state = 1;
-    }
-}
-
-void pidControl_y(int dif)
-{
-    const int maxSpeed = 20;
-    static int speed, dir;
-    speed = P * dif - D * t265_vycms;
-    if(speed > maxSpeed) speed = maxSpeed;
-
-    if(y_usart_state == 0)
-    {
-        //发送串口
-        uint8_t i = 0;
-        uint8_t sumcheck = 0, add_on_check =0;
-        
-        y_usartBuffer[0] = 0xAA;
-        y_usartBuffer[1] = 0x62;
-        y_usartBuffer[2] = 0x80;
-        y_usartBuffer[3] = 0x06;
-
-        //dif
-        y_usartBuffer[5] = abs(dif) >> 8;
-        y_usartBuffer[4] = abs(dif) - (y_usartBuffer[5] << 8);
-
-        //speed
-        y_usartBuffer[7] = abs(speed) >> 8;
-        y_usartBuffer[6] = abs(speed) - (y_usartBuffer[7] << 8);
-
-        //dir
-        if(speed > 0) dir = 270;
-        else dir = 90;
-        y_usartBuffer[9] = dir >> 8;
-        y_usartBuffer[8] = dir - (y_usartBuffer[9] << 8);
-
-        for(i = 0; i<= 9; i++)
-        {
-            sumcheck += y_usartBuffer[i];
-            add_on_check += sumcheck;
-        }
-        sumcheck %= 256;
-        add_on_check %= 256;
-
-        y_usartBuffer[10] = sumcheck;
-        y_usartBuffer[11] = add_on_check;
-
-        ROS_INFO("[Dir Y]:dif %d\tspeed %d\t dir %d\t", dif, speed, dir);
-        y_usart_state = 1;
-    }
+    // if (msg->linear.x == 0 && msg->linear.y == 0 && msg->linear.z == 0)
+    // {
+    //     dif_x = msg->angular.x;
+    //     dif_y = msg->angular.y;
+    //     ROS_INFO("[dif_x]: %d\t [dif_y]: %d");
+    //     if(abs(dif_x) > pidThreshold && state == 0)
+    //     {
+    //         pidControl_x(dif_x);
+    //     }
+    //     else
+    //     {
+    //         pidControl_x(0);
+    //         state = 1;
+    //     }
+    //     if(abs(dif_y) > pidThreshold && state == 1)
+    //     {
+    //         pidControl_y(dif_y);
+    //     }
+    //     else
+    //     {
+    //         pidControl_y(0);
+    //         state = 0;
+    //     }
+    // }
+    // else
+    // {
+    //     cv_pxcm = msg->linear.x;
+    //     cv_pycm = msg->linear.y;
+    //     cv_pzcm = msg->linear.z;
+    //     ROS_INFO("[cv_pxcm]: %d\t [cv_pycm]: %d\t [cv_pzcm]: %d");
+    //     pidControl_xy(cv_pxcm - t265_pxcm, cv_pycm - t265_pycm);
+    //     // if(abs(cv_pxcm - t265_pxcm) > pidThreshold && state == 0)
+    //     // {
+    //     //     pidControl_x(cv_pxcm - t265_pxcm);
+    //     // }
+    //     // else
+    //     // {
+    //     //     state = 1;
+    //     // }
+    //     // if(abs(cv_pycm - t265_pycm) > pidThreshold && state == 1)
+    //     // {
+    //     //     pidControl_y(cv_pycm - t265_pycm);
+    //     // }
+    //     // else
+    //     // {
+    //     //     state = 0;
+    //     // }
+    // }
 }
 
 void pidControl_xy(int dif_x, int dif_y)
 {
-    const int maxSpeed = 20;
+    const int maxSpeed = 20, P = 0.2, D= 0.1;
     static int speed, dir, dif;
     dif = sqrt(dif_x * dif_x + dif_y * dif_y);
     speed = P * dif - D * sqrt(t265_vxcms * t265_vxcms + t265_vycms * t265_vycms);
@@ -421,7 +293,7 @@ void funcCallback(const std_msgs::Int8::ConstPtr& msg){
         func_usartBuffer[6] = add_on_check;
         
         ROS_INFO("[FuncNum]: %d",funcNum);
-        func_usart_state = 1;
+        sp.write(func_usartBuffer, 7);
     }
 }
 
