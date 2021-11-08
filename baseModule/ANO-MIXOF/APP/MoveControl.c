@@ -204,7 +204,7 @@ void MoveControl_Output(void)
 			break;
 			case 3:
 			{
-				if (time_dly_cnt_ms < 5000)
+				if (time_dly_cnt_ms < 10000)
 				{
 					time_dly_cnt_ms += 50; //ms
 				}
@@ -218,28 +218,20 @@ void MoveControl_Output(void)
 			case 4:
 			{
 				//takeoff
-				//mission_step += OneKey_Takeoff(30);
+				mission_step += OneKey_Takeoff(30);
 				setHeight(150);
-				mission_step++;
 			}
 			break;
 			case 5:
 			{
-				if (time_dly_cnt_ms < 5000)
-				{
-					time_dly_cnt_ms += 50;
-				}
-				else
-				{
-					time_dly_cnt_ms = 0;
-					mission_step++;
-				}
+				//move control
+				mission_step += fly2height(150);
 			}
 			break;
 			case 6:
 			{
-				//move control
-				mission_step += fly2height(150);
+				//move to Entry
+				mission_step += fly2field(200, 0, 150);
 			}
 			break;
 			case 7:
@@ -251,7 +243,7 @@ void MoveControl_Output(void)
 			case 8:
 			{
 				//move to 28
-				mission_step += fly2field(250, -50, 150);
+				mission_step += fly2field(260, -50, 150);
 			}
 			break;
 			case 9:
@@ -287,7 +279,7 @@ void MoveControl_Output(void)
 			case 14:
 			{
 				//move to 22
-				mission_step += fly2field(250, -350, 150);
+				mission_step += fly2field(260, -350, 150);
 			}
 			break;
 			case 15:
@@ -317,7 +309,7 @@ void MoveControl_Output(void)
 			case 19:
 			{
 				//move to 1
-				mission_step += fly2field(0, -350, 150);
+				mission_step += fly2field(0, -360, 150);
 			}
 			break;
 			case 20:
@@ -347,7 +339,7 @@ void MoveControl_Output(void)
 			case 24:
 			{
 				//move to 16
-				mission_step += fly2field(200, -300, 150);
+				mission_step += fly2field(210, -310, 150);
 			}
 			break;
 			case 25:
@@ -377,7 +369,7 @@ void MoveControl_Output(void)
 			case 29:
 			{
 				//move to 3
-				mission_step += fly2field(0, -250, 150);
+				mission_step += fly2field(0, -260, 150);
 			}
 			break;
 			case 30:
@@ -407,7 +399,7 @@ void MoveControl_Output(void)
 			case 34:
 			{
 				//move to 18
-				mission_step += fly2field(200, -200, 150);
+				mission_step += fly2field(210, -210, 150);
 			}
 			break;
 			case 35:
@@ -430,23 +422,29 @@ void MoveControl_Output(void)
 			break;
 			case 38:
 			{
+				//move to 200 0
+				mission_step += fly2field(200, 0, 150);
+			}
+			break;
+			case 39:
+			{
 				//move to 0,0
 				mission_step += fly2field(0, 0, 150);
 			}
 			break;
-			case 39:
+			case 40:
 			{
 				setHeight(10);
 				mission_step++;
 			}
 			break;
-			case 40:
+			case 41:
 			{
 				//move to 0,0
 				mission_step += final_land(17, 30, 10);
 			}
 			break;
-			case 41:
+			case 42:
 			{
 				OneKey_Land();
 			}
@@ -679,7 +677,7 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 }
 
 //Position control
-const double P = 0.5, I = 0.01, D = 0;
+const double P = 0.6, I = 0.01, D = 0;
 void PositionControl(int dif_x, int dif_y)
 {
 	const int maxSpeed = 15 ;
