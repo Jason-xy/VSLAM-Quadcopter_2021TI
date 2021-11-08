@@ -66,11 +66,10 @@ static void Loop_20Hz(void) //50ms执行一次
 
 static void Loop_2Hz(void) //500ms执行一次
 {
-	const int target = 150;
-	//Position_calibration();
-	if(target - ano_of.of_alt_cm > 5 || target - ano_of.of_alt_cm < -10)
+	//heigt control
+	if(targetHeight - ano_of.of_alt_cm > 5 || targetHeight - ano_of.of_alt_cm < -10)
 	{
-		heightcontrol(target, ano_of.of_alt_cm);
+		heightcontrol(targetHeight, ano_of.of_alt_cm);
 	}
 }
 //////////////////////////////////////////////////////////////////////

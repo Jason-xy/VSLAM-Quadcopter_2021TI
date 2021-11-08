@@ -14,6 +14,9 @@ extern uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, s
 extern int16_t t265_x_velocity_cmps, t265_y_velocity_cmps, t265_z_velocity_cmps;
 extern int16_t t265_x_position, t265_y_position, t265_z_position;
 extern uint8_t t265_usart_update_cnt;
+//Height
+extern int targetHeight;
+
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data);
 void MoveControl_DataAnl(uint8_t *data, uint8_t len);
@@ -37,5 +40,6 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps);
 //position control
 int fly2field(int x, int y, int z);
 int fly2height(int z);
+void setHeight(int z);
 
 #endif //__MOVECONTROL_H__

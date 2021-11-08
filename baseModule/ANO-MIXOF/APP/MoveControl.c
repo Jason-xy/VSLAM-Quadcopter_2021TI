@@ -13,6 +13,8 @@ int16_t t265_x_position = 0, t265_y_position = 0, t265_z_position = 0;
 uint8_t t265_usart_update_cnt = 0;
 int16_t t265_x_velocity_cmps_window[WINDOW_SIZE] = {0}, t265_y_velocity_cmps_window[WINDOW_SIZE] = {0}, t265_z_velocity_cmps_window[WINDOW_SIZE] = {0};
 uint8_t t265_x_wp = 0, t265_y_wp = 0, t265_z_wp = 0;
+//Height
+int targetHeight = 0;
 
 
 
@@ -118,8 +120,8 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 	else if(func_code_u2 == 0x91)
 	{
 		//V-SLAM
-		t265_x_position = (*(data + 5) << 8) | (*(data + 4)) + 10;
-		t265_y_position = (*(data + 7) << 8) | (*(data + 6)) - 15;
+		t265_x_position = (*(data + 5) << 8) | (*(data + 4)) - 20;
+		t265_y_position = (*(data + 7) << 8) | (*(data + 6)) - 10;
 		t265_z_position = (*(data + 9) << 8) | (*(data + 8));
 		
 		//window_smooth
@@ -189,7 +191,8 @@ void MoveControl_Output(void)
 			case 1:
 			{
 				//switch to program control
-				mission_step += LX_Change_Mode(3);
+				//mission_step += LX_Change_Mode(3);
+				mission_step++;
 			}
 			break;
 			case 2:
@@ -197,8 +200,8 @@ void MoveControl_Output(void)
 				//unlock check
 				//FC_Unlock();
 				MyDelayMs(500);
-				mission_step += UNLOCK_STATE;
-				//mission_step++;
+				//mission_step += UNLOCK_STATE;
+				mission_step++;
 			}
 			break;
 			case 3:
@@ -218,6 +221,7 @@ void MoveControl_Output(void)
 			{
 				//takeoff
 				//mission_step += OneKey_Takeoff(30);
+				setHeight(150);
 				mission_step++;
 			}
 			break;
@@ -237,195 +241,193 @@ void MoveControl_Output(void)
 			case 6:
 			{
 				//move control
-				mission_step += fly2height(150);
+				mission_step += fly2height(10);
 			}
 			break;
 			case 7:
 			{
 				//move to A
-//				mission_step += fly2field(50, 200, 150);
-				mission_step += 1;
+				mission_step += fly2field(200, -50, 150);
 			}
 			break;
 			case 8:
 			{
 				//move to 28
-				mission_step += fly2field(50, 240, 150);
+				mission_step += fly2field(250, -50, 150);
 			}
 			break;
 			case 9:
 			{
 				//move to 27
-				mission_step += fly2field(100, 240, 150);
+				mission_step += fly2field(250, -100, 150);
 			}
 			break;
 			case 10:
 			{
 				//move to 26
-				mission_step += fly2field(150, 240, 150);
+				mission_step += fly2field(250, -150, 150);
 			}
 			break;
 			case 11:
 			{
 				//move to 25
-				mission_step += fly2field(200, 240, 150);
+				mission_step += fly2field(250, -200, 150);
 			}
 			break;
 			case 12:
 			{
 				//move to 24
-				mission_step += fly2field(250, 240, 150);
+				mission_step += fly2field(250, -250, 150);
 			}
 			break;
 			case 13:
 			{
 				//move to 23
-				mission_step += fly2field(300, 240, 150);
+				mission_step += fly2field(250, -300, 150);
 			}
 			break;
 			case 14:
 			{
 				//move to 22
-//				mission_step += fly2field(350, 250, 150);
-				mission_step += 1;
+				mission_step += fly2field(250, -350, 150);
 			}
 			break;
 			case 15:
 			{
 				//move to 15
-				mission_step += fly2field(350, 200, 150);
+				mission_step += fly2field(200, -350, 150);
 			}
 			break;
 			case 16:
 			{
 				//move to 11
-				mission_step += fly2field(350, 150, 150);
+				mission_step += fly2field(150, -350, 150);
 			}
 			break;
 			case 17:
 			{
 				//move to B1
-				mission_step += fly2field(350, 100, 150);
+				mission_step += fly2field(100, -350, 150);
 			}
 			break;
 			case 18:
 			{
 				//move to 5
-				mission_step += fly2field(350, 50, 150);
+				mission_step += fly2field(50, -350, 150);
 			}
 			break;
 			case 19:
 			{
 				//move to 1
-				mission_step += fly2field(350, 0, 150);
+				mission_step += fly2field(0, -350, 150);
 			}
 			break;
 			case 20:
 			{
 				//move to 2
-				mission_step += fly2field(300, 0, 150);
+				mission_step += fly2field(0, -300, 150);
 			}
 			break;
 			case 21:
 			{
 				//move to 6
-				mission_step += fly2field(300, 50, 150);
+				mission_step += fly2field(50, -300, 150);
 			}
 			break;
 			case 22:
 			{
 				//move to B2
-				mission_step += fly2field(300, 100, 150);
+				mission_step += fly2field(100, -300, 150);
 			}
 			break;
 			case 23:
 			{
 				//move to 12
-				mission_step += fly2field(300, 150, 150);
+				mission_step += fly2field(150, -300, 150);
 			}
 			break;
 			case 24:
 			{
 				//move to 16
-				mission_step += fly2field(300, 200, 150);
+				mission_step += fly2field(200, -300, 150);
 			}
 			break;
 			case 25:
 			{
 				//move to 17
-				mission_step += fly2field(250, 200, 150);
+				mission_step += fly2field(200, -250, 150);
 			}
 			break;
 			case 26:
 			{
 				//move to 13
-				mission_step += fly2field(250, 150, 150);
+				mission_step += fly2field(150, -250, 150);
 			}
 			break;
 			case 27:
 			{
 				//move to 9
-				mission_step += fly2field(250, 100, 150);
+				mission_step += fly2field(100, -250, 150);
 			}
 			break;
 			case 28:
 			{
 				//move to 7
-				mission_step += fly2field(250, 50, 150);
+				mission_step += fly2field(50, -250, 150);
 			}
 			break;
 			case 29:
 			{
 				//move to 3
-				mission_step += fly2field(250, 0, 150);
+				mission_step += fly2field(0, -250, 150);
 			}
 			break;
 			case 30:
 			{
 				//move to 4
-				mission_step += fly2field(200, 0, 150);
+				mission_step += fly2field(0, -200, 150);
 			}
 			break;
 			case 31:
 			{
 				//move to 8
-				mission_step += fly2field(200, 50, 150);
+				mission_step += fly2field(50, -200, 150);
 			}
 			break;
 			case 32:
 			{
 				//move to 10
-				mission_step += fly2field(200, 100, 150);
+				mission_step += fly2field(100, -200, 150);
 			}
 			break;
 			case 33:
 			{
 				//move to 14
-				mission_step += fly2field(200, 150, 150);
+				mission_step += fly2field(150, -200, 150);
 			}
 			break;
 			case 34:
 			{
 				//move to 18
-				mission_step += fly2field(200, 200, 150);
+				mission_step += fly2field(200, -200, 150);
 			}
 			break;
 			case 35:
 			{
 				//move to 19
-				mission_step += fly2field(150, 200, 150);
+				mission_step += fly2field(200, -150, 150);
 			}
 			break;
 			case 36:
 			{
 				//move to 20
-				mission_step += fly2field(100, 200, 150);
+				mission_step += fly2field(200, -100, 150);
 			}
 			break;
 			case 37:
 			{
 				//move to 21
-				mission_step += fly2field(50, 200, 150);
+				mission_step += fly2field(200, -50, 150);
 			}
 			break;
 			case 38:
@@ -678,13 +680,13 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 }
 
 //Position control
-const double P = 0.2, I = 0.01, D = 0;
+const double P = 0.4, I = 0.01, D = 0;
 void PositionControl(int dif_x, int dif_y)
 {
-	const int maxSpeed = 15 ;
+	const int maxSpeed = 20 ;
   static int speed, dir, dif;
   dif = sqrt(dif_x * dif_x + dif_y * dif_y) / 2.0f;
-  speed = P * dif - D * t265_x_velocity_cmps;
+  speed = P * dif;
   if(dif_y > 0 && dif_x > 0)
       dir = 360 - atan((float)dif_y / (float)dif_x) * 57.3;
   else if(dif_y > 0 && dif_x < 0)
@@ -701,8 +703,14 @@ void PositionControl(int dif_x, int dif_y)
 int time_task = 0;
 int fly2field(int x, int y, int z)
 {	
+	const int boundary = 20;
+	//check data
+	if(t265_x_position == 0 || t265_y_position == 0 || t265_z_position == 0)
+	{
+		PositionControl(0, 0);
+	}
 	PositionControl(x - t265_x_position, y - t265_y_position);
-	if(x - t265_x_position < 30 && x - t265_x_position > -30 && y - t265_y_position < 30 && y - t265_y_position > -30)
+	if(x - t265_x_position < boundary && x - t265_x_position > -boundary && y - t265_y_position < boundary && y - t265_y_position > -boundary)
 	{
 		if(time_task >= 0)
 			return 1;
@@ -718,10 +726,9 @@ int fly2field(int x, int y, int z)
 
 int fly2height(int z)
 {
-	if(z - ano_of.of_alt_cm > 10 || z - ano_of.of_alt_cm < -10)
+	if(z - (int)ano_of.of_alt_cm > 10 || z - (int)ano_of.of_alt_cm < -10)
 	{
 		time_task = 0;
-		heightcontrol(z, ano_of.of_alt_cm);
 		return 0;
 	}
 	else
@@ -731,4 +738,8 @@ int fly2height(int z)
 		time_task++;
 		return 0;
 	}
+}
+void setHeight(int z)
+{
+	targetHeight = z;
 }

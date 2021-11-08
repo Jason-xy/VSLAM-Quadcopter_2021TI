@@ -19,13 +19,21 @@ typedef unsigned int            uint32_t;
 // 坐标信息回调函数
 void poseCallback(const geometry_msgs::Twist::ConstPtr& msg);
 
+// 视觉信息回调函数
+void cvTaskCallback(const geometry_msgs::Twist::ConstPtr& msg);
+
+// 位置环PID控制
+void pidControl_xy(int dif_x, int dif_y);
+
 //功能控制
 void funcCallback(const std_msgs::Int8::ConstPtr& msg);
 
 //创建一个serial类
 serial::Serial sp;
 uint8_t t265_usartBuffer[100] = {0};
+uint8_t xy_usartBuffer[100] = {0};
 uint8_t func_usartBuffer[100] = {0};
+uint8_t t265_usart_state = 0, xy_usart_state = 0, func_usart_state = 0;
 
 int main(int argc, char **argv)
 {
@@ -95,6 +103,7 @@ void poseCallback(const geometry_msgs::Twist::ConstPtr& msg)
     t265_pycm = msg->angular.y;
     t265_pzcm = msg->angular.z;
 
+    if(t265_usart_state == 0){
         //发送串口
         short x_position_cm = (short)(t265_pxcm);
         short y_position_cm = (short)(t265_pycm);
@@ -141,13 +150,126 @@ void poseCallback(const geometry_msgs::Twist::ConstPtr& msg)
         t265_usartBuffer[17] = add_on_check;
 
         sp.write(t265_usartBuffer, 18);
+    }
 }
 
-//0:白色 1:绿色
+double cv_pxcm, cv_pycm, cv_pzcm;
+void cvTaskCallback(const geometry_msgs::Twist::ConstPtr& msg)
+{
+    const int pidThreshold = 5;
+    static int state, dif_x, dif_y;
+    // if (msg->linear.x == 0 && msg->linear.y == 0 && msg->linear.z == 0)
+    // {
+    //     dif_x = msg->angular.x;
+    //     dif_y = msg->angular.y;
+    //     ROS_INFO("[dif_x]: %d\t [dif_y]: %d");
+    //     if(abs(dif_x) > pidThreshold && state == 0)
+    //     {
+    //         pidControl_x(dif_x);
+    //     }
+    //     else
+    //     {
+    //         pidControl_x(0);
+    //         state = 1;
+    //     }
+    //     if(abs(dif_y) > pidThreshold && state == 1)
+    //     {
+    //         pidControl_y(dif_y);
+    //     }
+    //     else
+    //     {
+    //         pidControl_y(0);
+    //         state = 0;
+    //     }
+    // }
+    // else
+    // {
+    //     cv_pxcm = msg->linear.x;
+    //     cv_pycm = msg->linear.y;
+    //     cv_pzcm = msg->linear.z;
+    //     ROS_INFO("[cv_pxcm]: %d\t [cv_pycm]: %d\t [cv_pzcm]: %d");
+    //     pidControl_xy(cv_pxcm - t265_pxcm, cv_pycm - t265_pycm);
+    //     // if(abs(cv_pxcm - t265_pxcm) > pidThreshold && state == 0)
+    //     // {
+    //     //     pidControl_x(cv_pxcm - t265_pxcm);
+    //     // }
+    //     // else
+    //     // {
+    //     //     state = 1;
+    //     // }
+    //     // if(abs(cv_pycm - t265_pycm) > pidThreshold && state == 1)
+    //     // {
+    //     //     pidControl_y(cv_pycm - t265_pycm);
+    //     // }
+    //     // else
+    //     // {
+    //     //     state = 0;
+    //     // }
+    // }
+}
+
+void pidControl_xy(int dif_x, int dif_y)
+{
+    const int maxSpeed = 20, P = 0.2, D= 0.1;
+    static int speed, dir, dif;
+    dif = sqrt(dif_x * dif_x + dif_y * dif_y);
+    speed = P * dif - D * sqrt(t265_vxcms * t265_vxcms + t265_vycms * t265_vycms);
+    if(dif_y > 0 && dif_x > 0)
+        dir = 360 - atan((float)dif_y / (float)dif_x) * 57.3;
+    else if(dif_y > 0 && dif_x < 0)
+        dir = 180 - atan((float)dif_y / (float)dif_x) * 57.3;
+    else if(dif_y < 0 && dif_x > 0)
+        dir = -atan((float)dif_y / (float)dif_x) * 57.3;
+    else if(dif_y < 0 && dif_x < 0)
+        dir = 180 - atan((float)dif_y / (float)dif_x) * 57.3;
+    if(speed > maxSpeed) speed = maxSpeed;
+
+    if(xy_usart_state == 0)
+    {
+        //发送串口
+        uint8_t i = 0;
+        uint8_t sumcheck = 0, add_on_check =0;
+        
+        xy_usartBuffer[0] = 0xAA;
+        xy_usartBuffer[1] = 0x62;
+        xy_usartBuffer[2] = 0x80;
+        xy_usartBuffer[3] = 0x06;
+
+        //dif
+        xy_usartBuffer[5] = abs(dif) >> 8;
+        xy_usartBuffer[4] = abs(dif) - (xy_usartBuffer[5] << 8);
+
+        //speed
+        xy_usartBuffer[7] = abs(speed) >> 8;
+        xy_usartBuffer[6] = abs(speed) - (xy_usartBuffer[7] << 8);
+
+        //dir
+        xy_usartBuffer[9] = dir >> 8;
+        xy_usartBuffer[8] = dir - (xy_usartBuffer[9] << 8);
+
+        for(i = 0; i<= 9; i++)
+        {
+            sumcheck += xy_usartBuffer[i];
+            add_on_check += sumcheck;
+        }
+        sumcheck %= 256;
+        add_on_check %= 256;
+
+        xy_usartBuffer[10] = sumcheck;
+        xy_usartBuffer[11] = add_on_check;
+
+        ROS_INFO("[Dir XY]:dif %d\tspeed %d\t dir %d\t", dif, speed, dir);
+        xy_usart_state = 1;
+    }
+}
+
+//0:激光 1：LED
 void funcCallback(const std_msgs::Int8::ConstPtr& msg){
     static int8_t funcNum;
     funcNum = msg->data;
 
+    if(func_usart_state == 0)
+    {
         //发送串口
         uint8_t i = 0;
         uint8_t sumcheck = 0, add_on_check =0;
@@ -172,5 +294,6 @@ void funcCallback(const std_msgs::Int8::ConstPtr& msg){
         
         ROS_INFO("[FuncNum]: %d",funcNum);
         sp.write(func_usartBuffer, 7);
+    }
 }
 
