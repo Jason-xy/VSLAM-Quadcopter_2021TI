@@ -15,7 +15,8 @@
 #include "Drv_UbloxGPS.h"
 #include "Drv_Uart.h"
 #include "Drv_Timer.h"
-
+#include "laserControl.h"
+#include "dataCenter.h"
 u8 All_Init()
 {
 	DrvSysInit();
@@ -35,6 +36,8 @@ u8 All_Init()
 	//USART 7 Init
 	DrvUart7Init(115200);
 	MyDelayMs(100);
+	Laser_Init();
+	Barcode_Blink_Init();
 	
 	//初始化定时中断
 	DrvTimerFcInit();

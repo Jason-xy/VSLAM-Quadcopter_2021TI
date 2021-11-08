@@ -401,3 +401,159 @@ uint8_t Circling_motion(uint8_t origin_dir, uint8_t cir_motion_dir, uint8_t cir_
 		return 0;
 	}
 }
+
+
+void MoveTo_LandingPad(void){
+	
+	uint16_t distance=0;
+	uint16_t velocity=0;
+	uint16_t direction=0;
+	uint16_t P=1;
+	uint8_t Landing_STA=0; 
+	//First STA=1-3//back to first line
+	//Second STA=4-6//move to 
+	//Third STA=7-9
+	
+	
+	uint8_t databuffer[]={0xAA,0xFF,0xED,0x09,0x10,0x02,0x03,0x01,0x02,0x03,0x04,0x05,0x06,0x00,0x00};//len=15
+	if(state_is_land!=3){
+		return ;
+	}
+	
+	
+	if(Landing_STA==0)
+	{
+		Landing_STA=1;
+	}
+	else if(Landing_STA<4&& Landing_STA>0)
+	{
+		distance=abs(t265_y_position_control);
+		velocity=P*distance;
+		if(velocity>20) velocity=20;
+		databuffer[8]=distance>>8;
+		databuffer[7]=distance-(databuffer[8]<<8);
+		databuffer[10]=velocity>>8;
+		databuffer[9]=velocity-(databuffer[8]<<8);
+		
+
+		if(t265_y_position_control>0){
+			direction=90;
+			databuffer[12]=direction>>8;
+			databuffer[11]=direction-(databuffer[8]<<8);
+		}
+		else if(t265_y_position_control<0){
+			direction=270;
+			databuffer[12]=direction>>8;
+			databuffer[11]=direction-(databuffer[8]<<8);
+		}
+		
+		sent_MoveData_ToANO(databuffer,15);
+		
+		if(t265_y_position_control<1 &&t265_y_position_control>1){
+			Landing_STA++;
+		}
+		
+	}
+	else if(Landing_STA<7&& Landing_STA>3)
+	{
+		distance=abs(t265_x_position_control);
+		velocity=P*distance;
+		if(velocity>20) velocity=20;
+		databuffer[8]=distance>>8;
+		databuffer[7]=distance-(databuffer[8]<<8);
+		databuffer[10]=velocity>>8;
+		databuffer[9]=velocity-(databuffer[8]<<8);
+		
+
+		if(t265_y_position_control>0){
+			direction=180;
+			databuffer[12]=direction>>8;
+			databuffer[11]=direction-(databuffer[8]<<8);
+		}
+		else if(t265_y_position_control<0){
+			direction=0;
+			databuffer[12]=direction>>8;
+			databuffer[11]=direction-(databuffer[8]<<8);
+		}
+		
+		sent_MoveData_ToANO(databuffer,15);
+		
+		if(t265_y_position_control<1 &&t265_y_position_control>1){
+			Landing_STA++;
+		}
+		
+	}
+	else if(Landing_STA<10&& Landing_STA>6)
+	{
+		distance=abs(barcode_data*10-t265_x_position_control);
+		velocity=P*distance;
+		if(velocity>20) velocity=20;
+		databuffer[8]=distance>>8;
+		databuffer[7]=distance-(databuffer[8]<<8);
+		databuffer[10]=velocity>>8;
+		databuffer[9]=velocity-(databuffer[8]<<8);
+		
+
+		if(t265_y_position_control>(barcode_data*10)){
+			direction=180;
+			databuffer[12]=direction>>8;
+			databuffer[11]=direction-(databuffer[8]<<8);
+		}
+		else if(t265_y_position_control<(barcode_data*10)){
+			direction=0;
+			databuffer[12]=direction>>8;
+			databuffer[11]=direction-(databuffer[8]<<8);
+		}
+		
+		sent_MoveData_ToANO(databuffer,15);
+		
+		if(t265_y_position_control+1>(barcode_data*10) && t265_y_position_control-1<(barcode_data*10)){
+			Landing_STA++;
+		}
+		
+	}else{
+		MainBoard_OneKeyLand();
+	}
+	
+}
+
+
+
+
+void sent_MoveData_ToANO(uint8_t* data,uint8_t len){
+	
+	
+	uint8_t check_sum1 = 0, check_sum2 = 0;
+	for (uint8_t i = 0; i < len - 2; i++)
+	{
+		check_sum1 += *(data + i); //Sum check
+		check_sum2 += check_sum1;  //add on check
+	}
+	*(data + len - 2)=check_sum1;
+	*(data + len - 1)=check_sum2;
+	DrvUart2SendBuf(data,len);
+	
+	
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\
+
+
+
+
+
+

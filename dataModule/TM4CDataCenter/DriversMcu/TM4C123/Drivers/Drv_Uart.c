@@ -21,7 +21,7 @@ void NoUse(u8 data){}
 #define U3GetOneByte	OpenMV_GetOneByte
 #define U4GetOneByte	K210_GetOneByte
 #define U5GetOneByte	Jetson_GetOneByte
-#define U6GetOneByte	TOF_GetOneByte
+#define U6GetOneByte	BarcodeScanner_GetOneByte
 #define U7GetOneByte	Screen_GetOneByte
 /////////////////////////////////////////////////////////////////////////////////////////////////
 u8 U1TxDataTemp[256];

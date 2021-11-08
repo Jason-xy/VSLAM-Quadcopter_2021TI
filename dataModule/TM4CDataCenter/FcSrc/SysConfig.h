@@ -4,7 +4,7 @@
 #include "Drv_BSP.h"
 //================define===================
 typedef float vec3_f[3];
-typedef float vec2_f[2];
+typedef float vec2_f[2]; 
 typedef s32 vec3_s32[3];
 typedef s32 vec2_s32[2];
 typedef s16 vec3_s16[3];

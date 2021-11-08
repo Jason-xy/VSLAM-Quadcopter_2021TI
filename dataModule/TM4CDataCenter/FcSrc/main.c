@@ -7,7 +7,7 @@
 **********************************************************************************/
 #include "SysConfig.h"
 #include "Ano_Scheduler.h"
-
+#include "laserControl.h"
 #ifdef USE_FULL_ASSERT
 void assert_failed(uint8_t *file, uint32_t line)
 {
@@ -27,7 +27,6 @@ int main(void)
 	Scheduler_Setup();
 	while (1)
 	{
-		//运行任务调度器，所有系统功能，除了中断服务函数，都在任务调度器内完成
 		Scheduler_Run();
 	}
 }

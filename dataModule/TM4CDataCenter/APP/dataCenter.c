@@ -5,7 +5,7 @@ static uint8_t MainBoard_datatemp[100];
 static uint8_t OpenMV_datatemp[100];
 static uint8_t K210_datatemp[100];
 static uint8_t Jetson_datatemp[100];
-static uint8_t TOF_datatemp[100];
+static uint8_t BarcodeScanner_datatemp[100];
 static uint8_t Screen_datatemp[100];
 //tx data buffer
 static uint8_t Jetson_datatemp_tx[100];
@@ -25,6 +25,13 @@ static int16_t t265_z_velocity_cmps;
 static int16_t t265_x_position;
 static int16_t t265_y_position;
 static int16_t t265_z_position;
+
+int16_t t265_x_position_control;
+int16_t t265_y_position_control;
+
+//is barScanner have data if got change the mode to 1
+uint8_t state_is_land=0;// only scaned 1 only allowed 2     scaned and allowed 3
+uint8_t barcode_data=0;
 
 
 
@@ -281,10 +288,37 @@ void Jetson_GetOneByte(uint8_t data)
 	}
 }
 
-//TOF:U6
-void TOF_GetOneByte(uint8_t data)
+//BarcodeScanner:U6
+void BarcodeScanner_GetOneByte(uint8_t data)
 {
-
+	//BarcodeScanner_datatemp
+	static uint8_t BarcodeScanner_STA=0;
+	//recieved   \r sta=1 \n
+	if(BarcodeScanner_STA==0  )
+	{
+		if(data=='\r'){
+			return;
+	}
+		BarcodeScanner_datatemp[BarcodeScanner_STA]=data;
+		BarcodeScanner_STA++;
+	}
+	else if(BarcodeScanner_datatemp[BarcodeScanner_STA-1]!='\r')
+	{
+		BarcodeScanner_datatemp[BarcodeScanner_STA]=data;
+		BarcodeScanner_STA++;	
+	}
+	else if(BarcodeScanner_datatemp[BarcodeScanner_STA-1]=='\r')
+	{
+		if(data=='\n')
+		{
+			BarcodeScanner_datatemp[BarcodeScanner_STA]=data;
+			BarcodeScanner_STA++;
+			BarcodeScanner_DataAnl(BarcodeScanner_datatemp,BarcodeScanner_STA);
+		}
+		
+		BarcodeScanner_STA=0;
+	}
+	
 }
 
 //Screen:U7
@@ -441,6 +475,8 @@ void K210_DataAnl(uint8_t *data, uint8_t len)
 
 }
 
+int8_t blink_state = 0;
+int8_t preblink_state = 0;
 void Jetson_DataAnl(uint8_t *data, uint8_t len)
 {
     //data check
@@ -456,21 +492,52 @@ void Jetson_DataAnl(uint8_t *data, uint8_t len)
 		return;
 	/*================================================================================*/
 	//Get data
-	
-	//DrvUart2SendBuf(data, (u8)18);
-	t265_x_position = (*(data + 5) << 8) | (*(data + 4));
-	t265_y_position = (*(data + 7) << 8) | (*(data + 6));
-	t265_z_position = (*(data + 9) << 8) | (*(data + 8));
-	t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
-	t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
-	t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
-	send_t265_data();
-	
+	switch(*(data+2)){
+		case 0x80:
+			*(data+1)=0x61;
+			sent_Control_ToANO(data,len);//Modifying the Device Number£¬count check_sum
+			break;
+		case 0x91:
+			//DrvUart2SendBuf(data, (u8)18);
+			t265_x_position = (*(data + 5) << 8) | (*(data + 4));
+			t265_y_position = (*(data + 7) << 8) | (*(data + 6));
+			t265_z_position = (*(data + 9) << 8) | (*(data + 8));
+			t265_x_velocity_cmps = (*(data + 11) << 8) | (*(data + 10));
+			t265_y_velocity_cmps = (*(data + 13) << 8) | (*(data + 12));
+			t265_z_velocity_cmps = (*(data + 15) << 8) | (*(data + 14));
+			send_t265_data();//sent to mainboard
+			break;
+		case 0x92:
+			if(preblink_state != (*(data+4)))
+				blink_state = 1;
+			preblink_state = (*(data+4));
+			break;
+		default:
+			break;
+	}
 }
 
-void TOF_DataAnl(uint8_t *data, uint8_t len)
+void BarcodeScanner_DataAnl(uint8_t *data, uint8_t len)
 {
-
+	int i=0;
+	if(*(data+len-1)!='\n'||*(data+len-2)!='\r')
+	{
+		return;
+	}
+	
+	if(state_is_land==1||state_is_land==0){
+		
+		state_is_land=1;
+	}
+	else if(state_is_land==2){
+		state_is_land=3;
+	}
+	for(i=0;i<len-2;i++){
+		barcode_data*=10;
+		barcode_data=*(data+i)-'0';
+	}
+	Barcode_Blink();
+	
 }
 
 void Screen_DataAnl(uint8_t *data, uint8_t len)
@@ -594,7 +661,10 @@ void MainBoard_Unlock(void)
 	uint8_t MainBoard_Buf[]={0xaa,0xff,0xe0,0x03,0x10,0x00,0x01,0x9d,0x3d};
 	DrvUart2SendBuf(MainBoard_Buf, (u8)10);
 }
-
+void MainBoard_OneKeyLand(void){
+	uint8_t MainBoard_Buf[]={0xaa,0xff,0xe0,0x03,0x10,0x00,0x06,0xa2,0x42};
+	DrvUart2SendBuf(MainBoard_Buf, (u8)10);	
+}
 //t265 data
 void send_t265_data(void)
 {
@@ -639,4 +709,35 @@ void send_t265_data(void)
 	
 }
 
+
+void sent_Control_ToANO(uint8_t *data, uint8_t len){
+	    //data check
+	uint8_t check_sum1 = 0, check_sum2 = 0;
+	for (uint8_t i = 0; i < len - 2; i++)
+	{
+		check_sum1 += *(data + i); //Sum check
+		check_sum2 += check_sum1;  //add on check
+	}
+	*(data + len - 2)=check_sum1;
+	*(data + len - 1)=check_sum2;
+	DrvUart2SendBuf(data,len);
+}
+
+
+void Barcode_Blink_Init(void){
+	ROM_SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA);
+ 
+    ROM_GPIOPinTypeGPIOOutput(GPIOA_BASE, GPIO_PIN_5);
+}
+void Barcode_Blink(void){
+	int i=0;
+	for(i=0;i<barcode_data;i++){
+		GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0xFF);
+		MyDelayMs(300);
+		GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0);
+		MyDelayMs(300);
+	}
+	
+	MyDelayMs(3000);
+}
 

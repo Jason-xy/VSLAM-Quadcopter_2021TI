@@ -6,6 +6,7 @@
 #include "LX_FC_State.h"
 #include "Ano_math.h"
 #include "Drv_Uart.h"
+#include "dataCenter.h"
 
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data);
@@ -15,5 +16,13 @@ uint8_t MoveControl_Spin(uint16_t spin_angle_0_360, uint16_t spin_speed_dps);
 
 void OVControl_GetOneByte(uint8_t data);
 void OVControl_DataAnl(uint8_t *data, uint8_t len);
+
+
+
+//////////////////////////////////////////////////////////////////
+/////2021-11-0/////////
+////////////////////////////////////////////////////////////////////
+void MoveTo_LandingPad(void);
+void sent_MoveData_ToANO(uint8_t* data,uint8_t len);
 
 #endif //__MOVECONTROL_H__

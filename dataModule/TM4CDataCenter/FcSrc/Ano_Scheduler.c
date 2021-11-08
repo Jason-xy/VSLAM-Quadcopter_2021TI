@@ -8,6 +8,7 @@
 #include "Ano_Scheduler.h"
 #include "User_Task.h"
 #include "MoveControl.h"
+#include "dataCenter.h"
 //////////////////////////////////////////////////////////////////////
 //用户程序调度器
 //////////////////////////////////////////////////////////////////////
@@ -54,14 +55,17 @@ static void Loop_20Hz(void) //50ms执行一次
 	//////////////////////////////////////////////////////////////////////
 }
 
-static void Loop_2Hz(void) //500ms执行一次
+static void Loop_2Hz(void) //1000ms执行一次
 {
-//	DrvUart2SendBuf((u8*)"HELLO USART2\r\n", (u8)15);
-//	DrvUart3SendBuf((u8*)"HELLO USART3\r\n", (u8)15);
-//	DrvUart4SendBuf((u8*)"HELLO USART4\r\n", (u8)15);
-//	DrvUart5SendBuf((u8*)"HELLO USART5\r\n", (u8)15);
-//	DrvUart6SendBuf((u8*)"HELLO USART6\r\n", (u8)15);
-//	DrvUart7SendBuf((u8*)"HELLO USART7\r\n", (u8)15);
+	if(blink_state == 1)
+		{
+			Laser_Off();
+			blink_state = 0;
+		}
+		else
+		{
+			Laser_On();
+		}
 }
 //////////////////////////////////////////////////////////////////////
 //调度器初始化
