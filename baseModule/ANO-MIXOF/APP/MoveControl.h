@@ -8,6 +8,7 @@
 #include "math.h"
 #include "LX_FC_EXT_Sensor.h"
 #include "Drv_AnoOf.h"
+#include "Drv_Uart.h"
 //fly control variable
 extern uint16_t distance_cm, velocity_cmps, dir_angle_0_360, spin_angle_0_360, spin_speed_dps;
 //V-SLAM
@@ -16,6 +17,8 @@ extern int16_t t265_x_position, t265_y_position, t265_z_position;
 extern uint8_t t265_usart_update_cnt;
 //Height
 extern int targetHeight;
+//laser
+extern int laser_request;
 
 //MoveControl Get OneByte from USART2
 void MoveControl_GetOneByte(uint8_t data);
@@ -41,5 +44,7 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps);
 int fly2field(int x, int y, int z);
 int fly2height(int z);
 void setHeight(int z);
+//laser
+void send_laser_request(uint8_t funcNum);
 
 #endif //__MOVECONTROL_H__

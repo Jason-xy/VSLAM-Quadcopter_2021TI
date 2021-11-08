@@ -10,7 +10,10 @@ Section Cross References
     main.o(i.main) refers to ano_scheduler.o(i.Scheduler_Run) for Scheduler_Run
     main.o(i.main) refers to waypointcontrol.o(.data) for anof_yaw
     main.o(i.main) refers to movecontrol.o(.data) for t265_x_position
+    ano_scheduler.o(i.Loop_20Hz) refers to movecontrol.o(i.send_laser_request) for send_laser_request
+    ano_scheduler.o(i.Loop_20Hz) refers to movecontrol.o(.data) for laser_request
     ano_scheduler.o(i.Loop_2Hz) refers to movecontrol.o(i.heightcontrol) for heightcontrol
+    ano_scheduler.o(i.Loop_2Hz) refers to lx_fc_state.o(.bss) for fc_sta
     ano_scheduler.o(i.Loop_2Hz) refers to drv_anoof.o(.bss) for ano_of
     ano_scheduler.o(i.Loop_2Hz) refers to movecontrol.o(.data) for targetHeight
     ano_scheduler.o(i.Loop_50Hz) refers to movecontrol.o(i.MoveControl_Output) for MoveControl_Output
@@ -358,6 +361,8 @@ Section Cross References
     movecontrol.o(i.heightcontrol) refers to movecontrol.o(i.Height_Move_Down) for Height_Move_Down
     movecontrol.o(i.heightcontrol) refers to movecontrol.o(i.Height_Move_Up) for Height_Move_Up
     movecontrol.o(i.heightcontrol) refers to movecontrol.o(.data) for speed
+    movecontrol.o(i.send_laser_request) refers to drv_uart.o(i.DrvUart2SendBuf) for DrvUart2SendBuf
+    movecontrol.o(i.send_laser_request) refers to movecontrol.o(.bss) for func_usartBuffer
     movecontrol.o(i.setHeight) refers to movecontrol.o(.data) for targetHeight
     waypointcontrol.o(i.Position_calibration) refers to ano_math.o(i.my_sqrt) for my_sqrt
     waypointcontrol.o(i.Position_calibration) refers to waypointcontrol.o(.data) for set_x_position
@@ -1267,7 +1272,6 @@ Removing Unused input sections from the image.
     Removing drv_uart.o(.rev16_text), (4 bytes).
     Removing drv_uart.o(.revsh_text), (4 bytes).
     Removing drv_uart.o(.rrx_text), (6 bytes).
-    Removing drv_uart.o(i.DrvUart2SendBuf), (52 bytes).
     Removing drv_uart.o(i.DrvUart3SendBuf), (52 bytes).
     Removing drv_uart.o(i.DrvUart4SendBuf), (52 bytes).
     Removing drv_usb.o(.rev16_text), (4 bytes).
@@ -1865,7 +1869,7 @@ Removing Unused input sections from the image.
     Removing cdcmple.o(.text), (48 bytes).
     Removing cdrcmple.o(.text), (48 bytes).
 
-690 unused section(s) (total 45187 bytes) removed from the image.
+689 unused section(s) (total 45135 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1878,22 +1882,22 @@ Image Symbol Table
     RESET                                    0x00000000   Section      620  startup_tm4c123.o(RESET)
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
     ../fplib/microlib/f2d.c                  0x00000000   Number         0  f2d.o ABSOLUTE
@@ -1901,21 +1905,21 @@ Image Symbol Table
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
-    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixui.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ../fplib/microlib/fpneg.c                0x00000000   Number         0  dneg.o ABSOLUTE
     ../fplib/microlib/fpsqrt.c               0x00000000   Number         0  dsqrt.o ABSOLUTE
-    ../mathlib/atan.c                        0x00000000   Number         0  atan.o ABSOLUTE
     ../mathlib/atan.c                        0x00000000   Number         0  atan_x.o ABSOLUTE
+    ../mathlib/atan.c                        0x00000000   Number         0  atan.o ABSOLUTE
     ../mathlib/dunder.c                      0x00000000   Number         0  dunder.o ABSOLUTE
     ../mathlib/fabs.c                        0x00000000   Number         0  fabs.o ABSOLUTE
     ../mathlib/fpclassify.c                  0x00000000   Number         0  fpclassify.o ABSOLUTE
     ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
-    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_x.o ABSOLUTE
     ..\APP\MoveControl.c                     0x00000000   Number         0  movecontrol.o ABSOLUTE
     ..\APP\WaypointControl.c                 0x00000000   Number         0  waypointcontrol.o ABSOLUTE
     ..\DriversBsp\Ano_Math.c                 0x00000000   Number         0  ano_math.o ABSOLUTE
@@ -2061,124 +2065,126 @@ Image Symbol Table
     i.DrvUart1SendBuf                        0x00001f34   Section        0  drv_uart.o(i.DrvUart1SendBuf)
     i.DrvUart1TxCheck                        0x00001f68   Section        0  drv_uart.o(i.DrvUart1TxCheck)
     i.DrvUart2Init                           0x00001fac   Section        0  drv_uart.o(i.DrvUart2Init)
-    i.DrvUart2TxCheck                        0x00002084   Section        0  drv_uart.o(i.DrvUart2TxCheck)
-    i.DrvUart3Init                           0x000020c8   Section        0  drv_uart.o(i.DrvUart3Init)
-    i.DrvUart3TxCheck                        0x000021a0   Section        0  drv_uart.o(i.DrvUart3TxCheck)
-    i.DrvUart4Init                           0x000021e4   Section        0  drv_uart.o(i.DrvUart4Init)
-    i.DrvUart4TxCheck                        0x000022bc   Section        0  drv_uart.o(i.DrvUart4TxCheck)
-    i.DrvUart5Init                           0x00002300   Section        0  drv_uart.o(i.DrvUart5Init)
-    i.DrvUart5SendBuf                        0x000023f4   Section        0  drv_uart.o(i.DrvUart5SendBuf)
-    i.DrvUart5TxCheck                        0x00002428   Section        0  drv_uart.o(i.DrvUart5TxCheck)
-    i.DrvUartDataCheck                       0x0000246c   Section        0  drv_uart.o(i.DrvUartDataCheck)
-    i.Drv_AdcGetBatVot                       0x00002484   Section        0  drv_adc.o(i.Drv_AdcGetBatVot)
-    i.DvrLedInit                             0x000024f4   Section        0  drv_led.o(i.DvrLedInit)
-    i.ESC_Output                             0x00002578   Section        0  ano_lx.o(i.ESC_Output)
-    ESC_Output                               0x00002579   Thumb Code   364  ano_lx.o(i.ESC_Output)
-    i.FC_Unlock                              0x000026f4   Section        0  lx_fc_fun.o(i.FC_Unlock)
-    i.Frame_Send                             0x00002734   Section        0  ano_dt_lx.o(i.Frame_Send)
-    Frame_Send                               0x00002735   Thumb Code   190  ano_dt_lx.o(i.Frame_Send)
-    i.GPS_Rate_H                             0x000027fc   Section        0  drv_ubloxgps.o(i.GPS_Rate_H)
-    i.General_Position_Data_Handle           0x0000280c   Section        0  lx_fc_ext_sensor.o(i.General_Position_Data_Handle)
-    General_Position_Data_Handle             0x0000280d   Thumb Code    90  lx_fc_ext_sensor.o(i.General_Position_Data_Handle)
-    i.General_Velocity_Data_Handle           0x00002888   Section        0  lx_fc_ext_sensor.o(i.General_Velocity_Data_Handle)
-    General_Velocity_Data_Handle             0x00002889   Thumb Code   262  lx_fc_ext_sensor.o(i.General_Velocity_Data_Handle)
-    i.GetSysRunTimeMs                        0x000029b0   Section        0  drv_sys.o(i.GetSysRunTimeMs)
-    i.Height_Move_Down                       0x000029bc   Section        0  movecontrol.o(i.Height_Move_Down)
-    i.Height_Move_Up                         0x00002a10   Section        0  movecontrol.o(i.Height_Move_Up)
-    i.Horizontal_Move                        0x00002a68   Section        0  lx_fc_fun.o(i.Horizontal_Move)
-    i.Init_GPS                               0x00002ad0   Section        0  drv_ubloxgps.o(i.Init_GPS)
-    i.IntEnable                              0x00002bb0   Section        0  interrupt.o(i.IntEnable)
-    i.IntRegister                            0x00002c14   Section        0  interrupt.o(i.IntRegister)
-    i.LED_1ms_DRV                            0x00002c48   Section        0  drv_led.o(i.LED_1ms_DRV)
-    i.LX_Change_Mode                         0x00002ca0   Section        0  lx_fc_fun.o(i.LX_Change_Mode)
-    i.LX_FC_EXT_Sensor_Task                  0x00002cfc   Section        0  lx_fc_ext_sensor.o(i.LX_FC_EXT_Sensor_Task)
-    i.Loop_1000Hz                            0x00002d60   Section        0  ano_scheduler.o(i.Loop_1000Hz)
-    Loop_1000Hz                              0x00002d61   Thumb Code     2  ano_scheduler.o(i.Loop_1000Hz)
-    i.Loop_100Hz                             0x00002d62   Section        0  ano_scheduler.o(i.Loop_100Hz)
-    Loop_100Hz                               0x00002d63   Thumb Code     2  ano_scheduler.o(i.Loop_100Hz)
-    i.Loop_200Hz                             0x00002d64   Section        0  ano_scheduler.o(i.Loop_200Hz)
-    Loop_200Hz                               0x00002d65   Thumb Code     2  ano_scheduler.o(i.Loop_200Hz)
-    i.Loop_20Hz                              0x00002d66   Section        0  ano_scheduler.o(i.Loop_20Hz)
-    Loop_20Hz                                0x00002d67   Thumb Code     2  ano_scheduler.o(i.Loop_20Hz)
-    i.Loop_2Hz                               0x00002d68   Section        0  ano_scheduler.o(i.Loop_2Hz)
-    Loop_2Hz                                 0x00002d69   Thumb Code    46  ano_scheduler.o(i.Loop_2Hz)
-    i.Loop_500Hz                             0x00002da0   Section        0  ano_scheduler.o(i.Loop_500Hz)
-    Loop_500Hz                               0x00002da1   Thumb Code     2  ano_scheduler.o(i.Loop_500Hz)
-    i.Loop_50Hz                              0x00002da2   Section        0  ano_scheduler.o(i.Loop_50Hz)
-    Loop_50Hz                                0x00002da3   Thumb Code     8  ano_scheduler.o(i.Loop_50Hz)
-    i.Mag_Calibration                        0x00002dac   Section        0  movecontrol.o(i.Mag_Calibration)
-    i.MoveControl_DataAnl                    0x00002de4   Section        0  movecontrol.o(i.MoveControl_DataAnl)
-    i.MoveControl_GetOneByte                 0x00003058   Section        0  movecontrol.o(i.MoveControl_GetOneByte)
-    i.MoveControl_Output                     0x00003164   Section        0  movecontrol.o(i.MoveControl_Output)
-    i.MyDelayMs                              0x000035ec   Section        0  drv_sys.o(i.MyDelayMs)
-    i.NoUse                                  0x00003610   Section        0  drv_uart.o(i.NoUse)
-    i.OneKey_Land                            0x00003614   Section        0  lx_fc_fun.o(i.OneKey_Land)
-    i.PAR_Back                               0x0000364c   Section        0  ano_dt_lx.o(i.PAR_Back)
-    i.PPM_Decode                             0x00003660   Section        0  drv_rcin.o(i.PPM_Decode)
-    PPM_Decode                               0x00003661   Thumb Code   114  drv_rcin.o(i.PPM_Decode)
-    i.PositionControl                        0x000036e4   Section        0  movecontrol.o(i.PositionControl)
-    i.Quick_Calibration                      0x0000395c   Section        0  movecontrol.o(i.Quick_Calibration)
-    i.Scheduler_Run                          0x00003994   Section        0  ano_scheduler.o(i.Scheduler_Run)
-    i.Scheduler_Setup                        0x000039e4   Section        0  ano_scheduler.o(i.Scheduler_Setup)
-    i.SixAxis_Calibration                    0x00003a34   Section        0  movecontrol.o(i.SixAxis_Calibration)
-    i.SysCtlClockGet                         0x00003a6c   Section        0  sysctl.o(i.SysCtlClockGet)
-    i.SysTick_Handler                        0x00003bc0   Section        0  drv_sys.o(i.SysTick_Handler)
-    i.SysTick_Init                           0x00003bd8   Section        0  drv_sys.o(i.SysTick_Init)
-    i.SystemInit                             0x00003c10   Section        0  system_tm4c123.o(i.SystemInit)
-    i.Timer0Irq                              0x00003ca8   Section        0  drv_timer.o(i.Timer0Irq)
-    i.TimerIntClear                          0x00003cbc   Section        0  timer.o(i.TimerIntClear)
-    i.TimerIntRegister                       0x00003cc0   Section        0  timer.o(i.TimerIntRegister)
-    i.UART1_IRQHandler                       0x00003d28   Section        0  drv_uart.o(i.UART1_IRQHandler)
-    i.UART2_IRQHandler                       0x00003d80   Section        0  drv_uart.o(i.UART2_IRQHandler)
-    i.UART3_IRQHandler                       0x00003dd8   Section        0  drv_uart.o(i.UART3_IRQHandler)
-    i.UART4_IRQHandler                       0x00003e30   Section        0  drv_uart.o(i.UART4_IRQHandler)
-    i.UART5_IRQHandler                       0x00003e88   Section        0  drv_uart.o(i.UART5_IRQHandler)
-    i.UARTIntRegister                        0x00003ee0   Section        0  uart.o(i.UARTIntRegister)
-    i.UBLOX_M8_GPS_Data_Receive              0x00003f38   Section        0  drv_ubloxgps.o(i.UBLOX_M8_GPS_Data_Receive)
-    i.__ARM_fpclassify                       0x0000409c   Section        0  fpclassify.o(i.__ARM_fpclassify)
-    i.__hardfp_atan                          0x000040d0   Section        0  atan.o(i.__hardfp_atan)
-    i.__hardfp_sqrt                          0x000043a8   Section        0  sqrt.o(i.__hardfp_sqrt)
-    i.__kernel_poly                          0x00004422   Section        0  poly.o(i.__kernel_poly)
-    i.__mathlib_dbl_infnan                   0x0000451a   Section        0  dunder.o(i.__mathlib_dbl_infnan)
-    i.__mathlib_dbl_underflow                0x00004530   Section        0  dunder.o(i.__mathlib_dbl_underflow)
-    i.__scatterload_copy                     0x00004550   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x0000455e   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00004560   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.__set_errno                            0x00004570   Section        0  errno.o(i.__set_errno)
-    i.drvAdcTrigger                          0x0000457c   Section        0  drv_adc.o(i.drvAdcTrigger)
-    i.fabs                                   0x00004594   Section        0  fabs.o(i.fabs)
-    i.fast_atan2                             0x000045ac   Section        0  ano_math.o(i.fast_atan2)
-    i.fly2field                              0x00004728   Section        0  movecontrol.o(i.fly2field)
-    i.fly2height                             0x000047cc   Section        0  movecontrol.o(i.fly2height)
-    i.heightcontrol                          0x00004810   Section        0  movecontrol.o(i.heightcontrol)
-    i.main                                   0x000048ac   Section        0  main.o(i.main)
-    i.my_abs                                 0x0000490c   Section        0  ano_math.o(i.my_abs)
-    i.setHeight                              0x00004928   Section        0  movecontrol.o(i.setHeight)
-    i.window_avg                             0x00004934   Section        0  movecontrol.o(i.window_avg)
-    .constdata                               0x00004958   Section     1028  ano_math.o(.constdata)
-    .constdata                               0x00004d5c   Section      596  sysctl.o(.constdata)
-    g_pui32VCOFrequencies                    0x00004d5c   Data           8  sysctl.o(.constdata)
-    g_pui32Xtals                             0x00004d64   Data         108  sysctl.o(.constdata)
-    g_pppui32XTALtoVCO                       0x00004dd0   Data         432  sysctl.o(.constdata)
-    g_sXTALtoMEMTIM                          0x00004f80   Data          48  sysctl.o(.constdata)
-    .constdata                               0x00004fb0   Section      160  timer.o(.constdata)
-    g_ppui32TimerIntMap                      0x00004fb0   Data          96  timer.o(.constdata)
-    g_ppui32TimerIntMapSnowflake             0x00005010   Data          64  timer.o(.constdata)
-    .constdata                               0x00005050   Section      128  uart.o(.constdata)
-    g_ppui32UARTIntMap                       0x00005050   Data          64  uart.o(.constdata)
-    g_ppui32UARTIntMapSnowflake              0x00005090   Data          64  uart.o(.constdata)
-    .constdata                               0x000050d0   Section      268  interrupt.o(.constdata)
-    g_pui32Priority                          0x000050d0   Data          32  interrupt.o(.constdata)
-    g_pui32Regs                              0x000050f0   Data         156  interrupt.o(.constdata)
-    g_pui32EnRegs                            0x0000518c   Data          20  interrupt.o(.constdata)
-    g_pui32Dii16Regs                         0x000051a0   Data          20  interrupt.o(.constdata)
-    g_pui32PendRegs                          0x000051b4   Data          20  interrupt.o(.constdata)
-    g_pui32UnpendRegs                        0x000051c8   Data          20  interrupt.o(.constdata)
-    .constdata                               0x000051e0   Section      152  atan.o(.constdata)
-    atanhi                                   0x000051e0   Data          32  atan.o(.constdata)
-    atanlo                                   0x00005200   Data          32  atan.o(.constdata)
-    aTodd                                    0x00005220   Data          40  atan.o(.constdata)
-    aTeven                                   0x00005248   Data          48  atan.o(.constdata)
+    i.DrvUart2SendBuf                        0x00002084   Section        0  drv_uart.o(i.DrvUart2SendBuf)
+    i.DrvUart2TxCheck                        0x000020b8   Section        0  drv_uart.o(i.DrvUart2TxCheck)
+    i.DrvUart3Init                           0x000020fc   Section        0  drv_uart.o(i.DrvUart3Init)
+    i.DrvUart3TxCheck                        0x000021d4   Section        0  drv_uart.o(i.DrvUart3TxCheck)
+    i.DrvUart4Init                           0x00002218   Section        0  drv_uart.o(i.DrvUart4Init)
+    i.DrvUart4TxCheck                        0x000022f0   Section        0  drv_uart.o(i.DrvUart4TxCheck)
+    i.DrvUart5Init                           0x00002334   Section        0  drv_uart.o(i.DrvUart5Init)
+    i.DrvUart5SendBuf                        0x00002428   Section        0  drv_uart.o(i.DrvUart5SendBuf)
+    i.DrvUart5TxCheck                        0x0000245c   Section        0  drv_uart.o(i.DrvUart5TxCheck)
+    i.DrvUartDataCheck                       0x000024a0   Section        0  drv_uart.o(i.DrvUartDataCheck)
+    i.Drv_AdcGetBatVot                       0x000024b8   Section        0  drv_adc.o(i.Drv_AdcGetBatVot)
+    i.DvrLedInit                             0x00002528   Section        0  drv_led.o(i.DvrLedInit)
+    i.ESC_Output                             0x000025ac   Section        0  ano_lx.o(i.ESC_Output)
+    ESC_Output                               0x000025ad   Thumb Code   364  ano_lx.o(i.ESC_Output)
+    i.FC_Unlock                              0x00002728   Section        0  lx_fc_fun.o(i.FC_Unlock)
+    i.Frame_Send                             0x00002768   Section        0  ano_dt_lx.o(i.Frame_Send)
+    Frame_Send                               0x00002769   Thumb Code   190  ano_dt_lx.o(i.Frame_Send)
+    i.GPS_Rate_H                             0x00002830   Section        0  drv_ubloxgps.o(i.GPS_Rate_H)
+    i.General_Position_Data_Handle           0x00002840   Section        0  lx_fc_ext_sensor.o(i.General_Position_Data_Handle)
+    General_Position_Data_Handle             0x00002841   Thumb Code    90  lx_fc_ext_sensor.o(i.General_Position_Data_Handle)
+    i.General_Velocity_Data_Handle           0x000028bc   Section        0  lx_fc_ext_sensor.o(i.General_Velocity_Data_Handle)
+    General_Velocity_Data_Handle             0x000028bd   Thumb Code   262  lx_fc_ext_sensor.o(i.General_Velocity_Data_Handle)
+    i.GetSysRunTimeMs                        0x000029e4   Section        0  drv_sys.o(i.GetSysRunTimeMs)
+    i.Height_Move_Down                       0x000029f0   Section        0  movecontrol.o(i.Height_Move_Down)
+    i.Height_Move_Up                         0x00002a44   Section        0  movecontrol.o(i.Height_Move_Up)
+    i.Horizontal_Move                        0x00002a9c   Section        0  lx_fc_fun.o(i.Horizontal_Move)
+    i.Init_GPS                               0x00002b04   Section        0  drv_ubloxgps.o(i.Init_GPS)
+    i.IntEnable                              0x00002be4   Section        0  interrupt.o(i.IntEnable)
+    i.IntRegister                            0x00002c48   Section        0  interrupt.o(i.IntRegister)
+    i.LED_1ms_DRV                            0x00002c7c   Section        0  drv_led.o(i.LED_1ms_DRV)
+    i.LX_Change_Mode                         0x00002cd4   Section        0  lx_fc_fun.o(i.LX_Change_Mode)
+    i.LX_FC_EXT_Sensor_Task                  0x00002d30   Section        0  lx_fc_ext_sensor.o(i.LX_FC_EXT_Sensor_Task)
+    i.Loop_1000Hz                            0x00002d94   Section        0  ano_scheduler.o(i.Loop_1000Hz)
+    Loop_1000Hz                              0x00002d95   Thumb Code     2  ano_scheduler.o(i.Loop_1000Hz)
+    i.Loop_100Hz                             0x00002d96   Section        0  ano_scheduler.o(i.Loop_100Hz)
+    Loop_100Hz                               0x00002d97   Thumb Code     2  ano_scheduler.o(i.Loop_100Hz)
+    i.Loop_200Hz                             0x00002d98   Section        0  ano_scheduler.o(i.Loop_200Hz)
+    Loop_200Hz                               0x00002d99   Thumb Code     2  ano_scheduler.o(i.Loop_200Hz)
+    i.Loop_20Hz                              0x00002d9c   Section        0  ano_scheduler.o(i.Loop_20Hz)
+    Loop_20Hz                                0x00002d9d   Thumb Code    12  ano_scheduler.o(i.Loop_20Hz)
+    i.Loop_2Hz                               0x00002dac   Section        0  ano_scheduler.o(i.Loop_2Hz)
+    Loop_2Hz                                 0x00002dad   Thumb Code    52  ano_scheduler.o(i.Loop_2Hz)
+    i.Loop_500Hz                             0x00002dec   Section        0  ano_scheduler.o(i.Loop_500Hz)
+    Loop_500Hz                               0x00002ded   Thumb Code     2  ano_scheduler.o(i.Loop_500Hz)
+    i.Loop_50Hz                              0x00002dee   Section        0  ano_scheduler.o(i.Loop_50Hz)
+    Loop_50Hz                                0x00002def   Thumb Code     8  ano_scheduler.o(i.Loop_50Hz)
+    i.Mag_Calibration                        0x00002df8   Section        0  movecontrol.o(i.Mag_Calibration)
+    i.MoveControl_DataAnl                    0x00002e30   Section        0  movecontrol.o(i.MoveControl_DataAnl)
+    i.MoveControl_GetOneByte                 0x000030a4   Section        0  movecontrol.o(i.MoveControl_GetOneByte)
+    i.MoveControl_Output                     0x000031b0   Section        0  movecontrol.o(i.MoveControl_Output)
+    i.MyDelayMs                              0x00003630   Section        0  drv_sys.o(i.MyDelayMs)
+    i.NoUse                                  0x00003654   Section        0  drv_uart.o(i.NoUse)
+    i.OneKey_Land                            0x00003658   Section        0  lx_fc_fun.o(i.OneKey_Land)
+    i.PAR_Back                               0x00003690   Section        0  ano_dt_lx.o(i.PAR_Back)
+    i.PPM_Decode                             0x000036a4   Section        0  drv_rcin.o(i.PPM_Decode)
+    PPM_Decode                               0x000036a5   Thumb Code   114  drv_rcin.o(i.PPM_Decode)
+    i.PositionControl                        0x00003728   Section        0  movecontrol.o(i.PositionControl)
+    i.Quick_Calibration                      0x000039a0   Section        0  movecontrol.o(i.Quick_Calibration)
+    i.Scheduler_Run                          0x000039d8   Section        0  ano_scheduler.o(i.Scheduler_Run)
+    i.Scheduler_Setup                        0x00003a28   Section        0  ano_scheduler.o(i.Scheduler_Setup)
+    i.SixAxis_Calibration                    0x00003a78   Section        0  movecontrol.o(i.SixAxis_Calibration)
+    i.SysCtlClockGet                         0x00003ab0   Section        0  sysctl.o(i.SysCtlClockGet)
+    i.SysTick_Handler                        0x00003c04   Section        0  drv_sys.o(i.SysTick_Handler)
+    i.SysTick_Init                           0x00003c1c   Section        0  drv_sys.o(i.SysTick_Init)
+    i.SystemInit                             0x00003c54   Section        0  system_tm4c123.o(i.SystemInit)
+    i.Timer0Irq                              0x00003cec   Section        0  drv_timer.o(i.Timer0Irq)
+    i.TimerIntClear                          0x00003d00   Section        0  timer.o(i.TimerIntClear)
+    i.TimerIntRegister                       0x00003d04   Section        0  timer.o(i.TimerIntRegister)
+    i.UART1_IRQHandler                       0x00003d6c   Section        0  drv_uart.o(i.UART1_IRQHandler)
+    i.UART2_IRQHandler                       0x00003dc4   Section        0  drv_uart.o(i.UART2_IRQHandler)
+    i.UART3_IRQHandler                       0x00003e1c   Section        0  drv_uart.o(i.UART3_IRQHandler)
+    i.UART4_IRQHandler                       0x00003e74   Section        0  drv_uart.o(i.UART4_IRQHandler)
+    i.UART5_IRQHandler                       0x00003ecc   Section        0  drv_uart.o(i.UART5_IRQHandler)
+    i.UARTIntRegister                        0x00003f24   Section        0  uart.o(i.UARTIntRegister)
+    i.UBLOX_M8_GPS_Data_Receive              0x00003f7c   Section        0  drv_ubloxgps.o(i.UBLOX_M8_GPS_Data_Receive)
+    i.__ARM_fpclassify                       0x000040e0   Section        0  fpclassify.o(i.__ARM_fpclassify)
+    i.__hardfp_atan                          0x00004110   Section        0  atan.o(i.__hardfp_atan)
+    i.__hardfp_sqrt                          0x000043e8   Section        0  sqrt.o(i.__hardfp_sqrt)
+    i.__kernel_poly                          0x00004462   Section        0  poly.o(i.__kernel_poly)
+    i.__mathlib_dbl_infnan                   0x0000455a   Section        0  dunder.o(i.__mathlib_dbl_infnan)
+    i.__mathlib_dbl_underflow                0x00004570   Section        0  dunder.o(i.__mathlib_dbl_underflow)
+    i.__scatterload_copy                     0x00004590   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0000459e   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x000045a0   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.__set_errno                            0x000045b0   Section        0  errno.o(i.__set_errno)
+    i.drvAdcTrigger                          0x000045bc   Section        0  drv_adc.o(i.drvAdcTrigger)
+    i.fabs                                   0x000045d4   Section        0  fabs.o(i.fabs)
+    i.fast_atan2                             0x000045ec   Section        0  ano_math.o(i.fast_atan2)
+    i.fly2field                              0x00004768   Section        0  movecontrol.o(i.fly2field)
+    i.fly2height                             0x00004828   Section        0  movecontrol.o(i.fly2height)
+    i.heightcontrol                          0x0000486c   Section        0  movecontrol.o(i.heightcontrol)
+    i.main                                   0x00004908   Section        0  main.o(i.main)
+    i.my_abs                                 0x00004968   Section        0  ano_math.o(i.my_abs)
+    i.send_laser_request                     0x00004984   Section        0  movecontrol.o(i.send_laser_request)
+    i.setHeight                              0x000049f4   Section        0  movecontrol.o(i.setHeight)
+    i.window_avg                             0x00004a00   Section        0  movecontrol.o(i.window_avg)
+    .constdata                               0x00004a24   Section     1028  ano_math.o(.constdata)
+    .constdata                               0x00004e28   Section      596  sysctl.o(.constdata)
+    g_pui32VCOFrequencies                    0x00004e28   Data           8  sysctl.o(.constdata)
+    g_pui32Xtals                             0x00004e30   Data         108  sysctl.o(.constdata)
+    g_pppui32XTALtoVCO                       0x00004e9c   Data         432  sysctl.o(.constdata)
+    g_sXTALtoMEMTIM                          0x0000504c   Data          48  sysctl.o(.constdata)
+    .constdata                               0x0000507c   Section      160  timer.o(.constdata)
+    g_ppui32TimerIntMap                      0x0000507c   Data          96  timer.o(.constdata)
+    g_ppui32TimerIntMapSnowflake             0x000050dc   Data          64  timer.o(.constdata)
+    .constdata                               0x0000511c   Section      128  uart.o(.constdata)
+    g_ppui32UARTIntMap                       0x0000511c   Data          64  uart.o(.constdata)
+    g_ppui32UARTIntMapSnowflake              0x0000515c   Data          64  uart.o(.constdata)
+    .constdata                               0x0000519c   Section      268  interrupt.o(.constdata)
+    g_pui32Priority                          0x0000519c   Data          32  interrupt.o(.constdata)
+    g_pui32Regs                              0x000051bc   Data         156  interrupt.o(.constdata)
+    g_pui32EnRegs                            0x00005258   Data          20  interrupt.o(.constdata)
+    g_pui32Dii16Regs                         0x0000526c   Data          20  interrupt.o(.constdata)
+    g_pui32PendRegs                          0x00005280   Data          20  interrupt.o(.constdata)
+    g_pui32UnpendRegs                        0x00005294   Data          20  interrupt.o(.constdata)
+    .constdata                               0x000052a8   Section      152  atan.o(.constdata)
+    atanhi                                   0x000052a8   Data          32  atan.o(.constdata)
+    atanlo                                   0x000052c8   Data          32  atan.o(.constdata)
+    aTodd                                    0x000052e8   Data          40  atan.o(.constdata)
+    aTeven                                   0x00005310   Data          48  atan.o(.constdata)
     .data                                    0x20000000   Section       84  ano_scheduler.o(.data)
     sched_tasks                              0x20000000   Data          84  ano_scheduler.o(.data)
     .data                                    0x20000054   Section        6  ano_dt_lx.o(.data)
@@ -2227,7 +2233,7 @@ Image Symbol Table
     PeriodVal2                               0x20000154   Data           4  drv_rcin.o(.data)
     PulseHigh                                0x20000158   Data           4  drv_rcin.o(.data)
     .data                                    0x2000015c   Section       10  drv_uart.o(.data)
-    .data                                    0x20000168   Section       92  movecontrol.o(.data)
+    .data                                    0x20000168   Section       96  movecontrol.o(.data)
     func_code_u2                             0x20000168   Data           1  movecontrol.o(.data)
     distance_cm                              0x2000016a   Data           2  movecontrol.o(.data)
     velocity_cmps                            0x2000016c   Data           2  movecontrol.o(.data)
@@ -2242,19 +2248,19 @@ Image Symbol Table
     mission_f                                0x200001a4   Data           1  movecontrol.o(.data)
     mission_step                             0x200001a5   Data           1  movecontrol.o(.data)
     time_dly_cnt_ms                          0x200001a6   Data           2  movecontrol.o(.data)
-    _data_len_u2                             0x200001b0   Data           1  movecontrol.o(.data)
-    _data_cnt_u2                             0x200001b1   Data           1  movecontrol.o(.data)
-    rxstate_u2                               0x200001b2   Data           1  movecontrol.o(.data)
-    speed                                    0x200001b4   Data           4  movecontrol.o(.data)
+    _data_len_u2                             0x200001b4   Data           1  movecontrol.o(.data)
+    _data_cnt_u2                             0x200001b5   Data           1  movecontrol.o(.data)
+    rxstate_u2                               0x200001b6   Data           1  movecontrol.o(.data)
     speed                                    0x200001b8   Data           4  movecontrol.o(.data)
-    dir                                      0x200001bc   Data           4  movecontrol.o(.data)
-    dif                                      0x200001c0   Data           4  movecontrol.o(.data)
-    .data                                    0x200001c4   Section       22  waypointcontrol.o(.data)
-    dif_x_position                           0x200001d4   Data           2  waypointcontrol.o(.data)
-    dif_y_position                           0x200001d6   Data           2  waypointcontrol.o(.data)
-    dif_z_position                           0x200001d8   Data           2  waypointcontrol.o(.data)
-    .data                                    0x200001dc   Section        4  errno.o(.data)
-    _errno                                   0x200001dc   Data           4  errno.o(.data)
+    speed                                    0x200001bc   Data           4  movecontrol.o(.data)
+    dir                                      0x200001c0   Data           4  movecontrol.o(.data)
+    dif                                      0x200001c4   Data           4  movecontrol.o(.data)
+    .data                                    0x200001c8   Section       22  waypointcontrol.o(.data)
+    dif_x_position                           0x200001d8   Data           2  waypointcontrol.o(.data)
+    dif_y_position                           0x200001da   Data           2  waypointcontrol.o(.data)
+    dif_z_position                           0x200001dc   Data           2  waypointcontrol.o(.data)
+    .data                                    0x200001e0   Section        4  errno.o(.data)
+    _errno                                   0x200001e0   Data           4  errno.o(.data)
     vtable                                   0x20000400   Section      620  interrupt.o(vtable)
     g_pfnRAMVectors                          0x20000400   Data         620  interrupt.o(vtable)
     .bss                                     0x2000066c   Section     1872  ano_dt_lx.o(.bss)
@@ -2270,9 +2276,10 @@ Image Symbol Table
     check_time_ms                            0x20000f04   Data          12  drv_anoof.o(.bss)
     .bss                                     0x20000f10   Section      100  drv_ubloxgps.o(.bss)
     .bss                                     0x20000f74   Section     1280  drv_uart.o(.bss)
-    .bss                                     0x20001474   Section       50  movecontrol.o(.bss)
+    .bss                                     0x20001474   Section      150  movecontrol.o(.bss)
     MoveControl_datatemp                     0x20001474   Data          50  movecontrol.o(.bss)
-    STACK                                    0x200014a8   Section     2560  startup_tm4c123.o(STACK)
+    func_usartBuffer                         0x200014a6   Data         100  movecontrol.o(.bss)
+    STACK                                    0x20001510   Section     2560  startup_tm4c123.o(STACK)
 
     Global Symbols
 
@@ -2462,79 +2469,81 @@ Image Symbol Table
     DrvUart1SendBuf                          0x00001f35   Thumb Code    42  drv_uart.o(i.DrvUart1SendBuf)
     DrvUart1TxCheck                          0x00001f69   Thumb Code    52  drv_uart.o(i.DrvUart1TxCheck)
     DrvUart2Init                             0x00001fad   Thumb Code   188  drv_uart.o(i.DrvUart2Init)
-    DrvUart2TxCheck                          0x00002085   Thumb Code    52  drv_uart.o(i.DrvUart2TxCheck)
-    DrvUart3Init                             0x000020c9   Thumb Code   188  drv_uart.o(i.DrvUart3Init)
-    DrvUart3TxCheck                          0x000021a1   Thumb Code    52  drv_uart.o(i.DrvUart3TxCheck)
-    DrvUart4Init                             0x000021e5   Thumb Code   188  drv_uart.o(i.DrvUart4Init)
-    DrvUart4TxCheck                          0x000022bd   Thumb Code    52  drv_uart.o(i.DrvUart4TxCheck)
-    DrvUart5Init                             0x00002301   Thumb Code   206  drv_uart.o(i.DrvUart5Init)
-    DrvUart5SendBuf                          0x000023f5   Thumb Code    42  drv_uart.o(i.DrvUart5SendBuf)
-    DrvUart5TxCheck                          0x00002429   Thumb Code    52  drv_uart.o(i.DrvUart5TxCheck)
-    DrvUartDataCheck                         0x0000246d   Thumb Code    24  drv_uart.o(i.DrvUartDataCheck)
-    Drv_AdcGetBatVot                         0x00002485   Thumb Code    84  drv_adc.o(i.Drv_AdcGetBatVot)
-    DvrLedInit                               0x000024f5   Thumb Code   120  drv_led.o(i.DvrLedInit)
-    FC_Unlock                                0x000026f5   Thumb Code    56  lx_fc_fun.o(i.FC_Unlock)
-    GPS_Rate_H                               0x000027fd   Thumb Code    12  drv_ubloxgps.o(i.GPS_Rate_H)
-    GetSysRunTimeMs                          0x000029b1   Thumb Code     6  drv_sys.o(i.GetSysRunTimeMs)
-    Height_Move_Down                         0x000029bd   Thumb Code    80  movecontrol.o(i.Height_Move_Down)
-    Height_Move_Up                           0x00002a11   Thumb Code    82  movecontrol.o(i.Height_Move_Up)
-    Horizontal_Move                          0x00002a69   Thumb Code    98  lx_fc_fun.o(i.Horizontal_Move)
-    Init_GPS                                 0x00002ad1   Thumb Code   196  drv_ubloxgps.o(i.Init_GPS)
-    IntEnable                                0x00002bb1   Thumb Code    92  interrupt.o(i.IntEnable)
-    IntRegister                              0x00002c15   Thumb Code    44  interrupt.o(i.IntRegister)
-    LED_1ms_DRV                              0x00002c49   Thumb Code    78  drv_led.o(i.LED_1ms_DRV)
-    LX_Change_Mode                           0x00002ca1   Thumb Code    80  lx_fc_fun.o(i.LX_Change_Mode)
-    LX_FC_EXT_Sensor_Task                    0x00002cfd   Thumb Code    82  lx_fc_ext_sensor.o(i.LX_FC_EXT_Sensor_Task)
-    Mag_Calibration                          0x00002dad   Thumb Code    50  movecontrol.o(i.Mag_Calibration)
-    MoveControl_DataAnl                      0x00002de5   Thumb Code   534  movecontrol.o(i.MoveControl_DataAnl)
-    MoveControl_GetOneByte                   0x00003059   Thumb Code   252  movecontrol.o(i.MoveControl_GetOneByte)
-    MoveControl_Output                       0x00003165   Thumb Code  1156  movecontrol.o(i.MoveControl_Output)
-    MyDelayMs                                0x000035ed   Thumb Code    30  drv_sys.o(i.MyDelayMs)
-    NoUse                                    0x00003611   Thumb Code     2  drv_uart.o(i.NoUse)
-    OneKey_Land                              0x00003615   Thumb Code    50  lx_fc_fun.o(i.OneKey_Land)
-    PAR_Back                                 0x0000364d   Thumb Code    14  ano_dt_lx.o(i.PAR_Back)
-    PositionControl                          0x000036e5   Thumb Code   580  movecontrol.o(i.PositionControl)
-    Quick_Calibration                        0x0000395d   Thumb Code    50  movecontrol.o(i.Quick_Calibration)
-    Scheduler_Run                            0x00003995   Thumb Code    76  ano_scheduler.o(i.Scheduler_Run)
-    Scheduler_Setup                          0x000039e5   Thumb Code    76  ano_scheduler.o(i.Scheduler_Setup)
-    SixAxis_Calibration                      0x00003a35   Thumb Code    50  movecontrol.o(i.SixAxis_Calibration)
-    SysCtlClockGet                           0x00003a6d   Thumb Code   304  sysctl.o(i.SysCtlClockGet)
-    SysTick_Handler                          0x00003bc1   Thumb Code    20  drv_sys.o(i.SysTick_Handler)
-    SysTick_Init                             0x00003bd9   Thumb Code    54  drv_sys.o(i.SysTick_Init)
-    SystemInit                               0x00003c11   Thumb Code   112  system_tm4c123.o(i.SystemInit)
-    Timer0Irq                                0x00003ca9   Thumb Code    16  drv_timer.o(i.Timer0Irq)
-    TimerIntClear                            0x00003cbd   Thumb Code     4  timer.o(i.TimerIntClear)
-    TimerIntRegister                         0x00003cc1   Thumb Code    88  timer.o(i.TimerIntRegister)
-    UART1_IRQHandler                         0x00003d29   Thumb Code    82  drv_uart.o(i.UART1_IRQHandler)
-    UART2_IRQHandler                         0x00003d81   Thumb Code    82  drv_uart.o(i.UART2_IRQHandler)
-    UART3_IRQHandler                         0x00003dd9   Thumb Code    82  drv_uart.o(i.UART3_IRQHandler)
-    UART4_IRQHandler                         0x00003e31   Thumb Code    82  drv_uart.o(i.UART4_IRQHandler)
-    UART5_IRQHandler                         0x00003e89   Thumb Code    82  drv_uart.o(i.UART5_IRQHandler)
-    UARTIntRegister                          0x00003ee1   Thumb Code    70  uart.o(i.UARTIntRegister)
-    UBLOX_M8_GPS_Data_Receive                0x00003f39   Thumb Code   328  drv_ubloxgps.o(i.UBLOX_M8_GPS_Data_Receive)
-    __ARM_fpclassify                         0x0000409d   Thumb Code    48  fpclassify.o(i.__ARM_fpclassify)
-    __hardfp_atan                            0x000040d1   Thumb Code   622  atan.o(i.__hardfp_atan)
-    __hardfp_sqrt                            0x000043a9   Thumb Code   122  sqrt.o(i.__hardfp_sqrt)
-    __kernel_poly                            0x00004423   Thumb Code   248  poly.o(i.__kernel_poly)
-    __mathlib_dbl_infnan                     0x0000451b   Thumb Code    20  dunder.o(i.__mathlib_dbl_infnan)
-    __mathlib_dbl_underflow                  0x00004531   Thumb Code    24  dunder.o(i.__mathlib_dbl_underflow)
-    __scatterload_copy                       0x00004551   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x0000455f   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00004561   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    __set_errno                              0x00004571   Thumb Code     6  errno.o(i.__set_errno)
-    drvAdcTrigger                            0x0000457d   Thumb Code    18  drv_adc.o(i.drvAdcTrigger)
-    fabs                                     0x00004595   Thumb Code    24  fabs.o(i.fabs)
-    fast_atan2                               0x000045ad   Thumb Code   350  ano_math.o(i.fast_atan2)
-    fly2field                                0x00004729   Thumb Code   148  movecontrol.o(i.fly2field)
-    fly2height                               0x000047cd   Thumb Code    58  movecontrol.o(i.fly2height)
-    heightcontrol                            0x00004811   Thumb Code   142  movecontrol.o(i.heightcontrol)
-    main                                     0x000048ad   Thumb Code    64  main.o(i.main)
-    my_abs                                   0x0000490d   Thumb Code    26  ano_math.o(i.my_abs)
-    setHeight                                0x00004929   Thumb Code     6  movecontrol.o(i.setHeight)
-    window_avg                               0x00004935   Thumb Code    34  movecontrol.o(i.window_avg)
-    fast_atan_table                          0x00004958   Data        1028  ano_math.o(.constdata)
-    Region$$Table$$Base                      0x00005278   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00005298   Number         0  anon$$obj.o(Region$$Table)
+    DrvUart2SendBuf                          0x00002085   Thumb Code    42  drv_uart.o(i.DrvUart2SendBuf)
+    DrvUart2TxCheck                          0x000020b9   Thumb Code    52  drv_uart.o(i.DrvUart2TxCheck)
+    DrvUart3Init                             0x000020fd   Thumb Code   188  drv_uart.o(i.DrvUart3Init)
+    DrvUart3TxCheck                          0x000021d5   Thumb Code    52  drv_uart.o(i.DrvUart3TxCheck)
+    DrvUart4Init                             0x00002219   Thumb Code   188  drv_uart.o(i.DrvUart4Init)
+    DrvUart4TxCheck                          0x000022f1   Thumb Code    52  drv_uart.o(i.DrvUart4TxCheck)
+    DrvUart5Init                             0x00002335   Thumb Code   206  drv_uart.o(i.DrvUart5Init)
+    DrvUart5SendBuf                          0x00002429   Thumb Code    42  drv_uart.o(i.DrvUart5SendBuf)
+    DrvUart5TxCheck                          0x0000245d   Thumb Code    52  drv_uart.o(i.DrvUart5TxCheck)
+    DrvUartDataCheck                         0x000024a1   Thumb Code    24  drv_uart.o(i.DrvUartDataCheck)
+    Drv_AdcGetBatVot                         0x000024b9   Thumb Code    84  drv_adc.o(i.Drv_AdcGetBatVot)
+    DvrLedInit                               0x00002529   Thumb Code   120  drv_led.o(i.DvrLedInit)
+    FC_Unlock                                0x00002729   Thumb Code    56  lx_fc_fun.o(i.FC_Unlock)
+    GPS_Rate_H                               0x00002831   Thumb Code    12  drv_ubloxgps.o(i.GPS_Rate_H)
+    GetSysRunTimeMs                          0x000029e5   Thumb Code     6  drv_sys.o(i.GetSysRunTimeMs)
+    Height_Move_Down                         0x000029f1   Thumb Code    80  movecontrol.o(i.Height_Move_Down)
+    Height_Move_Up                           0x00002a45   Thumb Code    82  movecontrol.o(i.Height_Move_Up)
+    Horizontal_Move                          0x00002a9d   Thumb Code    98  lx_fc_fun.o(i.Horizontal_Move)
+    Init_GPS                                 0x00002b05   Thumb Code   196  drv_ubloxgps.o(i.Init_GPS)
+    IntEnable                                0x00002be5   Thumb Code    92  interrupt.o(i.IntEnable)
+    IntRegister                              0x00002c49   Thumb Code    44  interrupt.o(i.IntRegister)
+    LED_1ms_DRV                              0x00002c7d   Thumb Code    78  drv_led.o(i.LED_1ms_DRV)
+    LX_Change_Mode                           0x00002cd5   Thumb Code    80  lx_fc_fun.o(i.LX_Change_Mode)
+    LX_FC_EXT_Sensor_Task                    0x00002d31   Thumb Code    82  lx_fc_ext_sensor.o(i.LX_FC_EXT_Sensor_Task)
+    Mag_Calibration                          0x00002df9   Thumb Code    50  movecontrol.o(i.Mag_Calibration)
+    MoveControl_DataAnl                      0x00002e31   Thumb Code   534  movecontrol.o(i.MoveControl_DataAnl)
+    MoveControl_GetOneByte                   0x000030a5   Thumb Code   252  movecontrol.o(i.MoveControl_GetOneByte)
+    MoveControl_Output                       0x000031b1   Thumb Code  1146  movecontrol.o(i.MoveControl_Output)
+    MyDelayMs                                0x00003631   Thumb Code    30  drv_sys.o(i.MyDelayMs)
+    NoUse                                    0x00003655   Thumb Code     2  drv_uart.o(i.NoUse)
+    OneKey_Land                              0x00003659   Thumb Code    50  lx_fc_fun.o(i.OneKey_Land)
+    PAR_Back                                 0x00003691   Thumb Code    14  ano_dt_lx.o(i.PAR_Back)
+    PositionControl                          0x00003729   Thumb Code   580  movecontrol.o(i.PositionControl)
+    Quick_Calibration                        0x000039a1   Thumb Code    50  movecontrol.o(i.Quick_Calibration)
+    Scheduler_Run                            0x000039d9   Thumb Code    76  ano_scheduler.o(i.Scheduler_Run)
+    Scheduler_Setup                          0x00003a29   Thumb Code    76  ano_scheduler.o(i.Scheduler_Setup)
+    SixAxis_Calibration                      0x00003a79   Thumb Code    50  movecontrol.o(i.SixAxis_Calibration)
+    SysCtlClockGet                           0x00003ab1   Thumb Code   304  sysctl.o(i.SysCtlClockGet)
+    SysTick_Handler                          0x00003c05   Thumb Code    20  drv_sys.o(i.SysTick_Handler)
+    SysTick_Init                             0x00003c1d   Thumb Code    54  drv_sys.o(i.SysTick_Init)
+    SystemInit                               0x00003c55   Thumb Code   112  system_tm4c123.o(i.SystemInit)
+    Timer0Irq                                0x00003ced   Thumb Code    16  drv_timer.o(i.Timer0Irq)
+    TimerIntClear                            0x00003d01   Thumb Code     4  timer.o(i.TimerIntClear)
+    TimerIntRegister                         0x00003d05   Thumb Code    88  timer.o(i.TimerIntRegister)
+    UART1_IRQHandler                         0x00003d6d   Thumb Code    82  drv_uart.o(i.UART1_IRQHandler)
+    UART2_IRQHandler                         0x00003dc5   Thumb Code    82  drv_uart.o(i.UART2_IRQHandler)
+    UART3_IRQHandler                         0x00003e1d   Thumb Code    82  drv_uart.o(i.UART3_IRQHandler)
+    UART4_IRQHandler                         0x00003e75   Thumb Code    82  drv_uart.o(i.UART4_IRQHandler)
+    UART5_IRQHandler                         0x00003ecd   Thumb Code    82  drv_uart.o(i.UART5_IRQHandler)
+    UARTIntRegister                          0x00003f25   Thumb Code    70  uart.o(i.UARTIntRegister)
+    UBLOX_M8_GPS_Data_Receive                0x00003f7d   Thumb Code   328  drv_ubloxgps.o(i.UBLOX_M8_GPS_Data_Receive)
+    __ARM_fpclassify                         0x000040e1   Thumb Code    48  fpclassify.o(i.__ARM_fpclassify)
+    __hardfp_atan                            0x00004111   Thumb Code   622  atan.o(i.__hardfp_atan)
+    __hardfp_sqrt                            0x000043e9   Thumb Code   122  sqrt.o(i.__hardfp_sqrt)
+    __kernel_poly                            0x00004463   Thumb Code   248  poly.o(i.__kernel_poly)
+    __mathlib_dbl_infnan                     0x0000455b   Thumb Code    20  dunder.o(i.__mathlib_dbl_infnan)
+    __mathlib_dbl_underflow                  0x00004571   Thumb Code    24  dunder.o(i.__mathlib_dbl_underflow)
+    __scatterload_copy                       0x00004591   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0000459f   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x000045a1   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    __set_errno                              0x000045b1   Thumb Code     6  errno.o(i.__set_errno)
+    drvAdcTrigger                            0x000045bd   Thumb Code    18  drv_adc.o(i.drvAdcTrigger)
+    fabs                                     0x000045d5   Thumb Code    24  fabs.o(i.fabs)
+    fast_atan2                               0x000045ed   Thumb Code   350  ano_math.o(i.fast_atan2)
+    fly2field                                0x00004769   Thumb Code   170  movecontrol.o(i.fly2field)
+    fly2height                               0x00004829   Thumb Code    58  movecontrol.o(i.fly2height)
+    heightcontrol                            0x0000486d   Thumb Code   142  movecontrol.o(i.heightcontrol)
+    main                                     0x00004909   Thumb Code    64  main.o(i.main)
+    my_abs                                   0x00004969   Thumb Code    26  ano_math.o(i.my_abs)
+    send_laser_request                       0x00004985   Thumb Code   106  movecontrol.o(i.send_laser_request)
+    setHeight                                0x000049f5   Thumb Code     6  movecontrol.o(i.setHeight)
+    window_avg                               0x00004a01   Thumb Code    34  movecontrol.o(i.window_avg)
+    fast_atan_table                          0x00004a24   Data        1028  ano_math.o(.constdata)
+    Region$$Table$$Base                      0x00005340   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00005360   Number         0  anon$$obj.o(Region$$Table)
     fc_bat                                   0x2000005a   Data           4  ano_lx.o(.data)
     pvt_receive_updata                       0x20000082   Data           1  drv_ubloxgps.o(.data)
     fre_test_cnt                             0x20000084   Data           2  drv_ubloxgps.o(.data)
@@ -2578,14 +2587,15 @@ Image Symbol Table
     targetHeight                             0x200001a0   Data           4  movecontrol.o(.data)
     control_stat                             0x200001a8   Data           2  movecontrol.o(.data)
     time_task                                0x200001ac   Data           4  movecontrol.o(.data)
-    t265_yaw_base                            0x200001c4   Data           2  waypointcontrol.o(.data)
-    dif_yaw                                  0x200001c6   Data           2  waypointcontrol.o(.data)
-    anof_pitch                               0x200001c8   Data           2  waypointcontrol.o(.data)
-    anof_roll                                0x200001ca   Data           2  waypointcontrol.o(.data)
-    anof_yaw                                 0x200001cc   Data           2  waypointcontrol.o(.data)
-    set_x_position                           0x200001ce   Data           2  waypointcontrol.o(.data)
-    set_y_position                           0x200001d0   Data           2  waypointcontrol.o(.data)
-    set_z_position                           0x200001d2   Data           2  waypointcontrol.o(.data)
+    laser_request                            0x200001b0   Data           4  movecontrol.o(.data)
+    t265_yaw_base                            0x200001c8   Data           2  waypointcontrol.o(.data)
+    dif_yaw                                  0x200001ca   Data           2  waypointcontrol.o(.data)
+    anof_pitch                               0x200001cc   Data           2  waypointcontrol.o(.data)
+    anof_roll                                0x200001ce   Data           2  waypointcontrol.o(.data)
+    anof_yaw                                 0x200001d0   Data           2  waypointcontrol.o(.data)
+    set_x_position                           0x200001d2   Data           2  waypointcontrol.o(.data)
+    set_y_position                           0x200001d4   Data           2  waypointcontrol.o(.data)
+    set_z_position                           0x200001d6   Data           2  waypointcontrol.o(.data)
     send_buffer                              0x2000066c   Data          50  ano_dt_lx.o(.bss)
     dt                                       0x200006a0   Data        1564  ano_dt_lx.o(.bss)
     rt_tar                                   0x20000dbc   Data          14  ano_lx.o(.bss)
@@ -2600,7 +2610,7 @@ Image Symbol Table
     U3TxDataTemp                             0x20001174   Data         256  drv_uart.o(.bss)
     U4TxDataTemp                             0x20001274   Data         256  drv_uart.o(.bss)
     U5TxDataTemp                             0x20001374   Data         256  drv_uart.o(.bss)
-    __initial_sp                             0x20001ea8   Data           0  startup_tm4c123.o(STACK)
+    __initial_sp                             0x20001f10   Data           0  startup_tm4c123.o(STACK)
 
 
 
@@ -2610,43 +2620,43 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00005904, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00005338])
+  Load Region LR_1 (Base: 0x00000000, Size: 0x000059cc, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00005400])
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00005298, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00005360, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x0000026c   Data   RO         1384    RESET               startup_tm4c123.o
-    0x0000026c   0x0000026c   0x00000000   Code   RO         5107  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x0000026c   0x0000026c   0x00000004   Code   RO         5158    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000270   0x00000270   0x00000004   Code   RO         5161    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000274   0x00000274   0x00000000   Code   RO         5163    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000274   0x00000274   0x00000000   Code   RO         5165    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000274   0x00000274   0x00000008   Code   RO         5166    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x0000027c   0x0000027c   0x00000000   Code   RO         5168    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x0000027c   0x0000027c   0x00000000   Code   RO         5170    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x0000027c   0x0000027c   0x00000004   Code   RO         5159    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x0000026c   0x0000026c   0x00000000   Code   RO         5113  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x0000026c   0x0000026c   0x00000004   Code   RO         5164    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000270   0x00000270   0x00000004   Code   RO         5167    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000274   0x00000274   0x00000000   Code   RO         5169    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000274   0x00000274   0x00000000   Code   RO         5171    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000274   0x00000274   0x00000008   Code   RO         5172    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x0000027c   0x0000027c   0x00000000   Code   RO         5174    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x0000027c   0x0000027c   0x00000000   Code   RO         5176    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x0000027c   0x0000027c   0x00000004   Code   RO         5165    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x00000280   0x00000280   0x000000fc   Code   RO         1385  * .text               startup_tm4c123.o
-    0x0000037c   0x0000037c   0x0000014e   Code   RO         5110    .text               mf_w.l(dadd.o)
-    0x000004ca   0x000004ca   0x000000e4   Code   RO         5112    .text               mf_w.l(dmul.o)
-    0x000005ae   0x000005ae   0x000000de   Code   RO         5114    .text               mf_w.l(ddiv.o)
-    0x0000068c   0x0000068c   0x00000022   Code   RO         5118    .text               mf_w.l(dflti.o)
-    0x000006ae   0x000006ae   0x0000001a   Code   RO         5120    .text               mf_w.l(dfltui.o)
-    0x000006c8   0x000006c8   0x0000003e   Code   RO         5122    .text               mf_w.l(dfixi.o)
-    0x00000706   0x00000706   0x00000026   Code   RO         5126    .text               mf_w.l(f2d.o)
-    0x0000072c   0x0000072c   0x00000038   Code   RO         5132    .text               mf_w.l(d2f.o)
-    0x00000764   0x00000764   0x0000001e   Code   RO         5172    .text               mc_w.l(llshl.o)
-    0x00000782   0x00000782   0x00000020   Code   RO         5174    .text               mc_w.l(llushr.o)
-    0x000007a2   0x000007a2   0x00000024   Code   RO         5176    .text               mc_w.l(llsshr.o)
-    0x000007c6   0x000007c6   0x00000000   Code   RO         5185    .text               mc_w.l(iusefp.o)
-    0x000007c6   0x000007c6   0x0000006e   Code   RO         5186    .text               mf_w.l(fepilogue.o)
-    0x00000834   0x00000834   0x000000ba   Code   RO         5188    .text               mf_w.l(depilogue.o)
-    0x000008ee   0x000008ee   0x000000a2   Code   RO         5190    .text               mf_w.l(dsqrt.o)
-    0x00000990   0x00000990   0x00000024   Code   RO         5192    .text               mc_w.l(init.o)
-    0x000009b4   0x000009b4   0x00000056   Code   RO         5202    .text               mc_w.l(__dczerorl2.o)
+    0x0000037c   0x0000037c   0x0000014e   Code   RO         5116    .text               mf_w.l(dadd.o)
+    0x000004ca   0x000004ca   0x000000e4   Code   RO         5118    .text               mf_w.l(dmul.o)
+    0x000005ae   0x000005ae   0x000000de   Code   RO         5120    .text               mf_w.l(ddiv.o)
+    0x0000068c   0x0000068c   0x00000022   Code   RO         5124    .text               mf_w.l(dflti.o)
+    0x000006ae   0x000006ae   0x0000001a   Code   RO         5126    .text               mf_w.l(dfltui.o)
+    0x000006c8   0x000006c8   0x0000003e   Code   RO         5128    .text               mf_w.l(dfixi.o)
+    0x00000706   0x00000706   0x00000026   Code   RO         5132    .text               mf_w.l(f2d.o)
+    0x0000072c   0x0000072c   0x00000038   Code   RO         5138    .text               mf_w.l(d2f.o)
+    0x00000764   0x00000764   0x0000001e   Code   RO         5178    .text               mc_w.l(llshl.o)
+    0x00000782   0x00000782   0x00000020   Code   RO         5180    .text               mc_w.l(llushr.o)
+    0x000007a2   0x000007a2   0x00000024   Code   RO         5182    .text               mc_w.l(llsshr.o)
+    0x000007c6   0x000007c6   0x00000000   Code   RO         5191    .text               mc_w.l(iusefp.o)
+    0x000007c6   0x000007c6   0x0000006e   Code   RO         5192    .text               mf_w.l(fepilogue.o)
+    0x00000834   0x00000834   0x000000ba   Code   RO         5194    .text               mf_w.l(depilogue.o)
+    0x000008ee   0x000008ee   0x000000a2   Code   RO         5196    .text               mf_w.l(dsqrt.o)
+    0x00000990   0x00000990   0x00000024   Code   RO         5198    .text               mc_w.l(init.o)
+    0x000009b4   0x000009b4   0x00000056   Code   RO         5208    .text               mc_w.l(__dczerorl2.o)
     0x00000a0a   0x00000a0a   0x00000002   PAD
     0x00000a0c   0x00000a0c   0x0000002c   Code   RO          918    i.ADC0Handler       drv_adc.o
-    0x00000a38   0x00000a38   0x00000068   Code   RO         1629    i.ADCIntRegister    driverlib.lib(adc.o)
+    0x00000a38   0x00000a38   0x00000068   Code   RO         1635    i.ADCIntRegister    driverlib.lib(adc.o)
     0x00000aa0   0x00000aa0   0x000000d8   Code   RO          239    i.ANO_DT_Init       ano_dt_lx.o
     0x00000b78   0x00000b78   0x000001a4   Code   RO          240    i.ANO_DT_LX_Data_Receive_Anl  ano_dt_lx.o
     0x00000d1c   0x00000d1c   0x00000118   Code   RO          241    i.ANO_DT_LX_Data_Receive_Prepare  ano_dt_lx.o
@@ -2676,111 +2686,112 @@ Memory Map of the image
     0x00001f34   0x00001f34   0x00000034   Code   RO         1109    i.DrvUart1SendBuf   drv_uart.o
     0x00001f68   0x00001f68   0x00000044   Code   RO         1110    i.DrvUart1TxCheck   drv_uart.o
     0x00001fac   0x00001fac   0x000000d8   Code   RO         1111    i.DrvUart2Init      drv_uart.o
-    0x00002084   0x00002084   0x00000044   Code   RO         1113    i.DrvUart2TxCheck   drv_uart.o
-    0x000020c8   0x000020c8   0x000000d8   Code   RO         1114    i.DrvUart3Init      drv_uart.o
-    0x000021a0   0x000021a0   0x00000044   Code   RO         1116    i.DrvUart3TxCheck   drv_uart.o
-    0x000021e4   0x000021e4   0x000000d8   Code   RO         1117    i.DrvUart4Init      drv_uart.o
-    0x000022bc   0x000022bc   0x00000044   Code   RO         1119    i.DrvUart4TxCheck   drv_uart.o
-    0x00002300   0x00002300   0x000000f4   Code   RO         1120    i.DrvUart5Init      drv_uart.o
-    0x000023f4   0x000023f4   0x00000034   Code   RO         1121    i.DrvUart5SendBuf   drv_uart.o
-    0x00002428   0x00002428   0x00000044   Code   RO         1122    i.DrvUart5TxCheck   drv_uart.o
-    0x0000246c   0x0000246c   0x00000018   Code   RO         1123    i.DrvUartDataCheck  drv_uart.o
-    0x00002484   0x00002484   0x00000070   Code   RO          920    i.Drv_AdcGetBatVot  drv_adc.o
-    0x000024f4   0x000024f4   0x00000084   Code   RO          975    i.DvrLedInit        drv_led.o
-    0x00002578   0x00002578   0x0000017c   Code   RO          336    i.ESC_Output        ano_lx.o
-    0x000026f4   0x000026f4   0x00000040   Code   RO          438    i.FC_Unlock         lx_fc_fun.o
-    0x00002734   0x00002734   0x000000c8   Code   RO          249    i.Frame_Send        ano_dt_lx.o
-    0x000027fc   0x000027fc   0x00000010   Code   RO          807    i.GPS_Rate_H        drv_ubloxgps.o
-    0x0000280c   0x0000280c   0x0000007c   Code   RO          395    i.General_Position_Data_Handle  lx_fc_ext_sensor.o
-    0x00002888   0x00002888   0x00000128   Code   RO          396    i.General_Velocity_Data_Handle  lx_fc_ext_sensor.o
-    0x000029b0   0x000029b0   0x0000000c   Code   RO          859    i.GetSysRunTimeMs   drv_sys.o
-    0x000029bc   0x000029bc   0x00000054   Code   RO         1464    i.Height_Move_Down  movecontrol.o
-    0x00002a10   0x00002a10   0x00000058   Code   RO         1465    i.Height_Move_Up    movecontrol.o
-    0x00002a68   0x00002a68   0x00000068   Code   RO          441    i.Horizontal_Move   lx_fc_fun.o
-    0x00002ad0   0x00002ad0   0x000000e0   Code   RO          809    i.Init_GPS          drv_ubloxgps.o
-    0x00002bb0   0x00002bb0   0x00000064   Code   RO         3830    i.IntEnable         driverlib.lib(interrupt.o)
-    0x00002c14   0x00002c14   0x00000034   Code   RO         3842    i.IntRegister       driverlib.lib(interrupt.o)
-    0x00002c48   0x00002c48   0x00000058   Code   RO          976    i.LED_1ms_DRV       drv_led.o
-    0x00002ca0   0x00002ca0   0x0000005c   Code   RO          442    i.LX_Change_Mode    lx_fc_fun.o
-    0x00002cfc   0x00002cfc   0x00000064   Code   RO          397    i.LX_FC_EXT_Sensor_Task  lx_fc_ext_sensor.o
-    0x00002d60   0x00002d60   0x00000002   Code   RO          130    i.Loop_1000Hz       ano_scheduler.o
-    0x00002d62   0x00002d62   0x00000002   Code   RO          131    i.Loop_100Hz        ano_scheduler.o
-    0x00002d64   0x00002d64   0x00000002   Code   RO          132    i.Loop_200Hz        ano_scheduler.o
-    0x00002d66   0x00002d66   0x00000002   Code   RO          133    i.Loop_20Hz         ano_scheduler.o
-    0x00002d68   0x00002d68   0x00000038   Code   RO          134    i.Loop_2Hz          ano_scheduler.o
-    0x00002da0   0x00002da0   0x00000002   Code   RO          135    i.Loop_500Hz        ano_scheduler.o
-    0x00002da2   0x00002da2   0x00000008   Code   RO          136    i.Loop_50Hz         ano_scheduler.o
-    0x00002daa   0x00002daa   0x00000002   PAD
-    0x00002dac   0x00002dac   0x00000038   Code   RO         1466    i.Mag_Calibration   movecontrol.o
-    0x00002de4   0x00002de4   0x00000274   Code   RO         1467    i.MoveControl_DataAnl  movecontrol.o
-    0x00003058   0x00003058   0x0000010c   Code   RO         1468    i.MoveControl_GetOneByte  movecontrol.o
-    0x00003164   0x00003164   0x00000488   Code   RO         1469    i.MoveControl_Output  movecontrol.o
-    0x000035ec   0x000035ec   0x00000024   Code   RO          861    i.MyDelayMs         drv_sys.o
-    0x00003610   0x00003610   0x00000002   Code   RO         1124    i.NoUse             drv_uart.o
-    0x00003612   0x00003612   0x00000002   PAD
-    0x00003614   0x00003614   0x00000038   Code   RO          444    i.OneKey_Land       lx_fc_fun.o
-    0x0000364c   0x0000364c   0x00000014   Code   RO          250    i.PAR_Back          ano_dt_lx.o
-    0x00003660   0x00003660   0x00000084   Code   RO         1063    i.PPM_Decode        drv_rcin.o
-    0x000036e4   0x000036e4   0x00000278   Code   RO         1471    i.PositionControl   movecontrol.o
-    0x0000395c   0x0000395c   0x00000038   Code   RO         1472    i.Quick_Calibration  movecontrol.o
-    0x00003994   0x00003994   0x00000050   Code   RO          137    i.Scheduler_Run     ano_scheduler.o
-    0x000039e4   0x000039e4   0x00000050   Code   RO          138    i.Scheduler_Setup   ano_scheduler.o
-    0x00003a34   0x00003a34   0x00000038   Code   RO         1473    i.SixAxis_Calibration  movecontrol.o
-    0x00003a6c   0x00003a6c   0x00000154   Code   RO         1893    i.SysCtlClockGet    driverlib.lib(sysctl.o)
-    0x00003bc0   0x00003bc0   0x00000018   Code   RO          862    i.SysTick_Handler   drv_sys.o
-    0x00003bd8   0x00003bd8   0x00000036   Code   RO          863    i.SysTick_Init      drv_sys.o
-    0x00003c0e   0x00003c0e   0x00000002   PAD
-    0x00003c10   0x00003c10   0x00000098   Code   RO         1393    i.SystemInit        system_tm4c123.o
-    0x00003ca8   0x00003ca8   0x00000014   Code   RO         1353    i.Timer0Irq         drv_timer.o
-    0x00003cbc   0x00003cbc   0x00000004   Code   RO         2258    i.TimerIntClear     driverlib.lib(timer.o)
-    0x00003cc0   0x00003cc0   0x00000068   Code   RO         2261    i.TimerIntRegister  driverlib.lib(timer.o)
-    0x00003d28   0x00003d28   0x00000058   Code   RO         1125    i.UART1_IRQHandler  drv_uart.o
-    0x00003d80   0x00003d80   0x00000058   Code   RO         1126    i.UART2_IRQHandler  drv_uart.o
-    0x00003dd8   0x00003dd8   0x00000058   Code   RO         1127    i.UART3_IRQHandler  drv_uart.o
-    0x00003e30   0x00003e30   0x00000058   Code   RO         1128    i.UART4_IRQHandler  drv_uart.o
-    0x00003e88   0x00003e88   0x00000058   Code   RO         1129    i.UART5_IRQHandler  drv_uart.o
-    0x00003ee0   0x00003ee0   0x00000058   Code   RO         2516    i.UARTIntRegister   driverlib.lib(uart.o)
-    0x00003f38   0x00003f38   0x00000164   Code   RO          810    i.UBLOX_M8_GPS_Data_Receive  drv_ubloxgps.o
-    0x0000409c   0x0000409c   0x00000030   Code   RO         5154    i.__ARM_fpclassify  m_wm.l(fpclassify.o)
-    0x000040cc   0x000040cc   0x00000004   PAD
-    0x000040d0   0x000040d0   0x000002d8   Code   RO         5081    i.__hardfp_atan     m_wm.l(atan.o)
-    0x000043a8   0x000043a8   0x0000007a   Code   RO         5095    i.__hardfp_sqrt     m_wm.l(sqrt.o)
-    0x00004422   0x00004422   0x000000f8   Code   RO         5156    i.__kernel_poly     m_wm.l(poly.o)
-    0x0000451a   0x0000451a   0x00000014   Code   RO         5135    i.__mathlib_dbl_infnan  m_wm.l(dunder.o)
-    0x0000452e   0x0000452e   0x00000002   PAD
-    0x00004530   0x00004530   0x00000020   Code   RO         5140    i.__mathlib_dbl_underflow  m_wm.l(dunder.o)
-    0x00004550   0x00004550   0x0000000e   Code   RO         5196    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0000455e   0x0000455e   0x00000002   Code   RO         5197    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00004560   0x00004560   0x0000000e   Code   RO         5198    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00002084   0x00002084   0x00000034   Code   RO         1112    i.DrvUart2SendBuf   drv_uart.o
+    0x000020b8   0x000020b8   0x00000044   Code   RO         1113    i.DrvUart2TxCheck   drv_uart.o
+    0x000020fc   0x000020fc   0x000000d8   Code   RO         1114    i.DrvUart3Init      drv_uart.o
+    0x000021d4   0x000021d4   0x00000044   Code   RO         1116    i.DrvUart3TxCheck   drv_uart.o
+    0x00002218   0x00002218   0x000000d8   Code   RO         1117    i.DrvUart4Init      drv_uart.o
+    0x000022f0   0x000022f0   0x00000044   Code   RO         1119    i.DrvUart4TxCheck   drv_uart.o
+    0x00002334   0x00002334   0x000000f4   Code   RO         1120    i.DrvUart5Init      drv_uart.o
+    0x00002428   0x00002428   0x00000034   Code   RO         1121    i.DrvUart5SendBuf   drv_uart.o
+    0x0000245c   0x0000245c   0x00000044   Code   RO         1122    i.DrvUart5TxCheck   drv_uart.o
+    0x000024a0   0x000024a0   0x00000018   Code   RO         1123    i.DrvUartDataCheck  drv_uart.o
+    0x000024b8   0x000024b8   0x00000070   Code   RO          920    i.Drv_AdcGetBatVot  drv_adc.o
+    0x00002528   0x00002528   0x00000084   Code   RO          975    i.DvrLedInit        drv_led.o
+    0x000025ac   0x000025ac   0x0000017c   Code   RO          336    i.ESC_Output        ano_lx.o
+    0x00002728   0x00002728   0x00000040   Code   RO          438    i.FC_Unlock         lx_fc_fun.o
+    0x00002768   0x00002768   0x000000c8   Code   RO          249    i.Frame_Send        ano_dt_lx.o
+    0x00002830   0x00002830   0x00000010   Code   RO          807    i.GPS_Rate_H        drv_ubloxgps.o
+    0x00002840   0x00002840   0x0000007c   Code   RO          395    i.General_Position_Data_Handle  lx_fc_ext_sensor.o
+    0x000028bc   0x000028bc   0x00000128   Code   RO          396    i.General_Velocity_Data_Handle  lx_fc_ext_sensor.o
+    0x000029e4   0x000029e4   0x0000000c   Code   RO          859    i.GetSysRunTimeMs   drv_sys.o
+    0x000029f0   0x000029f0   0x00000054   Code   RO         1464    i.Height_Move_Down  movecontrol.o
+    0x00002a44   0x00002a44   0x00000058   Code   RO         1465    i.Height_Move_Up    movecontrol.o
+    0x00002a9c   0x00002a9c   0x00000068   Code   RO          441    i.Horizontal_Move   lx_fc_fun.o
+    0x00002b04   0x00002b04   0x000000e0   Code   RO          809    i.Init_GPS          drv_ubloxgps.o
+    0x00002be4   0x00002be4   0x00000064   Code   RO         3836    i.IntEnable         driverlib.lib(interrupt.o)
+    0x00002c48   0x00002c48   0x00000034   Code   RO         3848    i.IntRegister       driverlib.lib(interrupt.o)
+    0x00002c7c   0x00002c7c   0x00000058   Code   RO          976    i.LED_1ms_DRV       drv_led.o
+    0x00002cd4   0x00002cd4   0x0000005c   Code   RO          442    i.LX_Change_Mode    lx_fc_fun.o
+    0x00002d30   0x00002d30   0x00000064   Code   RO          397    i.LX_FC_EXT_Sensor_Task  lx_fc_ext_sensor.o
+    0x00002d94   0x00002d94   0x00000002   Code   RO          133    i.Loop_1000Hz       ano_scheduler.o
+    0x00002d96   0x00002d96   0x00000002   Code   RO          134    i.Loop_100Hz        ano_scheduler.o
+    0x00002d98   0x00002d98   0x00000002   Code   RO          135    i.Loop_200Hz        ano_scheduler.o
+    0x00002d9a   0x00002d9a   0x00000002   PAD
+    0x00002d9c   0x00002d9c   0x00000010   Code   RO          136    i.Loop_20Hz         ano_scheduler.o
+    0x00002dac   0x00002dac   0x00000040   Code   RO          137    i.Loop_2Hz          ano_scheduler.o
+    0x00002dec   0x00002dec   0x00000002   Code   RO          138    i.Loop_500Hz        ano_scheduler.o
+    0x00002dee   0x00002dee   0x00000008   Code   RO          139    i.Loop_50Hz         ano_scheduler.o
+    0x00002df6   0x00002df6   0x00000002   PAD
+    0x00002df8   0x00002df8   0x00000038   Code   RO         1466    i.Mag_Calibration   movecontrol.o
+    0x00002e30   0x00002e30   0x00000274   Code   RO         1467    i.MoveControl_DataAnl  movecontrol.o
+    0x000030a4   0x000030a4   0x0000010c   Code   RO         1468    i.MoveControl_GetOneByte  movecontrol.o
+    0x000031b0   0x000031b0   0x00000480   Code   RO         1469    i.MoveControl_Output  movecontrol.o
+    0x00003630   0x00003630   0x00000024   Code   RO          861    i.MyDelayMs         drv_sys.o
+    0x00003654   0x00003654   0x00000002   Code   RO         1124    i.NoUse             drv_uart.o
+    0x00003656   0x00003656   0x00000002   PAD
+    0x00003658   0x00003658   0x00000038   Code   RO          444    i.OneKey_Land       lx_fc_fun.o
+    0x00003690   0x00003690   0x00000014   Code   RO          250    i.PAR_Back          ano_dt_lx.o
+    0x000036a4   0x000036a4   0x00000084   Code   RO         1063    i.PPM_Decode        drv_rcin.o
+    0x00003728   0x00003728   0x00000278   Code   RO         1471    i.PositionControl   movecontrol.o
+    0x000039a0   0x000039a0   0x00000038   Code   RO         1472    i.Quick_Calibration  movecontrol.o
+    0x000039d8   0x000039d8   0x00000050   Code   RO          140    i.Scheduler_Run     ano_scheduler.o
+    0x00003a28   0x00003a28   0x00000050   Code   RO          141    i.Scheduler_Setup   ano_scheduler.o
+    0x00003a78   0x00003a78   0x00000038   Code   RO         1473    i.SixAxis_Calibration  movecontrol.o
+    0x00003ab0   0x00003ab0   0x00000154   Code   RO         1899    i.SysCtlClockGet    driverlib.lib(sysctl.o)
+    0x00003c04   0x00003c04   0x00000018   Code   RO          862    i.SysTick_Handler   drv_sys.o
+    0x00003c1c   0x00003c1c   0x00000036   Code   RO          863    i.SysTick_Init      drv_sys.o
+    0x00003c52   0x00003c52   0x00000002   PAD
+    0x00003c54   0x00003c54   0x00000098   Code   RO         1393    i.SystemInit        system_tm4c123.o
+    0x00003cec   0x00003cec   0x00000014   Code   RO         1353    i.Timer0Irq         drv_timer.o
+    0x00003d00   0x00003d00   0x00000004   Code   RO         2264    i.TimerIntClear     driverlib.lib(timer.o)
+    0x00003d04   0x00003d04   0x00000068   Code   RO         2267    i.TimerIntRegister  driverlib.lib(timer.o)
+    0x00003d6c   0x00003d6c   0x00000058   Code   RO         1125    i.UART1_IRQHandler  drv_uart.o
+    0x00003dc4   0x00003dc4   0x00000058   Code   RO         1126    i.UART2_IRQHandler  drv_uart.o
+    0x00003e1c   0x00003e1c   0x00000058   Code   RO         1127    i.UART3_IRQHandler  drv_uart.o
+    0x00003e74   0x00003e74   0x00000058   Code   RO         1128    i.UART4_IRQHandler  drv_uart.o
+    0x00003ecc   0x00003ecc   0x00000058   Code   RO         1129    i.UART5_IRQHandler  drv_uart.o
+    0x00003f24   0x00003f24   0x00000058   Code   RO         2522    i.UARTIntRegister   driverlib.lib(uart.o)
+    0x00003f7c   0x00003f7c   0x00000164   Code   RO          810    i.UBLOX_M8_GPS_Data_Receive  drv_ubloxgps.o
+    0x000040e0   0x000040e0   0x00000030   Code   RO         5160    i.__ARM_fpclassify  m_wm.l(fpclassify.o)
+    0x00004110   0x00004110   0x000002d8   Code   RO         5087    i.__hardfp_atan     m_wm.l(atan.o)
+    0x000043e8   0x000043e8   0x0000007a   Code   RO         5101    i.__hardfp_sqrt     m_wm.l(sqrt.o)
+    0x00004462   0x00004462   0x000000f8   Code   RO         5162    i.__kernel_poly     m_wm.l(poly.o)
+    0x0000455a   0x0000455a   0x00000014   Code   RO         5141    i.__mathlib_dbl_infnan  m_wm.l(dunder.o)
     0x0000456e   0x0000456e   0x00000002   PAD
-    0x00004570   0x00004570   0x0000000c   Code   RO         5180    i.__set_errno       mc_w.l(errno.o)
-    0x0000457c   0x0000457c   0x00000018   Code   RO          921    i.drvAdcTrigger     drv_adc.o
-    0x00004594   0x00004594   0x00000018   Code   RO         5150    i.fabs              m_wm.l(fabs.o)
-    0x000045ac   0x000045ac   0x0000017c   Code   RO          627    i.fast_atan2        ano_math.o
-    0x00004728   0x00004728   0x000000a4   Code   RO         1474    i.fly2field         movecontrol.o
-    0x000047cc   0x000047cc   0x00000044   Code   RO         1475    i.fly2height        movecontrol.o
-    0x00004810   0x00004810   0x0000009c   Code   RO         1476    i.heightcontrol     movecontrol.o
-    0x000048ac   0x000048ac   0x00000060   Code   RO            4    i.main              main.o
-    0x0000490c   0x0000490c   0x0000001a   Code   RO          632    i.my_abs            ano_math.o
-    0x00004926   0x00004926   0x00000002   PAD
-    0x00004928   0x00004928   0x0000000c   Code   RO         1477    i.setHeight         movecontrol.o
-    0x00004934   0x00004934   0x00000022   Code   RO         1478    i.window_avg        movecontrol.o
-    0x00004956   0x00004956   0x00000002   PAD
-    0x00004958   0x00004958   0x00000404   Data   RO          645    .constdata          ano_math.o
-    0x00004d5c   0x00004d5c   0x00000254   Data   RO         1946    .constdata          driverlib.lib(sysctl.o)
-    0x00004fb0   0x00004fb0   0x000000a0   Data   RO         2282    .constdata          driverlib.lib(timer.o)
-    0x00005050   0x00005050   0x00000080   Data   RO         2533    .constdata          driverlib.lib(uart.o)
-    0x000050d0   0x000050d0   0x0000010c   Data   RO         3846    .constdata          driverlib.lib(interrupt.o)
-    0x000051dc   0x000051dc   0x00000004   PAD
-    0x000051e0   0x000051e0   0x00000098   Data   RO         5084    .constdata          m_wm.l(atan.o)
-    0x00005278   0x00005278   0x00000020   Data   RO         5194    Region$$Table       anon$$obj.o
+    0x00004570   0x00004570   0x00000020   Code   RO         5146    i.__mathlib_dbl_underflow  m_wm.l(dunder.o)
+    0x00004590   0x00004590   0x0000000e   Code   RO         5202    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0000459e   0x0000459e   0x00000002   Code   RO         5203    i.__scatterload_null  mc_w.l(handlers.o)
+    0x000045a0   0x000045a0   0x0000000e   Code   RO         5204    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x000045ae   0x000045ae   0x00000002   PAD
+    0x000045b0   0x000045b0   0x0000000c   Code   RO         5186    i.__set_errno       mc_w.l(errno.o)
+    0x000045bc   0x000045bc   0x00000018   Code   RO          921    i.drvAdcTrigger     drv_adc.o
+    0x000045d4   0x000045d4   0x00000018   Code   RO         5156    i.fabs              m_wm.l(fabs.o)
+    0x000045ec   0x000045ec   0x0000017c   Code   RO          627    i.fast_atan2        ano_math.o
+    0x00004768   0x00004768   0x000000c0   Code   RO         1474    i.fly2field         movecontrol.o
+    0x00004828   0x00004828   0x00000044   Code   RO         1475    i.fly2height        movecontrol.o
+    0x0000486c   0x0000486c   0x0000009c   Code   RO         1476    i.heightcontrol     movecontrol.o
+    0x00004908   0x00004908   0x00000060   Code   RO            4    i.main              main.o
+    0x00004968   0x00004968   0x0000001a   Code   RO          632    i.my_abs            ano_math.o
+    0x00004982   0x00004982   0x00000002   PAD
+    0x00004984   0x00004984   0x00000070   Code   RO         1477    i.send_laser_request  movecontrol.o
+    0x000049f4   0x000049f4   0x0000000c   Code   RO         1478    i.setHeight         movecontrol.o
+    0x00004a00   0x00004a00   0x00000022   Code   RO         1479    i.window_avg        movecontrol.o
+    0x00004a22   0x00004a22   0x00000002   PAD
+    0x00004a24   0x00004a24   0x00000404   Data   RO          645    .constdata          ano_math.o
+    0x00004e28   0x00004e28   0x00000254   Data   RO         1952    .constdata          driverlib.lib(sysctl.o)
+    0x0000507c   0x0000507c   0x000000a0   Data   RO         2288    .constdata          driverlib.lib(timer.o)
+    0x0000511c   0x0000511c   0x00000080   Data   RO         2539    .constdata          driverlib.lib(uart.o)
+    0x0000519c   0x0000519c   0x0000010c   Data   RO         3852    .constdata          driverlib.lib(interrupt.o)
+    0x000052a8   0x000052a8   0x00000098   Data   RO         5090    .constdata          m_wm.l(atan.o)
+    0x00005340   0x00005340   0x00000020   Data   RO         5200    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00005298, Size: 0x0000066c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000a0])
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00005360, Size: 0x0000066c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000000a0])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   COMPRESSED   0x00000054   Data   RW          139    .data               ano_scheduler.o
+    0x20000000   COMPRESSED   0x00000054   Data   RW          142    .data               ano_scheduler.o
     0x20000054   COMPRESSED   0x00000006   Data   RW          252    .data               ano_dt_lx.o
     0x2000005a   COMPRESSED   0x0000000a   Data   RW          338    .data               ano_lx.o
     0x20000064   COMPRESSED   0x00000006   Data   RW          399    .data               lx_fc_ext_sensor.o
@@ -2796,15 +2807,15 @@ Memory Map of the image
     0x20000150   COMPRESSED   0x0000000c   Data   RW         1065    .data               drv_rcin.o
     0x2000015c   COMPRESSED   0x0000000a   Data   RW         1131    .data               drv_uart.o
     0x20000166   COMPRESSED   0x00000002   PAD
-    0x20000168   COMPRESSED   0x0000005c   Data   RW         1481    .data               movecontrol.o
-    0x200001c4   COMPRESSED   0x00000016   Data   RW         1586    .data               waypointcontrol.o
-    0x200001da   COMPRESSED   0x00000002   PAD
-    0x200001dc   COMPRESSED   0x00000004   Data   RW         5181    .data               mc_w.l(errno.o)
-    0x200001e0   COMPRESSED   0x00000220   PAD
-    0x20000400   COMPRESSED   0x0000026c   Data   RW         3847    vtable              driverlib.lib(interrupt.o)
+    0x20000168   COMPRESSED   0x00000060   Data   RW         1482    .data               movecontrol.o
+    0x200001c8   COMPRESSED   0x00000016   Data   RW         1592    .data               waypointcontrol.o
+    0x200001de   COMPRESSED   0x00000002   PAD
+    0x200001e0   COMPRESSED   0x00000004   Data   RW         5187    .data               mc_w.l(errno.o)
+    0x200001e4   COMPRESSED   0x0000021c   PAD
+    0x20000400   COMPRESSED   0x0000026c   Data   RW         3853    vtable              driverlib.lib(interrupt.o)
 
 
-    Execution Region ER_ZI (Exec base: 0x2000066c, Load base: 0x00005338, Size: 0x0000183c, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x2000066c, Load base: 0x00005400, Size: 0x000018a4, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2812,15 +2823,15 @@ Memory Map of the image
     0x20000dbc        -       0x0000002e   Zero   RW          337    .bss                ano_lx.o
     0x20000dea        -       0x00000030   Zero   RW          398    .bss                lx_fc_ext_sensor.o
     0x20000e1a        -       0x0000000b   Zero   RW          524    .bss                lx_fc_state.o
-    0x20000e25   0x00005338   0x00000001   PAD
+    0x20000e25   0x00005400   0x00000001   PAD
     0x20000e26        -       0x0000006b   Zero   RW          569    .bss                drv_bsp.o
-    0x20000e91   0x00005338   0x00000003   PAD
+    0x20000e91   0x00005400   0x00000003   PAD
     0x20000e94        -       0x0000007c   Zero   RW          767    .bss                drv_anoof.o
     0x20000f10        -       0x00000064   Zero   RW          811    .bss                drv_ubloxgps.o
     0x20000f74        -       0x00000500   Zero   RW         1130    .bss                drv_uart.o
-    0x20001474        -       0x00000032   Zero   RW         1479    .bss                movecontrol.o
-    0x200014a6   0x00005338   0x00000002   PAD
-    0x200014a8        -       0x00000a00   Zero   RW         1382    STACK               startup_tm4c123.o
+    0x20001474        -       0x00000096   Zero   RW         1480    .bss                movecontrol.o
+    0x2000150a   0x00005400   0x00000006   PAD
+    0x20001510        -       0x00000a00   Zero   RW         1382    STACK               startup_tm4c123.o
 
 
 ==============================================================================
@@ -2833,7 +2844,7 @@ Image component sizes
       2060        114          0          6       1872      10284   ano_dt_lx.o
        544         38          0         10         46       4957   ano_lx.o
        406         30       1028          0          0       2368   ano_math.o
-       234         18          0         84          0       5170   ano_scheduler.o
+       256         24          0         84          0       5202   ano_scheduler.o
        364         64          0          4          0       2570   drv_adc.o
       1088         64          0          3        124       3968   drv_anoof.o
        224         18          0         18        107       4413   drv_bsp.o
@@ -2842,21 +2853,21 @@ Image component sizes
        344         48          0         12          0       1207   drv_rcin.o
        206         28          0          8          0      33299   drv_sys.o
        144         18          0          0          0       1133   drv_timer.o
-      2010        268          0         10       1280      13751   drv_uart.o
+      2062        278          0         10       1280      14453   drv_uart.o
        596         60          0        182        100       3662   drv_ubloxgps.o
        520         86          0          6         48       3811   lx_fc_ext_sensor.o
        316         32          0          1          0       2529   lx_fc_fun.o
          0          0          0          0         11       1933   lx_fc_state.o
         96         32          0          0          0      31914   main.o
-      3462        314          0         92         50      12079   movecontrol.o
+      3594        326          0         96        150      12882   movecontrol.o
        252         10        620          0       2560       5488   startup_tm4c123.o
        152         40          0          0          0        653   system_tm4c123.o
          0          0          0         22          0        623   waypointcontrol.o
 
     ----------------------------------------------------------------------
-     14392       1390       1680        476       6204     150440   Object Totals
+     14600       1418       1680        480       6308     151977   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        10          0          0          6          6          0   (incl. Padding)
+        12          0          0          6         10          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2902,8 +2913,8 @@ Image component sizes
        110          0          0          0          0        168   fepilogue.o
 
     ----------------------------------------------------------------------
-      3764        234       1308       1168          0      16170   Library Totals
-        10          0          4        544          0          0   (incl. Padding)
+      3760        234       1304       1164          0      16170   Library Totals
+         6          0          0        540          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2915,7 +2926,7 @@ Image component sizes
       1458          0          0          0          0       1176   mf_w.l
 
     ----------------------------------------------------------------------
-      3764        234       1308       1168          0      16170   Library Totals
+      3760        234       1304       1164          0      16170   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -2924,15 +2935,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     18156       1624       2988       1644       6204     156318   Grand Totals
-     18156       1624       2988        160       6204     156318   ELF Image Totals (compressed)
-     18156       1624       2988        160          0          0   ROM Totals
+     18360       1652       2984       1644       6308     157655   Grand Totals
+     18360       1652       2984        160       6308     157655   ELF Image Totals (compressed)
+     18360       1652       2984        160          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                21144 (  20.65kB)
-    Total RW  Size (RW Data + ZI Data)              7848 (   7.66kB)
-    Total ROM Size (Code + RO Data + RW Data)      21304 (  20.80kB)
+    Total RO  Size (Code + RO Data)                21344 (  20.84kB)
+    Total RW  Size (RW Data + ZI Data)              7952 (   7.77kB)
+    Total ROM Size (Code + RO Data + RW Data)      21504 (  21.00kB)
 
 ==============================================================================
 

@@ -404,6 +404,8 @@ void Screen_GetOneByte(uint8_t data)
 }
 
 //Data Analysis Function
+uint8_t preRequestState = 0;
+uint8_t RequestState = 0;
 void MainBoard_DataAnl(uint8_t *data, uint8_t len)
 {
     //data check
@@ -419,6 +421,30 @@ void MainBoard_DataAnl(uint8_t *data, uint8_t len)
 		return;
 	/*================================================================================*/
 	//Get data
+	if(*(data+1)!=0x62)
+		return;
+	switch(*(data+2)){
+		case 0x93:
+			RequestState = (*(data+4));
+			if(preRequestState != RequestState)
+			{
+				check_color();
+			}
+			break;
+		
+		default:
+			break;
+	}
+}
+
+//shitCode
+uint8_t color_state = 0;
+void check_color(void)
+{
+	if(color_state == 1)
+	{
+		blink_state = 1;
+	}
 }
 
 
@@ -508,9 +534,7 @@ void Jetson_DataAnl(uint8_t *data, uint8_t len)
 			send_t265_data();//sent to mainboard
 			break;
 		case 0x92:
-			if(preblink_state != (*(data+4)))
-				blink_state = 1;
-			preblink_state = (*(data+4));
+			color_state = (*(data + 4));
 			break;
 		default:
 			break;

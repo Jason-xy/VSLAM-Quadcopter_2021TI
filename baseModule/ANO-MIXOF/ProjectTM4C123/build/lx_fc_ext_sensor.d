@@ -30,3 +30,4 @@
 .\build\lx_fc_ext_sensor.o: ..\DriversBsp\Ano_math.h
 .\build\lx_fc_ext_sensor.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 .\build\lx_fc_ext_sensor.o: ..\DriversBsp\Drv_AnoOf.h
+.\build\lx_fc_ext_sensor.o: ..\DriversMcu\TM4C123\Drivers\Drv_Uart.h

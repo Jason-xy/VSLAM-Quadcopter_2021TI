@@ -60,14 +60,14 @@ static void Loop_20Hz(void) //50ms执行一次
 //	if(t265_z_position != 256)
 //			heightcontrol(150, t265_z_position);
 //	t265_z_position = 256;
-	
+	send_laser_request(laser_request);
 	//////////////////////////////////////////////////////////////////////
 }
 
 static void Loop_2Hz(void) //500ms执行一次
 {
 	//heigt control
-	if(targetHeight - ano_of.of_alt_cm > 5 || targetHeight - ano_of.of_alt_cm < -10)
+	if( UNLOCK_STATE && (targetHeight - ano_of.of_alt_cm > 5 || targetHeight - ano_of.of_alt_cm < -10))
 	{
 		heightcontrol(targetHeight, ano_of.of_alt_cm);
 	}

@@ -41,7 +41,7 @@ void MainBoard_BeginCompassCalibration(void);
 void MainBoard_BeginLevelCalibration(void);
 void MainBoard_Unlock(void);
 void MainBoard_OneKeyLand(void);
-
+void check_color(void);
 
 //U3
 //OpenMV:0x63

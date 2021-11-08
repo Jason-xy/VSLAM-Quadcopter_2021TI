@@ -339,6 +339,8 @@ Section Cross References
     datacenter.o(i.MainBoard_BeginCompassCalibration) refers to drv_uart.o(i.DrvUart2SendBuf) for DrvUart2SendBuf
     datacenter.o(i.MainBoard_BeginLevelCalibration) refers to drv_uart.o(i.DrvUart2SendBuf) for DrvUart2SendBuf
     datacenter.o(i.MainBoard_BeginSixSidesCalibration) refers to drv_uart.o(i.DrvUart2SendBuf) for DrvUart2SendBuf
+    datacenter.o(i.MainBoard_DataAnl) refers to datacenter.o(i.check_color) for check_color
+    datacenter.o(i.MainBoard_DataAnl) refers to datacenter.o(.data) for RequestState
     datacenter.o(i.MainBoard_GetOneByte) refers to datacenter.o(i.MainBoard_DataAnl) for MainBoard_DataAnl
     datacenter.o(i.MainBoard_GetOneByte) refers to datacenter.o(.data) for rxstate_u2
     datacenter.o(i.MainBoard_GetOneByte) refers to datacenter.o(.bss) for MainBoard_datatemp
@@ -364,6 +366,7 @@ Section Cross References
     datacenter.o(i.Screen_GetOneByte) refers to datacenter.o(i.Screen_DataAnl) for Screen_DataAnl
     datacenter.o(i.Screen_GetOneByte) refers to datacenter.o(.data) for rxstate_u7
     datacenter.o(i.Screen_GetOneByte) refers to datacenter.o(.bss) for Screen_datatemp
+    datacenter.o(i.check_color) refers to datacenter.o(.data) for color_state
     datacenter.o(i.send_t265_data) refers to memseta.o(.text) for __aeabi_memclr
     datacenter.o(i.send_t265_data) refers to drv_uart.o(i.DrvUart2SendBuf) for DrvUart2SendBuf
     datacenter.o(i.send_t265_data) refers to datacenter.o(.bss) for Jetson_datatemp_tx
@@ -2032,30 +2035,30 @@ Image Symbol Table
     RESET                                    0x00000000   Section      620  startup_tm4c123.o(RESET)
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
-    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
+    ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ..\APP\MoveControl.c                     0x00000000   Number         0  movecontrol.o ABSOLUTE
     ..\APP\dataCenter.c                      0x00000000   Number         0  datacenter.o ABSOLUTE
@@ -2179,86 +2182,87 @@ Image Symbol Table
     i.IntEnable                              0x00000e14   Section        0  interrupt.o(i.IntEnable)
     i.IntRegister                            0x00000e78   Section        0  interrupt.o(i.IntRegister)
     i.Jetson_DataAnl                         0x00000eac   Section        0  datacenter.o(i.Jetson_DataAnl)
-    i.Jetson_GetOneByte                      0x00000fb0   Section        0  datacenter.o(i.Jetson_GetOneByte)
-    i.K210_DataAnl                           0x000010bc   Section        0  datacenter.o(i.K210_DataAnl)
-    i.K210_GetOneByte                        0x00001100   Section        0  datacenter.o(i.K210_GetOneByte)
-    i.Laser_Init                             0x0000120c   Section        0  lasercontrol.o(i.Laser_Init)
-    i.Laser_Off                              0x0000123c   Section        0  lasercontrol.o(i.Laser_Off)
-    i.Laser_On                               0x0000124c   Section        0  lasercontrol.o(i.Laser_On)
-    i.Loop_1000Hz                            0x0000125c   Section        0  ano_scheduler.o(i.Loop_1000Hz)
-    Loop_1000Hz                              0x0000125d   Thumb Code     2  ano_scheduler.o(i.Loop_1000Hz)
-    i.Loop_100Hz                             0x0000125e   Section        0  ano_scheduler.o(i.Loop_100Hz)
-    Loop_100Hz                               0x0000125f   Thumb Code     2  ano_scheduler.o(i.Loop_100Hz)
-    i.Loop_200Hz                             0x00001260   Section        0  ano_scheduler.o(i.Loop_200Hz)
-    Loop_200Hz                               0x00001261   Thumb Code     2  ano_scheduler.o(i.Loop_200Hz)
-    i.Loop_20Hz                              0x00001262   Section        0  ano_scheduler.o(i.Loop_20Hz)
-    Loop_20Hz                                0x00001263   Thumb Code     2  ano_scheduler.o(i.Loop_20Hz)
-    i.Loop_2Hz                               0x00001264   Section        0  ano_scheduler.o(i.Loop_2Hz)
-    Loop_2Hz                                 0x00001265   Thumb Code    28  ano_scheduler.o(i.Loop_2Hz)
-    i.Loop_500Hz                             0x00001284   Section        0  ano_scheduler.o(i.Loop_500Hz)
-    Loop_500Hz                               0x00001285   Thumb Code     2  ano_scheduler.o(i.Loop_500Hz)
-    i.Loop_50Hz                              0x00001286   Section        0  ano_scheduler.o(i.Loop_50Hz)
-    Loop_50Hz                                0x00001287   Thumb Code     2  ano_scheduler.o(i.Loop_50Hz)
-    i.MainBoard_BeginCompassCalibration      0x00001288   Section        0  datacenter.o(i.MainBoard_BeginCompassCalibration)
-    i.MainBoard_BeginLevelCalibration        0x000012a8   Section        0  datacenter.o(i.MainBoard_BeginLevelCalibration)
-    i.MainBoard_BeginSixSidesCalibration     0x000012c8   Section        0  datacenter.o(i.MainBoard_BeginSixSidesCalibration)
-    i.MainBoard_DataAnl                      0x000012e8   Section        0  datacenter.o(i.MainBoard_DataAnl)
-    i.MainBoard_GetOneByte                   0x0000132c   Section        0  datacenter.o(i.MainBoard_GetOneByte)
-    i.MainBoard_Unlock                       0x00001438   Section        0  datacenter.o(i.MainBoard_Unlock)
-    i.MyDelayMs                              0x00001458   Section        0  drv_sys.o(i.MyDelayMs)
-    i.OpenMV_DataAnl                         0x0000147c   Section        0  datacenter.o(i.OpenMV_DataAnl)
-    i.OpenMV_GetOneByte                      0x0000151c   Section        0  datacenter.o(i.OpenMV_GetOneByte)
-    i.OpenMV_RequestLAB                      0x00001638   Section        0  datacenter.o(i.OpenMV_RequestLAB)
-    i.OpenMV_SetLAB                          0x00001654   Section        0  datacenter.o(i.OpenMV_SetLAB)
-    i.Scheduler_Run                          0x000016e0   Section        0  ano_scheduler.o(i.Scheduler_Run)
-    i.Scheduler_Setup                        0x00001730   Section        0  ano_scheduler.o(i.Scheduler_Setup)
-    i.Screen_BackData                        0x00001780   Section        0  datacenter.o(i.Screen_BackData)
-    i.Screen_DataAnl                         0x000017f8   Section        0  datacenter.o(i.Screen_DataAnl)
-    i.Screen_GetOneByte                      0x000018d4   Section        0  datacenter.o(i.Screen_GetOneByte)
-    i.SysCtlClockGet                         0x00001a2c   Section        0  sysctl.o(i.SysCtlClockGet)
-    i.SysTick_Handler                        0x00001b80   Section        0  drv_sys.o(i.SysTick_Handler)
-    i.SysTick_Init                           0x00001b98   Section        0  drv_sys.o(i.SysTick_Init)
-    i.SystemInit                             0x00001bd0   Section        0  system_tm4c123.o(i.SystemInit)
-    i.Timer0Irq                              0x00001c68   Section        0  drv_timer.o(i.Timer0Irq)
-    i.TimerIntClear                          0x00001c78   Section        0  timer.o(i.TimerIntClear)
-    i.TimerIntRegister                       0x00001c7c   Section        0  timer.o(i.TimerIntRegister)
-    i.UART2_IRQHandler                       0x00001ce4   Section        0  drv_uart.o(i.UART2_IRQHandler)
-    i.UART3_IRQHandler                       0x00001d3c   Section        0  drv_uart.o(i.UART3_IRQHandler)
-    i.UART4_IRQHandler                       0x00001d94   Section        0  drv_uart.o(i.UART4_IRQHandler)
-    i.UART5_IRQHandler                       0x00001dec   Section        0  drv_uart.o(i.UART5_IRQHandler)
-    i.UART6_IRQHandler                       0x00001e44   Section        0  drv_uart.o(i.UART6_IRQHandler)
-    i.UART7_IRQHandler                       0x00001e9c   Section        0  drv_uart.o(i.UART7_IRQHandler)
-    i.UARTIntRegister                        0x00001ef4   Section        0  uart.o(i.UARTIntRegister)
-    i.__scatterload_copy                     0x00001f4c   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00001f5a   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00001f5c   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.main                                   0x00001f6a   Section        0  main.o(i.main)
-    i.send_t265_data                         0x00001f7c   Section        0  datacenter.o(i.send_t265_data)
-    i.sent_Control_ToANO                     0x00002088   Section        0  datacenter.o(i.sent_Control_ToANO)
-    .constdata                               0x000020c4   Section      596  sysctl.o(.constdata)
-    g_pui32VCOFrequencies                    0x000020c4   Data           8  sysctl.o(.constdata)
-    g_pui32Xtals                             0x000020cc   Data         108  sysctl.o(.constdata)
-    g_pppui32XTALtoVCO                       0x00002138   Data         432  sysctl.o(.constdata)
-    g_sXTALtoMEMTIM                          0x000022e8   Data          48  sysctl.o(.constdata)
-    .constdata                               0x00002318   Section      160  timer.o(.constdata)
-    g_ppui32TimerIntMap                      0x00002318   Data          96  timer.o(.constdata)
-    g_ppui32TimerIntMapSnowflake             0x00002378   Data          64  timer.o(.constdata)
-    .constdata                               0x000023b8   Section      128  uart.o(.constdata)
-    g_ppui32UARTIntMap                       0x000023b8   Data          64  uart.o(.constdata)
-    g_ppui32UARTIntMapSnowflake              0x000023f8   Data          64  uart.o(.constdata)
-    .constdata                               0x00002438   Section      268  interrupt.o(.constdata)
-    g_pui32Priority                          0x00002438   Data          32  interrupt.o(.constdata)
-    g_pui32Regs                              0x00002458   Data         156  interrupt.o(.constdata)
-    g_pui32EnRegs                            0x000024f4   Data          20  interrupt.o(.constdata)
-    g_pui32Dii16Regs                         0x00002508   Data          20  interrupt.o(.constdata)
-    g_pui32PendRegs                          0x0000251c   Data          20  interrupt.o(.constdata)
-    g_pui32UnpendRegs                        0x00002530   Data          20  interrupt.o(.constdata)
+    i.Jetson_GetOneByte                      0x00000f98   Section        0  datacenter.o(i.Jetson_GetOneByte)
+    i.K210_DataAnl                           0x000010a4   Section        0  datacenter.o(i.K210_DataAnl)
+    i.K210_GetOneByte                        0x000010e8   Section        0  datacenter.o(i.K210_GetOneByte)
+    i.Laser_Init                             0x000011f4   Section        0  lasercontrol.o(i.Laser_Init)
+    i.Laser_Off                              0x00001224   Section        0  lasercontrol.o(i.Laser_Off)
+    i.Laser_On                               0x00001234   Section        0  lasercontrol.o(i.Laser_On)
+    i.Loop_1000Hz                            0x00001244   Section        0  ano_scheduler.o(i.Loop_1000Hz)
+    Loop_1000Hz                              0x00001245   Thumb Code     2  ano_scheduler.o(i.Loop_1000Hz)
+    i.Loop_100Hz                             0x00001246   Section        0  ano_scheduler.o(i.Loop_100Hz)
+    Loop_100Hz                               0x00001247   Thumb Code     2  ano_scheduler.o(i.Loop_100Hz)
+    i.Loop_200Hz                             0x00001248   Section        0  ano_scheduler.o(i.Loop_200Hz)
+    Loop_200Hz                               0x00001249   Thumb Code     2  ano_scheduler.o(i.Loop_200Hz)
+    i.Loop_20Hz                              0x0000124a   Section        0  ano_scheduler.o(i.Loop_20Hz)
+    Loop_20Hz                                0x0000124b   Thumb Code     2  ano_scheduler.o(i.Loop_20Hz)
+    i.Loop_2Hz                               0x0000124c   Section        0  ano_scheduler.o(i.Loop_2Hz)
+    Loop_2Hz                                 0x0000124d   Thumb Code    28  ano_scheduler.o(i.Loop_2Hz)
+    i.Loop_500Hz                             0x0000126c   Section        0  ano_scheduler.o(i.Loop_500Hz)
+    Loop_500Hz                               0x0000126d   Thumb Code     2  ano_scheduler.o(i.Loop_500Hz)
+    i.Loop_50Hz                              0x0000126e   Section        0  ano_scheduler.o(i.Loop_50Hz)
+    Loop_50Hz                                0x0000126f   Thumb Code     2  ano_scheduler.o(i.Loop_50Hz)
+    i.MainBoard_BeginCompassCalibration      0x00001270   Section        0  datacenter.o(i.MainBoard_BeginCompassCalibration)
+    i.MainBoard_BeginLevelCalibration        0x00001290   Section        0  datacenter.o(i.MainBoard_BeginLevelCalibration)
+    i.MainBoard_BeginSixSidesCalibration     0x000012b0   Section        0  datacenter.o(i.MainBoard_BeginSixSidesCalibration)
+    i.MainBoard_DataAnl                      0x000012d0   Section        0  datacenter.o(i.MainBoard_DataAnl)
+    i.MainBoard_GetOneByte                   0x00001348   Section        0  datacenter.o(i.MainBoard_GetOneByte)
+    i.MainBoard_Unlock                       0x00001454   Section        0  datacenter.o(i.MainBoard_Unlock)
+    i.MyDelayMs                              0x00001474   Section        0  drv_sys.o(i.MyDelayMs)
+    i.OpenMV_DataAnl                         0x00001498   Section        0  datacenter.o(i.OpenMV_DataAnl)
+    i.OpenMV_GetOneByte                      0x00001538   Section        0  datacenter.o(i.OpenMV_GetOneByte)
+    i.OpenMV_RequestLAB                      0x00001654   Section        0  datacenter.o(i.OpenMV_RequestLAB)
+    i.OpenMV_SetLAB                          0x00001670   Section        0  datacenter.o(i.OpenMV_SetLAB)
+    i.Scheduler_Run                          0x000016fc   Section        0  ano_scheduler.o(i.Scheduler_Run)
+    i.Scheduler_Setup                        0x0000174c   Section        0  ano_scheduler.o(i.Scheduler_Setup)
+    i.Screen_BackData                        0x0000179c   Section        0  datacenter.o(i.Screen_BackData)
+    i.Screen_DataAnl                         0x00001814   Section        0  datacenter.o(i.Screen_DataAnl)
+    i.Screen_GetOneByte                      0x000018f0   Section        0  datacenter.o(i.Screen_GetOneByte)
+    i.SysCtlClockGet                         0x00001a48   Section        0  sysctl.o(i.SysCtlClockGet)
+    i.SysTick_Handler                        0x00001b9c   Section        0  drv_sys.o(i.SysTick_Handler)
+    i.SysTick_Init                           0x00001bb4   Section        0  drv_sys.o(i.SysTick_Init)
+    i.SystemInit                             0x00001bec   Section        0  system_tm4c123.o(i.SystemInit)
+    i.Timer0Irq                              0x00001c84   Section        0  drv_timer.o(i.Timer0Irq)
+    i.TimerIntClear                          0x00001c94   Section        0  timer.o(i.TimerIntClear)
+    i.TimerIntRegister                       0x00001c98   Section        0  timer.o(i.TimerIntRegister)
+    i.UART2_IRQHandler                       0x00001d00   Section        0  drv_uart.o(i.UART2_IRQHandler)
+    i.UART3_IRQHandler                       0x00001d58   Section        0  drv_uart.o(i.UART3_IRQHandler)
+    i.UART4_IRQHandler                       0x00001db0   Section        0  drv_uart.o(i.UART4_IRQHandler)
+    i.UART5_IRQHandler                       0x00001e08   Section        0  drv_uart.o(i.UART5_IRQHandler)
+    i.UART6_IRQHandler                       0x00001e60   Section        0  drv_uart.o(i.UART6_IRQHandler)
+    i.UART7_IRQHandler                       0x00001eb8   Section        0  drv_uart.o(i.UART7_IRQHandler)
+    i.UARTIntRegister                        0x00001f10   Section        0  uart.o(i.UARTIntRegister)
+    i.__scatterload_copy                     0x00001f68   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x00001f76   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x00001f78   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.check_color                            0x00001f88   Section        0  datacenter.o(i.check_color)
+    i.main                                   0x00001fa0   Section        0  main.o(i.main)
+    i.send_t265_data                         0x00001fb0   Section        0  datacenter.o(i.send_t265_data)
+    i.sent_Control_ToANO                     0x000020bc   Section        0  datacenter.o(i.sent_Control_ToANO)
+    .constdata                               0x000020f8   Section      596  sysctl.o(.constdata)
+    g_pui32VCOFrequencies                    0x000020f8   Data           8  sysctl.o(.constdata)
+    g_pui32Xtals                             0x00002100   Data         108  sysctl.o(.constdata)
+    g_pppui32XTALtoVCO                       0x0000216c   Data         432  sysctl.o(.constdata)
+    g_sXTALtoMEMTIM                          0x0000231c   Data          48  sysctl.o(.constdata)
+    .constdata                               0x0000234c   Section      160  timer.o(.constdata)
+    g_ppui32TimerIntMap                      0x0000234c   Data          96  timer.o(.constdata)
+    g_ppui32TimerIntMapSnowflake             0x000023ac   Data          64  timer.o(.constdata)
+    .constdata                               0x000023ec   Section      128  uart.o(.constdata)
+    g_ppui32UARTIntMap                       0x000023ec   Data          64  uart.o(.constdata)
+    g_ppui32UARTIntMapSnowflake              0x0000242c   Data          64  uart.o(.constdata)
+    .constdata                               0x0000246c   Section      268  interrupt.o(.constdata)
+    g_pui32Priority                          0x0000246c   Data          32  interrupt.o(.constdata)
+    g_pui32Regs                              0x0000248c   Data         156  interrupt.o(.constdata)
+    g_pui32EnRegs                            0x00002528   Data          20  interrupt.o(.constdata)
+    g_pui32Dii16Regs                         0x0000253c   Data          20  interrupt.o(.constdata)
+    g_pui32PendRegs                          0x00002550   Data          20  interrupt.o(.constdata)
+    g_pui32UnpendRegs                        0x00002564   Data          20  interrupt.o(.constdata)
     .data                                    0x20000000   Section       84  ano_scheduler.o(.data)
     sched_tasks                              0x20000000   Data          84  ano_scheduler.o(.data)
     .data                                    0x20000058   Section        8  drv_sys.o(.data)
     SysRunTimeMs                             0x20000058   Data           8  drv_sys.o(.data)
     .data                                    0x20000060   Section       14  drv_uart.o(.data)
-    .data                                    0x2000006e   Section       80  datacenter.o(.data)
+    .data                                    0x2000006e   Section       83  datacenter.o(.data)
     minL                                     0x2000006e   Data           1  datacenter.o(.data)
     maxL                                     0x2000006f   Data           1  datacenter.o(.data)
     minA                                     0x20000070   Data           1  datacenter.o(.data)
@@ -2271,25 +2275,25 @@ Image Symbol Table
     t265_x_position                          0x2000007a   Data           2  datacenter.o(.data)
     t265_y_position                          0x2000007c   Data           2  datacenter.o(.data)
     t265_z_position                          0x2000007e   Data           2  datacenter.o(.data)
-    _data_len_u2                             0x20000088   Data           1  datacenter.o(.data)
-    _data_cnt_u2                             0x20000089   Data           1  datacenter.o(.data)
-    rxstate_u2                               0x2000008a   Data           1  datacenter.o(.data)
-    _data_len_u3                             0x2000008b   Data           1  datacenter.o(.data)
-    _data_cnt_u3                             0x2000008c   Data           1  datacenter.o(.data)
-    rxstate_u3                               0x2000008d   Data           1  datacenter.o(.data)
-    _data_len_u4                             0x2000008e   Data           1  datacenter.o(.data)
-    _data_cnt_u4                             0x2000008f   Data           1  datacenter.o(.data)
-    rxstate_u4                               0x20000090   Data           1  datacenter.o(.data)
-    _data_len_u5                             0x20000091   Data           1  datacenter.o(.data)
-    _data_cnt_u5                             0x20000092   Data           1  datacenter.o(.data)
-    rxstate_u5                               0x20000093   Data           1  datacenter.o(.data)
-    BarcodeScanner_STA                       0x20000094   Data           1  datacenter.o(.data)
-    _data_len_u7                             0x20000095   Data           1  datacenter.o(.data)
-    _data_cnt_u7                             0x20000096   Data           1  datacenter.o(.data)
-    rxstate_u7                               0x20000097   Data           1  datacenter.o(.data)
-    check_sum1_len                           0x20000098   Data           1  datacenter.o(.data)
-    check_sum2_len                           0x20000099   Data           1  datacenter.o(.data)
-    Screen_Buf                               0x2000009a   Data          36  datacenter.o(.data)
+    _data_len_u2                             0x2000008b   Data           1  datacenter.o(.data)
+    _data_cnt_u2                             0x2000008c   Data           1  datacenter.o(.data)
+    rxstate_u2                               0x2000008d   Data           1  datacenter.o(.data)
+    _data_len_u3                             0x2000008e   Data           1  datacenter.o(.data)
+    _data_cnt_u3                             0x2000008f   Data           1  datacenter.o(.data)
+    rxstate_u3                               0x20000090   Data           1  datacenter.o(.data)
+    _data_len_u4                             0x20000091   Data           1  datacenter.o(.data)
+    _data_cnt_u4                             0x20000092   Data           1  datacenter.o(.data)
+    rxstate_u4                               0x20000093   Data           1  datacenter.o(.data)
+    _data_len_u5                             0x20000094   Data           1  datacenter.o(.data)
+    _data_cnt_u5                             0x20000095   Data           1  datacenter.o(.data)
+    rxstate_u5                               0x20000096   Data           1  datacenter.o(.data)
+    BarcodeScanner_STA                       0x20000097   Data           1  datacenter.o(.data)
+    _data_len_u7                             0x20000098   Data           1  datacenter.o(.data)
+    _data_cnt_u7                             0x20000099   Data           1  datacenter.o(.data)
+    rxstate_u7                               0x2000009a   Data           1  datacenter.o(.data)
+    check_sum1_len                           0x2000009b   Data           1  datacenter.o(.data)
+    check_sum2_len                           0x2000009c   Data           1  datacenter.o(.data)
+    Screen_Buf                               0x2000009d   Data          36  datacenter.o(.data)
     vtable                                   0x20000400   Section      620  interrupt.o(vtable)
     g_pfnRAMVectors                          0x20000400   Data         620  interrupt.o(vtable)
     .bss                                     0x2000066c   Section     1792  drv_uart.o(.bss)
@@ -2479,51 +2483,52 @@ Image Symbol Table
     GetSysRunTimeMs                          0x00000e09   Thumb Code     6  drv_sys.o(i.GetSysRunTimeMs)
     IntEnable                                0x00000e15   Thumb Code    92  interrupt.o(i.IntEnable)
     IntRegister                              0x00000e79   Thumb Code    44  interrupt.o(i.IntRegister)
-    Jetson_DataAnl                           0x00000ead   Thumb Code   226  datacenter.o(i.Jetson_DataAnl)
-    Jetson_GetOneByte                        0x00000fb1   Thumb Code   252  datacenter.o(i.Jetson_GetOneByte)
-    K210_DataAnl                             0x000010bd   Thumb Code    66  datacenter.o(i.K210_DataAnl)
-    K210_GetOneByte                          0x00001101   Thumb Code   252  datacenter.o(i.K210_GetOneByte)
-    Laser_Init                               0x0000120d   Thumb Code    44  lasercontrol.o(i.Laser_Init)
-    Laser_Off                                0x0000123d   Thumb Code    16  lasercontrol.o(i.Laser_Off)
-    Laser_On                                 0x0000124d   Thumb Code    16  lasercontrol.o(i.Laser_On)
-    MainBoard_BeginCompassCalibration        0x00001289   Thumb Code    20  datacenter.o(i.MainBoard_BeginCompassCalibration)
-    MainBoard_BeginLevelCalibration          0x000012a9   Thumb Code    20  datacenter.o(i.MainBoard_BeginLevelCalibration)
-    MainBoard_BeginSixSidesCalibration       0x000012c9   Thumb Code    20  datacenter.o(i.MainBoard_BeginSixSidesCalibration)
-    MainBoard_DataAnl                        0x000012e9   Thumb Code    66  datacenter.o(i.MainBoard_DataAnl)
-    MainBoard_GetOneByte                     0x0000132d   Thumb Code   252  datacenter.o(i.MainBoard_GetOneByte)
-    MainBoard_Unlock                         0x00001439   Thumb Code    20  datacenter.o(i.MainBoard_Unlock)
-    MyDelayMs                                0x00001459   Thumb Code    30  drv_sys.o(i.MyDelayMs)
-    OpenMV_DataAnl                           0x0000147d   Thumb Code   134  datacenter.o(i.OpenMV_DataAnl)
-    OpenMV_GetOneByte                        0x0000151d   Thumb Code   266  datacenter.o(i.OpenMV_GetOneByte)
-    OpenMV_RequestLAB                        0x00001639   Thumb Code    20  datacenter.o(i.OpenMV_RequestLAB)
-    OpenMV_SetLAB                            0x00001655   Thumb Code   104  datacenter.o(i.OpenMV_SetLAB)
-    Scheduler_Run                            0x000016e1   Thumb Code    76  ano_scheduler.o(i.Scheduler_Run)
-    Scheduler_Setup                          0x00001731   Thumb Code    76  ano_scheduler.o(i.Scheduler_Setup)
-    Screen_BackData                          0x00001781   Thumb Code    92  datacenter.o(i.Screen_BackData)
-    Screen_DataAnl                           0x000017f9   Thumb Code   194  datacenter.o(i.Screen_DataAnl)
-    Screen_GetOneByte                        0x000018d5   Thumb Code   320  datacenter.o(i.Screen_GetOneByte)
-    SysCtlClockGet                           0x00001a2d   Thumb Code   304  sysctl.o(i.SysCtlClockGet)
-    SysTick_Handler                          0x00001b81   Thumb Code    20  drv_sys.o(i.SysTick_Handler)
-    SysTick_Init                             0x00001b99   Thumb Code    54  drv_sys.o(i.SysTick_Init)
-    SystemInit                               0x00001bd1   Thumb Code   112  system_tm4c123.o(i.SystemInit)
-    Timer0Irq                                0x00001c69   Thumb Code    12  drv_timer.o(i.Timer0Irq)
-    TimerIntClear                            0x00001c79   Thumb Code     4  timer.o(i.TimerIntClear)
-    TimerIntRegister                         0x00001c7d   Thumb Code    88  timer.o(i.TimerIntRegister)
-    UART2_IRQHandler                         0x00001ce5   Thumb Code    82  drv_uart.o(i.UART2_IRQHandler)
-    UART3_IRQHandler                         0x00001d3d   Thumb Code    82  drv_uart.o(i.UART3_IRQHandler)
-    UART4_IRQHandler                         0x00001d95   Thumb Code    82  drv_uart.o(i.UART4_IRQHandler)
-    UART5_IRQHandler                         0x00001ded   Thumb Code    82  drv_uart.o(i.UART5_IRQHandler)
-    UART6_IRQHandler                         0x00001e45   Thumb Code    82  drv_uart.o(i.UART6_IRQHandler)
-    UART7_IRQHandler                         0x00001e9d   Thumb Code    82  drv_uart.o(i.UART7_IRQHandler)
-    UARTIntRegister                          0x00001ef5   Thumb Code    70  uart.o(i.UARTIntRegister)
-    __scatterload_copy                       0x00001f4d   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00001f5b   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00001f5d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    main                                     0x00001f6b   Thumb Code    16  main.o(i.main)
-    send_t265_data                           0x00001f7d   Thumb Code   238  datacenter.o(i.send_t265_data)
-    sent_Control_ToANO                       0x00002089   Thumb Code    60  datacenter.o(i.sent_Control_ToANO)
-    Region$$Table$$Base                      0x00002544   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00002564   Number         0  anon$$obj.o(Region$$Table)
+    Jetson_DataAnl                           0x00000ead   Thumb Code   206  datacenter.o(i.Jetson_DataAnl)
+    Jetson_GetOneByte                        0x00000f99   Thumb Code   252  datacenter.o(i.Jetson_GetOneByte)
+    K210_DataAnl                             0x000010a5   Thumb Code    66  datacenter.o(i.K210_DataAnl)
+    K210_GetOneByte                          0x000010e9   Thumb Code   252  datacenter.o(i.K210_GetOneByte)
+    Laser_Init                               0x000011f5   Thumb Code    44  lasercontrol.o(i.Laser_Init)
+    Laser_Off                                0x00001225   Thumb Code    16  lasercontrol.o(i.Laser_Off)
+    Laser_On                                 0x00001235   Thumb Code    16  lasercontrol.o(i.Laser_On)
+    MainBoard_BeginCompassCalibration        0x00001271   Thumb Code    20  datacenter.o(i.MainBoard_BeginCompassCalibration)
+    MainBoard_BeginLevelCalibration          0x00001291   Thumb Code    20  datacenter.o(i.MainBoard_BeginLevelCalibration)
+    MainBoard_BeginSixSidesCalibration       0x000012b1   Thumb Code    20  datacenter.o(i.MainBoard_BeginSixSidesCalibration)
+    MainBoard_DataAnl                        0x000012d1   Thumb Code   110  datacenter.o(i.MainBoard_DataAnl)
+    MainBoard_GetOneByte                     0x00001349   Thumb Code   252  datacenter.o(i.MainBoard_GetOneByte)
+    MainBoard_Unlock                         0x00001455   Thumb Code    20  datacenter.o(i.MainBoard_Unlock)
+    MyDelayMs                                0x00001475   Thumb Code    30  drv_sys.o(i.MyDelayMs)
+    OpenMV_DataAnl                           0x00001499   Thumb Code   134  datacenter.o(i.OpenMV_DataAnl)
+    OpenMV_GetOneByte                        0x00001539   Thumb Code   266  datacenter.o(i.OpenMV_GetOneByte)
+    OpenMV_RequestLAB                        0x00001655   Thumb Code    20  datacenter.o(i.OpenMV_RequestLAB)
+    OpenMV_SetLAB                            0x00001671   Thumb Code   104  datacenter.o(i.OpenMV_SetLAB)
+    Scheduler_Run                            0x000016fd   Thumb Code    76  ano_scheduler.o(i.Scheduler_Run)
+    Scheduler_Setup                          0x0000174d   Thumb Code    76  ano_scheduler.o(i.Scheduler_Setup)
+    Screen_BackData                          0x0000179d   Thumb Code    92  datacenter.o(i.Screen_BackData)
+    Screen_DataAnl                           0x00001815   Thumb Code   194  datacenter.o(i.Screen_DataAnl)
+    Screen_GetOneByte                        0x000018f1   Thumb Code   320  datacenter.o(i.Screen_GetOneByte)
+    SysCtlClockGet                           0x00001a49   Thumb Code   304  sysctl.o(i.SysCtlClockGet)
+    SysTick_Handler                          0x00001b9d   Thumb Code    20  drv_sys.o(i.SysTick_Handler)
+    SysTick_Init                             0x00001bb5   Thumb Code    54  drv_sys.o(i.SysTick_Init)
+    SystemInit                               0x00001bed   Thumb Code   112  system_tm4c123.o(i.SystemInit)
+    Timer0Irq                                0x00001c85   Thumb Code    12  drv_timer.o(i.Timer0Irq)
+    TimerIntClear                            0x00001c95   Thumb Code     4  timer.o(i.TimerIntClear)
+    TimerIntRegister                         0x00001c99   Thumb Code    88  timer.o(i.TimerIntRegister)
+    UART2_IRQHandler                         0x00001d01   Thumb Code    82  drv_uart.o(i.UART2_IRQHandler)
+    UART3_IRQHandler                         0x00001d59   Thumb Code    82  drv_uart.o(i.UART3_IRQHandler)
+    UART4_IRQHandler                         0x00001db1   Thumb Code    82  drv_uart.o(i.UART4_IRQHandler)
+    UART5_IRQHandler                         0x00001e09   Thumb Code    82  drv_uart.o(i.UART5_IRQHandler)
+    UART6_IRQHandler                         0x00001e61   Thumb Code    82  drv_uart.o(i.UART6_IRQHandler)
+    UART7_IRQHandler                         0x00001eb9   Thumb Code    82  drv_uart.o(i.UART7_IRQHandler)
+    UARTIntRegister                          0x00001f11   Thumb Code    70  uart.o(i.UARTIntRegister)
+    __scatterload_copy                       0x00001f69   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x00001f77   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x00001f79   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    check_color                              0x00001f89   Thumb Code    14  datacenter.o(i.check_color)
+    main                                     0x00001fa1   Thumb Code    16  main.o(i.main)
+    send_t265_data                           0x00001fb1   Thumb Code   238  datacenter.o(i.send_t265_data)
+    sent_Control_ToANO                       0x000020bd   Thumb Code    60  datacenter.o(i.sent_Control_ToANO)
+    Region$$Table$$Base                      0x00002578   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00002598   Number         0  anon$$obj.o(Region$$Table)
     U1TxInCnt                                0x20000060   Data           1  drv_uart.o(.data)
     U1TxOutCnt                               0x20000061   Data           1  drv_uart.o(.data)
     U2TxInCnt                                0x20000062   Data           1  drv_uart.o(.data)
@@ -2542,8 +2547,11 @@ Image Symbol Table
     t265_y_position_control                  0x20000082   Data           2  datacenter.o(.data)
     state_is_land                            0x20000084   Data           1  datacenter.o(.data)
     barcode_data                             0x20000085   Data           1  datacenter.o(.data)
-    blink_state                              0x20000086   Data           1  datacenter.o(.data)
-    preblink_state                           0x20000087   Data           1  datacenter.o(.data)
+    preRequestState                          0x20000086   Data           1  datacenter.o(.data)
+    RequestState                             0x20000087   Data           1  datacenter.o(.data)
+    color_state                              0x20000088   Data           1  datacenter.o(.data)
+    blink_state                              0x20000089   Data           1  datacenter.o(.data)
+    preblink_state                           0x2000008a   Data           1  datacenter.o(.data)
     U1TxDataTemp                             0x2000066c   Data         256  drv_uart.o(.bss)
     U2TxDataTemp                             0x2000076c   Data         256  drv_uart.o(.bss)
     U3TxDataTemp                             0x2000086c   Data         256  drv_uart.o(.bss)
@@ -2561,134 +2569,134 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00002bd0, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000025a8])
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00002c04, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000025dc])
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00002564, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00002598, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x00000000   0x00000000   0x0000026c   Data   RO         1511    RESET               startup_tm4c123.o
-    0x0000026c   0x0000026c   0x00000000   Code   RO         5647  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x0000026c   0x0000026c   0x00000004   Code   RO         5668    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000270   0x00000270   0x00000004   Code   RO         5671    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000274   0x00000274   0x00000000   Code   RO         5673    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000274   0x00000274   0x00000000   Code   RO         5675    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000274   0x00000274   0x00000008   Code   RO         5676    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x0000027c   0x0000027c   0x00000000   Code   RO         5678    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x0000027c   0x0000027c   0x00000000   Code   RO         5680    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x0000027c   0x0000027c   0x00000004   Code   RO         5669    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
-    0x00000280   0x00000280   0x000000fc   Code   RO         1512  * .text               startup_tm4c123.o
-    0x0000037c   0x0000037c   0x00000024   Code   RO         5650    .text               mc_w.l(memseta.o)
-    0x000003a0   0x000003a0   0x00000024   Code   RO         5691    .text               mc_w.l(init.o)
-    0x000003c4   0x000003c4   0x00000056   Code   RO         5703    .text               mc_w.l(__dczerorl2.o)
-    0x0000041a   0x0000041a   0x00000052   Code   RO          635    i.All_Init          drv_bsp.o
-    0x0000046c   0x0000046c   0x00000074   Code   RO         1590    i.BarcodeScanner_DataAnl  datacenter.o
-    0x000004e0   0x000004e0   0x00000088   Code   RO         1591    i.BarcodeScanner_GetOneByte  datacenter.o
-    0x00000568   0x00000568   0x00000048   Code   RO         1592    i.Barcode_Blink     datacenter.o
-    0x000005b0   0x000005b0   0x00000024   Code   RO         1593    i.Barcode_Blink_Init  datacenter.o
-    0x000005d4   0x000005d4   0x00000050   Code   RO          937    i.DrvSysInit        drv_sys.o
-    0x00000624   0x00000624   0x0000007c   Code   RO         1479    i.DrvTimerFcInit    drv_timer.o
-    0x000006a0   0x000006a0   0x000000d8   Code   RO         1190    i.DrvUart2Init      drv_uart.o
-    0x00000778   0x00000778   0x00000034   Code   RO         1191    i.DrvUart2SendBuf   drv_uart.o
-    0x000007ac   0x000007ac   0x00000044   Code   RO         1192    i.DrvUart2TxCheck   drv_uart.o
-    0x000007f0   0x000007f0   0x000000d8   Code   RO         1193    i.DrvUart3Init      drv_uart.o
-    0x000008c8   0x000008c8   0x00000034   Code   RO         1194    i.DrvUart3SendBuf   drv_uart.o
-    0x000008fc   0x000008fc   0x00000044   Code   RO         1195    i.DrvUart3TxCheck   drv_uart.o
-    0x00000940   0x00000940   0x000000d8   Code   RO         1196    i.DrvUart4Init      drv_uart.o
-    0x00000a18   0x00000a18   0x00000044   Code   RO         1198    i.DrvUart4TxCheck   drv_uart.o
-    0x00000a5c   0x00000a5c   0x000000f4   Code   RO         1199    i.DrvUart5Init      drv_uart.o
-    0x00000b50   0x00000b50   0x00000044   Code   RO         1201    i.DrvUart5TxCheck   drv_uart.o
-    0x00000b94   0x00000b94   0x000000d8   Code   RO         1202    i.DrvUart6Init      drv_uart.o
-    0x00000c6c   0x00000c6c   0x00000044   Code   RO         1204    i.DrvUart6TxCheck   drv_uart.o
-    0x00000cb0   0x00000cb0   0x000000d8   Code   RO         1205    i.DrvUart7Init      drv_uart.o
-    0x00000d88   0x00000d88   0x00000034   Code   RO         1206    i.DrvUart7SendBuf   drv_uart.o
-    0x00000dbc   0x00000dbc   0x00000044   Code   RO         1207    i.DrvUart7TxCheck   drv_uart.o
-    0x00000e00   0x00000e00   0x00000006   Code   RO         2196    i.GPIOPinWrite      driverlib.lib(gpio.o)
+    0x00000000   0x00000000   0x0000026c   Data   RO         1426    RESET               startup_tm4c123.o
+    0x0000026c   0x0000026c   0x00000000   Code   RO         5565  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x0000026c   0x0000026c   0x00000004   Code   RO         5586    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000270   0x00000270   0x00000004   Code   RO         5589    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000274   0x00000274   0x00000000   Code   RO         5591    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000274   0x00000274   0x00000000   Code   RO         5593    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000274   0x00000274   0x00000008   Code   RO         5594    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x0000027c   0x0000027c   0x00000000   Code   RO         5596    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x0000027c   0x0000027c   0x00000000   Code   RO         5598    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x0000027c   0x0000027c   0x00000004   Code   RO         5587    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x00000280   0x00000280   0x000000fc   Code   RO         1427  * .text               startup_tm4c123.o
+    0x0000037c   0x0000037c   0x00000024   Code   RO         5568    .text               mc_w.l(memseta.o)
+    0x000003a0   0x000003a0   0x00000024   Code   RO         5609    .text               mc_w.l(init.o)
+    0x000003c4   0x000003c4   0x00000056   Code   RO         5621    .text               mc_w.l(__dczerorl2.o)
+    0x0000041a   0x0000041a   0x00000052   Code   RO          557    i.All_Init          drv_bsp.o
+    0x0000046c   0x0000046c   0x00000074   Code   RO         1505    i.BarcodeScanner_DataAnl  datacenter.o
+    0x000004e0   0x000004e0   0x00000088   Code   RO         1506    i.BarcodeScanner_GetOneByte  datacenter.o
+    0x00000568   0x00000568   0x00000048   Code   RO         1507    i.Barcode_Blink     datacenter.o
+    0x000005b0   0x000005b0   0x00000024   Code   RO         1508    i.Barcode_Blink_Init  datacenter.o
+    0x000005d4   0x000005d4   0x00000050   Code   RO          852    i.DrvSysInit        drv_sys.o
+    0x00000624   0x00000624   0x0000007c   Code   RO         1394    i.DrvTimerFcInit    drv_timer.o
+    0x000006a0   0x000006a0   0x000000d8   Code   RO         1105    i.DrvUart2Init      drv_uart.o
+    0x00000778   0x00000778   0x00000034   Code   RO         1106    i.DrvUart2SendBuf   drv_uart.o
+    0x000007ac   0x000007ac   0x00000044   Code   RO         1107    i.DrvUart2TxCheck   drv_uart.o
+    0x000007f0   0x000007f0   0x000000d8   Code   RO         1108    i.DrvUart3Init      drv_uart.o
+    0x000008c8   0x000008c8   0x00000034   Code   RO         1109    i.DrvUart3SendBuf   drv_uart.o
+    0x000008fc   0x000008fc   0x00000044   Code   RO         1110    i.DrvUart3TxCheck   drv_uart.o
+    0x00000940   0x00000940   0x000000d8   Code   RO         1111    i.DrvUart4Init      drv_uart.o
+    0x00000a18   0x00000a18   0x00000044   Code   RO         1113    i.DrvUart4TxCheck   drv_uart.o
+    0x00000a5c   0x00000a5c   0x000000f4   Code   RO         1114    i.DrvUart5Init      drv_uart.o
+    0x00000b50   0x00000b50   0x00000044   Code   RO         1116    i.DrvUart5TxCheck   drv_uart.o
+    0x00000b94   0x00000b94   0x000000d8   Code   RO         1117    i.DrvUart6Init      drv_uart.o
+    0x00000c6c   0x00000c6c   0x00000044   Code   RO         1119    i.DrvUart6TxCheck   drv_uart.o
+    0x00000cb0   0x00000cb0   0x000000d8   Code   RO         1120    i.DrvUart7Init      drv_uart.o
+    0x00000d88   0x00000d88   0x00000034   Code   RO         1121    i.DrvUart7SendBuf   drv_uart.o
+    0x00000dbc   0x00000dbc   0x00000044   Code   RO         1122    i.DrvUart7TxCheck   drv_uart.o
+    0x00000e00   0x00000e00   0x00000006   Code   RO         2114    i.GPIOPinWrite      driverlib.lib(gpio.o)
     0x00000e06   0x00000e06   0x00000002   PAD
-    0x00000e08   0x00000e08   0x0000000c   Code   RO          938    i.GetSysRunTimeMs   drv_sys.o
-    0x00000e14   0x00000e14   0x00000064   Code   RO         4396    i.IntEnable         driverlib.lib(interrupt.o)
-    0x00000e78   0x00000e78   0x00000034   Code   RO         4408    i.IntRegister       driverlib.lib(interrupt.o)
-    0x00000eac   0x00000eac   0x00000104   Code   RO         1594    i.Jetson_DataAnl    datacenter.o
-    0x00000fb0   0x00000fb0   0x0000010c   Code   RO         1595    i.Jetson_GetOneByte  datacenter.o
-    0x000010bc   0x000010bc   0x00000042   Code   RO         1596    i.K210_DataAnl      datacenter.o
-    0x000010fe   0x000010fe   0x00000002   PAD
-    0x00001100   0x00001100   0x0000010c   Code   RO         1597    i.K210_GetOneByte   datacenter.o
-    0x0000120c   0x0000120c   0x00000030   Code   RO         1759    i.Laser_Init        lasercontrol.o
-    0x0000123c   0x0000123c   0x00000010   Code   RO         1760    i.Laser_Off         lasercontrol.o
-    0x0000124c   0x0000124c   0x00000010   Code   RO         1761    i.Laser_On          lasercontrol.o
-    0x0000125c   0x0000125c   0x00000002   Code   RO           98    i.Loop_1000Hz       ano_scheduler.o
-    0x0000125e   0x0000125e   0x00000002   Code   RO           99    i.Loop_100Hz        ano_scheduler.o
-    0x00001260   0x00001260   0x00000002   Code   RO          100    i.Loop_200Hz        ano_scheduler.o
-    0x00001262   0x00001262   0x00000002   Code   RO          101    i.Loop_20Hz         ano_scheduler.o
-    0x00001264   0x00001264   0x00000020   Code   RO          102    i.Loop_2Hz          ano_scheduler.o
-    0x00001284   0x00001284   0x00000002   Code   RO          103    i.Loop_500Hz        ano_scheduler.o
-    0x00001286   0x00001286   0x00000002   Code   RO          104    i.Loop_50Hz         ano_scheduler.o
-    0x00001288   0x00001288   0x00000020   Code   RO         1598    i.MainBoard_BeginCompassCalibration  datacenter.o
-    0x000012a8   0x000012a8   0x00000020   Code   RO         1599    i.MainBoard_BeginLevelCalibration  datacenter.o
-    0x000012c8   0x000012c8   0x00000020   Code   RO         1600    i.MainBoard_BeginSixSidesCalibration  datacenter.o
-    0x000012e8   0x000012e8   0x00000042   Code   RO         1601    i.MainBoard_DataAnl  datacenter.o
-    0x0000132a   0x0000132a   0x00000002   PAD
-    0x0000132c   0x0000132c   0x0000010c   Code   RO         1602    i.MainBoard_GetOneByte  datacenter.o
-    0x00001438   0x00001438   0x00000020   Code   RO         1604    i.MainBoard_Unlock  datacenter.o
-    0x00001458   0x00001458   0x00000024   Code   RO          940    i.MyDelayMs         drv_sys.o
-    0x0000147c   0x0000147c   0x000000a0   Code   RO         1605    i.OpenMV_DataAnl    datacenter.o
-    0x0000151c   0x0000151c   0x0000011c   Code   RO         1606    i.OpenMV_GetOneByte  datacenter.o
-    0x00001638   0x00001638   0x0000001c   Code   RO         1607    i.OpenMV_RequestLAB  datacenter.o
-    0x00001654   0x00001654   0x0000008c   Code   RO         1608    i.OpenMV_SetLAB     datacenter.o
-    0x000016e0   0x000016e0   0x00000050   Code   RO          105    i.Scheduler_Run     ano_scheduler.o
-    0x00001730   0x00001730   0x00000050   Code   RO          106    i.Scheduler_Setup   ano_scheduler.o
-    0x00001780   0x00001780   0x00000078   Code   RO         1609    i.Screen_BackData   datacenter.o
-    0x000017f8   0x000017f8   0x000000dc   Code   RO         1610    i.Screen_DataAnl    datacenter.o
-    0x000018d4   0x000018d4   0x00000158   Code   RO         1611    i.Screen_GetOneByte  datacenter.o
-    0x00001a2c   0x00001a2c   0x00000154   Code   RO         2459    i.SysCtlClockGet    driverlib.lib(sysctl.o)
-    0x00001b80   0x00001b80   0x00000018   Code   RO          941    i.SysTick_Handler   drv_sys.o
-    0x00001b98   0x00001b98   0x00000036   Code   RO          942    i.SysTick_Init      drv_sys.o
-    0x00001bce   0x00001bce   0x00000002   PAD
-    0x00001bd0   0x00001bd0   0x00000098   Code   RO         1520    i.SystemInit        system_tm4c123.o
-    0x00001c68   0x00001c68   0x00000010   Code   RO         1480    i.Timer0Irq         drv_timer.o
-    0x00001c78   0x00001c78   0x00000004   Code   RO         2824    i.TimerIntClear     driverlib.lib(timer.o)
-    0x00001c7c   0x00001c7c   0x00000068   Code   RO         2827    i.TimerIntRegister  driverlib.lib(timer.o)
-    0x00001ce4   0x00001ce4   0x00000058   Code   RO         1211    i.UART2_IRQHandler  drv_uart.o
-    0x00001d3c   0x00001d3c   0x00000058   Code   RO         1212    i.UART3_IRQHandler  drv_uart.o
-    0x00001d94   0x00001d94   0x00000058   Code   RO         1213    i.UART4_IRQHandler  drv_uart.o
-    0x00001dec   0x00001dec   0x00000058   Code   RO         1214    i.UART5_IRQHandler  drv_uart.o
-    0x00001e44   0x00001e44   0x00000058   Code   RO         1215    i.UART6_IRQHandler  drv_uart.o
-    0x00001e9c   0x00001e9c   0x00000058   Code   RO         1216    i.UART7_IRQHandler  drv_uart.o
-    0x00001ef4   0x00001ef4   0x00000058   Code   RO         3082    i.UARTIntRegister   driverlib.lib(uart.o)
-    0x00001f4c   0x00001f4c   0x0000000e   Code   RO         5697    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00001f5a   0x00001f5a   0x00000002   Code   RO         5698    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00001f5c   0x00001f5c   0x0000000e   Code   RO         5699    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x00001f6a   0x00001f6a   0x00000010   Code   RO            4    i.main              main.o
-    0x00001f7a   0x00001f7a   0x00000002   PAD
-    0x00001f7c   0x00001f7c   0x0000010c   Code   RO         1612    i.send_t265_data    datacenter.o
-    0x00002088   0x00002088   0x0000003c   Code   RO         1613    i.sent_Control_ToANO  datacenter.o
-    0x000020c4   0x000020c4   0x00000254   Data   RO         2512    .constdata          driverlib.lib(sysctl.o)
-    0x00002318   0x00002318   0x000000a0   Data   RO         2848    .constdata          driverlib.lib(timer.o)
-    0x000023b8   0x000023b8   0x00000080   Data   RO         3099    .constdata          driverlib.lib(uart.o)
-    0x00002438   0x00002438   0x0000010c   Data   RO         4412    .constdata          driverlib.lib(interrupt.o)
-    0x00002544   0x00002544   0x00000020   Data   RO         5695    Region$$Table       anon$$obj.o
+    0x00000e08   0x00000e08   0x0000000c   Code   RO          853    i.GetSysRunTimeMs   drv_sys.o
+    0x00000e14   0x00000e14   0x00000064   Code   RO         4314    i.IntEnable         driverlib.lib(interrupt.o)
+    0x00000e78   0x00000e78   0x00000034   Code   RO         4326    i.IntRegister       driverlib.lib(interrupt.o)
+    0x00000eac   0x00000eac   0x000000ec   Code   RO         1509    i.Jetson_DataAnl    datacenter.o
+    0x00000f98   0x00000f98   0x0000010c   Code   RO         1510    i.Jetson_GetOneByte  datacenter.o
+    0x000010a4   0x000010a4   0x00000042   Code   RO         1511    i.K210_DataAnl      datacenter.o
+    0x000010e6   0x000010e6   0x00000002   PAD
+    0x000010e8   0x000010e8   0x0000010c   Code   RO         1512    i.K210_GetOneByte   datacenter.o
+    0x000011f4   0x000011f4   0x00000030   Code   RO         1680    i.Laser_Init        lasercontrol.o
+    0x00001224   0x00001224   0x00000010   Code   RO         1681    i.Laser_Off         lasercontrol.o
+    0x00001234   0x00001234   0x00000010   Code   RO         1682    i.Laser_On          lasercontrol.o
+    0x00001244   0x00001244   0x00000002   Code   RO           98    i.Loop_1000Hz       ano_scheduler.o
+    0x00001246   0x00001246   0x00000002   Code   RO           99    i.Loop_100Hz        ano_scheduler.o
+    0x00001248   0x00001248   0x00000002   Code   RO          100    i.Loop_200Hz        ano_scheduler.o
+    0x0000124a   0x0000124a   0x00000002   Code   RO          101    i.Loop_20Hz         ano_scheduler.o
+    0x0000124c   0x0000124c   0x00000020   Code   RO          102    i.Loop_2Hz          ano_scheduler.o
+    0x0000126c   0x0000126c   0x00000002   Code   RO          103    i.Loop_500Hz        ano_scheduler.o
+    0x0000126e   0x0000126e   0x00000002   Code   RO          104    i.Loop_50Hz         ano_scheduler.o
+    0x00001270   0x00001270   0x00000020   Code   RO         1513    i.MainBoard_BeginCompassCalibration  datacenter.o
+    0x00001290   0x00001290   0x00000020   Code   RO         1514    i.MainBoard_BeginLevelCalibration  datacenter.o
+    0x000012b0   0x000012b0   0x00000020   Code   RO         1515    i.MainBoard_BeginSixSidesCalibration  datacenter.o
+    0x000012d0   0x000012d0   0x00000078   Code   RO         1516    i.MainBoard_DataAnl  datacenter.o
+    0x00001348   0x00001348   0x0000010c   Code   RO         1517    i.MainBoard_GetOneByte  datacenter.o
+    0x00001454   0x00001454   0x00000020   Code   RO         1519    i.MainBoard_Unlock  datacenter.o
+    0x00001474   0x00001474   0x00000024   Code   RO          855    i.MyDelayMs         drv_sys.o
+    0x00001498   0x00001498   0x000000a0   Code   RO         1520    i.OpenMV_DataAnl    datacenter.o
+    0x00001538   0x00001538   0x0000011c   Code   RO         1521    i.OpenMV_GetOneByte  datacenter.o
+    0x00001654   0x00001654   0x0000001c   Code   RO         1522    i.OpenMV_RequestLAB  datacenter.o
+    0x00001670   0x00001670   0x0000008c   Code   RO         1523    i.OpenMV_SetLAB     datacenter.o
+    0x000016fc   0x000016fc   0x00000050   Code   RO          105    i.Scheduler_Run     ano_scheduler.o
+    0x0000174c   0x0000174c   0x00000050   Code   RO          106    i.Scheduler_Setup   ano_scheduler.o
+    0x0000179c   0x0000179c   0x00000078   Code   RO         1524    i.Screen_BackData   datacenter.o
+    0x00001814   0x00001814   0x000000dc   Code   RO         1525    i.Screen_DataAnl    datacenter.o
+    0x000018f0   0x000018f0   0x00000158   Code   RO         1526    i.Screen_GetOneByte  datacenter.o
+    0x00001a48   0x00001a48   0x00000154   Code   RO         2377    i.SysCtlClockGet    driverlib.lib(sysctl.o)
+    0x00001b9c   0x00001b9c   0x00000018   Code   RO          856    i.SysTick_Handler   drv_sys.o
+    0x00001bb4   0x00001bb4   0x00000036   Code   RO          857    i.SysTick_Init      drv_sys.o
+    0x00001bea   0x00001bea   0x00000002   PAD
+    0x00001bec   0x00001bec   0x00000098   Code   RO         1435    i.SystemInit        system_tm4c123.o
+    0x00001c84   0x00001c84   0x00000010   Code   RO         1395    i.Timer0Irq         drv_timer.o
+    0x00001c94   0x00001c94   0x00000004   Code   RO         2742    i.TimerIntClear     driverlib.lib(timer.o)
+    0x00001c98   0x00001c98   0x00000068   Code   RO         2745    i.TimerIntRegister  driverlib.lib(timer.o)
+    0x00001d00   0x00001d00   0x00000058   Code   RO         1126    i.UART2_IRQHandler  drv_uart.o
+    0x00001d58   0x00001d58   0x00000058   Code   RO         1127    i.UART3_IRQHandler  drv_uart.o
+    0x00001db0   0x00001db0   0x00000058   Code   RO         1128    i.UART4_IRQHandler  drv_uart.o
+    0x00001e08   0x00001e08   0x00000058   Code   RO         1129    i.UART5_IRQHandler  drv_uart.o
+    0x00001e60   0x00001e60   0x00000058   Code   RO         1130    i.UART6_IRQHandler  drv_uart.o
+    0x00001eb8   0x00001eb8   0x00000058   Code   RO         1131    i.UART7_IRQHandler  drv_uart.o
+    0x00001f10   0x00001f10   0x00000058   Code   RO         3000    i.UARTIntRegister   driverlib.lib(uart.o)
+    0x00001f68   0x00001f68   0x0000000e   Code   RO         5615    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x00001f76   0x00001f76   0x00000002   Code   RO         5616    i.__scatterload_null  mc_w.l(handlers.o)
+    0x00001f78   0x00001f78   0x0000000e   Code   RO         5617    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x00001f86   0x00001f86   0x00000002   PAD
+    0x00001f88   0x00001f88   0x00000018   Code   RO         1527    i.check_color       datacenter.o
+    0x00001fa0   0x00001fa0   0x00000010   Code   RO            4    i.main              main.o
+    0x00001fb0   0x00001fb0   0x0000010c   Code   RO         1528    i.send_t265_data    datacenter.o
+    0x000020bc   0x000020bc   0x0000003c   Code   RO         1529    i.sent_Control_ToANO  datacenter.o
+    0x000020f8   0x000020f8   0x00000254   Data   RO         2430    .constdata          driverlib.lib(sysctl.o)
+    0x0000234c   0x0000234c   0x000000a0   Data   RO         2766    .constdata          driverlib.lib(timer.o)
+    0x000023ec   0x000023ec   0x00000080   Data   RO         3017    .constdata          driverlib.lib(uart.o)
+    0x0000246c   0x0000246c   0x0000010c   Data   RO         4330    .constdata          driverlib.lib(interrupt.o)
+    0x00002578   0x00002578   0x00000020   Data   RO         5613    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00002564, Size: 0x0000066c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00000044])
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x00002598, Size: 0x0000066c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00000044])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x20000000   COMPRESSED   0x00000054   Data   RW          107    .data               ano_scheduler.o
     0x20000054   COMPRESSED   0x00000004   PAD
-    0x20000058   COMPRESSED   0x00000008   Data   RW          943    .data               drv_sys.o
-    0x20000060   COMPRESSED   0x0000000e   Data   RW         1218    .data               drv_uart.o
-    0x2000006e   COMPRESSED   0x00000050   Data   RW         1615    .data               datacenter.o
-    0x200000be   COMPRESSED   0x00000342   PAD
-    0x20000400   COMPRESSED   0x0000026c   Data   RW         4413    vtable              driverlib.lib(interrupt.o)
+    0x20000058   COMPRESSED   0x00000008   Data   RW          858    .data               drv_sys.o
+    0x20000060   COMPRESSED   0x0000000e   Data   RW         1133    .data               drv_uart.o
+    0x2000006e   COMPRESSED   0x00000053   Data   RW         1531    .data               datacenter.o
+    0x200000c1   COMPRESSED   0x0000033f   PAD
+    0x20000400   COMPRESSED   0x0000026c   Data   RW         4331    vtable              driverlib.lib(interrupt.o)
 
 
-    Execution Region ER_ZI (Exec base: 0x2000066c, Load base: 0x000025a8, Size: 0x000013bc, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x2000066c, Load base: 0x000025dc, Size: 0x000013bc, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x2000066c        -       0x00000700   Zero   RW         1217    .bss                drv_uart.o
-    0x20000d6c        -       0x000002bc   Zero   RW         1614    .bss                datacenter.o
-    0x20001028        -       0x00000a00   Zero   RW         1509    STACK               startup_tm4c123.o
+    0x2000066c        -       0x00000700   Zero   RW         1132    .bss                drv_uart.o
+    0x20000d6c        -       0x000002bc   Zero   RW         1530    .bss                datacenter.o
+    0x20001028        -       0x00000a00   Zero   RW         1424    STACK               startup_tm4c123.o
 
 
 ==============================================================================
@@ -2698,21 +2706,21 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       204         12          0         84          0       5506   ano_scheduler.o
-      3308        364          0         80        700      17243   datacenter.o
-        82          0          0          0          0        551   drv_bsp.o
-       206         28          0          8          0      33103   drv_sys.o
-       140         18          0          0          0       1073   drv_timer.o
-      2416        338          0         14       1792      14942   drv_uart.o
-        80          4          0          0          0       1440   lasercontrol.o
-        16          0          0          0          0      30399   main.o
-       252         10        620          0       2560       5460   startup_tm4c123.o
-       152         40          0          0          0        625   system_tm4c123.o
+       204         12          0         84          0       5086   ano_scheduler.o
+      3362        380          0         83        700      18742   datacenter.o
+        82          0          0          0          0        583   drv_bsp.o
+       206         28          0          8          0      33335   drv_sys.o
+       140         18          0          0          0       1141   drv_timer.o
+      2416        338          0         14       1792      15686   drv_uart.o
+        80          4          0          0          0       1540   lasercontrol.o
+        16          0          0          0          0      30915   main.o
+       252         10        620          0       2560       5492   startup_tm4c123.o
+       152         40          0          0          0        661   system_tm4c123.o
 
     ----------------------------------------------------------------------
-      6864        814        652       1024       5052     110342   Object Totals
+      6914        830        652       1024       5052     113181   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-         8          0          0        838          0          0   (incl. Padding)
+         4          0          0        835          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2738,8 +2746,8 @@ Image component sizes
         36          0          0          0          0        108   memseta.o
 
     ----------------------------------------------------------------------
-       904        102       1152        620          0      12572   Library Totals
-         2          0          0          0          0          0   (incl. Padding)
+       906        102       1152        620          0      12572   Library Totals
+         4          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2749,7 +2757,7 @@ Image component sizes
        208         16          0          0          0        176   mc_w.l
 
     ----------------------------------------------------------------------
-       904        102       1152        620          0      12572   Library Totals
+       906        102       1152        620          0      12572   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -2758,15 +2766,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      7768        916       1804       1644       5052     116498   Grand Totals
-      7768        916       1804         68       5052     116498   ELF Image Totals (compressed)
-      7768        916       1804         68          0          0   ROM Totals
+      7820        932       1804       1644       5052     119337   Grand Totals
+      7820        932       1804         68       5052     119337   ELF Image Totals (compressed)
+      7820        932       1804         68          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 9572 (   9.35kB)
+    Total RO  Size (Code + RO Data)                 9624 (   9.40kB)
     Total RW  Size (RW Data + ZI Data)              6696 (   6.54kB)
-    Total ROM Size (Code + RO Data + RW Data)       9640 (   9.41kB)
+    Total ROM Size (Code + RO Data + RW Data)       9692 (   9.46kB)
 
 ==============================================================================
 

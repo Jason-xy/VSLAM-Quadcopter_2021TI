@@ -200,7 +200,6 @@ void MoveControl_Output(void)
 				//FC_Unlock();
 				MyDelayMs(500);
 				mission_step += UNLOCK_STATE;
-				mission_step++;
 			}
 			break;
 			case 3:
@@ -458,7 +457,7 @@ void MoveControl_Output(void)
 				{
 	
 				}
-			}
+			} 
 		}
 	}
 }
@@ -699,7 +698,7 @@ void PositionControl(int dif_x, int dif_y)
 	
 	Horizontal_Move(dif, speed, dir);
 }
-int time_task = 0;
+int time_task = 0, laser_request = 0;
 int fly2field(int x, int y, int z)
 {	
 	const int boundary = 10;
@@ -712,7 +711,17 @@ int fly2field(int x, int y, int z)
 	if(x - t265_x_position < boundary && x - t265_x_position > -boundary && y - t265_y_position < boundary && y - t265_y_position > -boundary)
 	{ 
 		if(time_task >= 0)
+		{
+			if(laser_request == 1)
+			{
+				laser_request = 0;
+			}
+			else
+			{
+				laser_request = 1;
+			}
 			return 1;
+		}
 		time_task++;
 		return 0;
 	}
@@ -741,4 +750,32 @@ int fly2height(int z)
 void setHeight(int z)
 {
 	targetHeight = z;
+}
+//data node
+void send_laser_request(uint8_t funcNum)
+{
+	//发送串口
+  uint8_t i = 0;
+  uint8_t sumcheck = 0, add_on_check =0;
+	static uint8_t func_usartBuffer[100] = {0};
+        
+  func_usartBuffer[0] = 0xAA;
+  func_usartBuffer[1] = 0x62;
+  func_usartBuffer[2] = 0x93;
+  func_usartBuffer[3] = 0x01;
+	
+	func_usartBuffer[4] = funcNum;
+
+  for(i = 0; i<= 4; i++)
+  {
+      sumcheck += func_usartBuffer[i];
+      add_on_check += sumcheck;
+  }
+  sumcheck %= 256;
+  add_on_check %= 256;
+
+  func_usartBuffer[5] = sumcheck;
+  func_usartBuffer[6] = add_on_check;
+	
+	DrvUart2SendBuf(func_usartBuffer, 7);
 }

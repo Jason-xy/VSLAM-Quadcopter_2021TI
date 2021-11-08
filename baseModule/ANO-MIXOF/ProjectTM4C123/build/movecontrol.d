@@ -30,3 +30,4 @@
 .\build\movecontrol.o: ..\APP\WaypointControl.h
 .\build\movecontrol.o: ..\APP\WaypointControl.h
 .\build\movecontrol.o: ..\APP\MoveControl.h
+.\build\movecontrol.o: ..\DriversMcu\TM4C123\Drivers\Drv_Uart.h
