@@ -44,6 +44,8 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps);
 int fly2field(int x, int y, int z);
 int fly2height(int z);
 void setHeight(int z);
+int final_land(int x, int y, int z);
+void PositionControl_land(int dif_x, int dif_y);
 //laser
 void send_laser_request(uint8_t funcNum);
 

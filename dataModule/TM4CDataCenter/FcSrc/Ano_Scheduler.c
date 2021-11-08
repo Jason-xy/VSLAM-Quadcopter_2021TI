@@ -55,7 +55,7 @@ static void Loop_20Hz(void) //50ms执行一次
 	//////////////////////////////////////////////////////////////////////
 }
 
-static void Loop_2Hz(void) //1000ms执行一次
+static void Loop_2Hz(void) //500ms执行一次
 {
 	if(blink_state == 1)
 		{

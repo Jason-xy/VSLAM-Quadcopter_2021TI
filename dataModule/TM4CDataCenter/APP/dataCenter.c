@@ -430,6 +430,7 @@ void MainBoard_DataAnl(uint8_t *data, uint8_t len)
 			{
 				check_color();
 			}
+			preRequestState = RequestState;
 			break;
 		
 		default:

@@ -443,7 +443,7 @@ void MoveControl_Output(void)
 			case 40:
 			{
 				//move to 0,0
-				mission_step += fly2field(0, 0, 150);
+				mission_step += final_land(17, 30, 10);
 			}
 			break;
 			case 41:
@@ -679,10 +679,10 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 }
 
 //Position control
-const double P = 0.6, I = 0.01, D = 0;
+const double P = 0.5, I = 0.01, D = 0;
 void PositionControl(int dif_x, int dif_y)
 {
-	const int maxSpeed = 20 ;
+	const int maxSpeed = 15 ;
   static int speed, dir, dif;
   dif = sqrt(dif_x * dif_x + dif_y * dif_y) / 2.0f;
   speed = P * dif;
@@ -698,10 +698,28 @@ void PositionControl(int dif_x, int dif_y)
 	
 	Horizontal_Move(dif, speed, dir);
 }
+void PositionControl_land(int dif_x, int dif_y)
+{
+	const int maxSpeed = 15 ;
+  static int speed, dir, dif;
+  dif = sqrt(dif_x * dif_x + dif_y * dif_y) / 2.0f;
+  speed = P / 3 * dif;
+  if(dif_y > 0 && dif_x > 0)
+      dir = 360 - atan((float)dif_y / (float)dif_x) * 57.3;
+  else if(dif_y > 0 && dif_x < 0)
+      dir = 180 - atan((float)dif_y / (float)dif_x) * 57.3;
+  else if(dif_y < 0 && dif_x > 0)
+      dir = -atan((float)dif_y / (float)dif_x) * 57.3;
+  else if(dif_y < 0 && dif_x < 0)
+      dir = 180 - atan((float)dif_y / (float)dif_x) * 57.3;
+  if(speed > maxSpeed) speed = maxSpeed;
+	
+	Horizontal_Move(dif, speed, dir);
+}
 int time_task = 0, laser_request = 0;
 int fly2field(int x, int y, int z)
 {	
-	const int boundary = 10;
+	const int boundary = 15;
 	//check data
 	if(t265_x_position == 0 || t265_y_position == 0 || t265_z_position == 0)
 	{
@@ -732,16 +750,49 @@ int fly2field(int x, int y, int z)
 	}
 }
 
+int final_land(int x, int y, int z)
+{	
+	const int boundary = 5;
+	//check data
+	if(t265_x_position == 0 || t265_y_position == 0 || t265_z_position == 0)
+	{
+		PositionControl_land(0, 0);
+	}
+	PositionControl_land(x - t265_x_position, y - t265_y_position);
+	if(x - t265_x_position < boundary && x - t265_x_position > -boundary && y - t265_y_position < boundary && y - t265_y_position > -boundary)
+	{ 
+		if(time_task >= 0)
+		{
+			if(laser_request == 1)
+			{
+				laser_request = 0;
+			}
+			else
+			{
+				laser_request = 1;
+			}
+			return 1;
+		}
+		time_task++;
+		return 0;
+	}
+	else
+	{
+		time_task = 0;
+		return 0;
+	}
+}
+
 int fly2height(int z)
 {
-	if(z - (int)ano_of.of_alt_cm > 10 || z - (int)ano_of.of_alt_cm < -10)
+	if(z - (int)ano_of.of_alt_cm > 15 || z - (int)ano_of.of_alt_cm < -15)
 	{
 		time_task = 0;
 		return 0;
 	}
 	else
 	{
-		if(time_task > 2)
+		if(time_task >= 1)
 			return 1;
 		time_task++;
 		return 0;
