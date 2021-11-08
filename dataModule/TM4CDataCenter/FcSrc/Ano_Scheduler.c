@@ -65,7 +65,7 @@ static void Loop_2Hz(void) //1000ms执行一次
 		else
 		{
 			Laser_On();
-		}
+	   }
 }
 //////////////////////////////////////////////////////////////////////
 //调度器初始化
@@ -112,7 +112,6 @@ void Scheduler_Run(void)
 		//进行判断，如果当前时间减去上一次执行的时间，大于等于该线程的执行周期，则执行线程
 		if (tnow - sched_tasks[index].last_run >= sched_tasks[index].interval_ticks)
 		{
-
 			//更新线程的执行时间，用于下一次判断
 			sched_tasks[index].last_run = tnow;
 			//执行线程函数，使用的是函数指针

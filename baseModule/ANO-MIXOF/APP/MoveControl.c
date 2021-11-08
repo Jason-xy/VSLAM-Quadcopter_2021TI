@@ -120,8 +120,8 @@ void MoveControl_DataAnl(uint8_t *data, uint8_t len)
 	else if(func_code_u2 == 0x91)
 	{
 		//V-SLAM
-		t265_x_position = (*(data + 5) << 8) | (*(data + 4)) - 20;
-		t265_y_position = (*(data + 7) << 8) | (*(data + 6)) - 10;
+		t265_x_position = ((*(data + 5) << 8) | (*(data + 4))) - 20;
+		t265_y_position = ((*(data + 7) << 8) | (*(data + 6))) - 10;
 		t265_z_position = (*(data + 9) << 8) | (*(data + 8));
 		
 		//window_smooth
@@ -191,8 +191,7 @@ void MoveControl_Output(void)
 			case 1:
 			{
 				//switch to program control
-				//mission_step += LX_Change_Mode(3);
-				mission_step++;
+				mission_step += LX_Change_Mode(3);
 			}
 			break;
 			case 2:
@@ -200,7 +199,7 @@ void MoveControl_Output(void)
 				//unlock check
 				//FC_Unlock();
 				MyDelayMs(500);
-				//mission_step += UNLOCK_STATE;
+				mission_step += UNLOCK_STATE;
 				mission_step++;
 			}
 			break;
@@ -241,7 +240,7 @@ void MoveControl_Output(void)
 			case 6:
 			{
 				//move control
-				mission_step += fly2height(10);
+				mission_step += fly2height(150);
 			}
 			break;
 			case 7:
@@ -438,7 +437,8 @@ void MoveControl_Output(void)
 			break;
 			case 39:
 			{
-				mission_step += fly2height(10);
+				setHeight(10);
+				mission_step++;
 			}
 			break;
 			case 40:
@@ -680,7 +680,7 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 }
 
 //Position control
-const double P = 0.4, I = 0.01, D = 0;
+const double P = 0.6, I = 0.01, D = 0;
 void PositionControl(int dif_x, int dif_y)
 {
 	const int maxSpeed = 20 ;
@@ -699,11 +699,10 @@ void PositionControl(int dif_x, int dif_y)
 	
 	Horizontal_Move(dif, speed, dir);
 }
-
 int time_task = 0;
 int fly2field(int x, int y, int z)
 {	
-	const int boundary = 20;
+	const int boundary = 10;
 	//check data
 	if(t265_x_position == 0 || t265_y_position == 0 || t265_z_position == 0)
 	{
@@ -711,7 +710,7 @@ int fly2field(int x, int y, int z)
 	}
 	PositionControl(x - t265_x_position, y - t265_y_position);
 	if(x - t265_x_position < boundary && x - t265_x_position > -boundary && y - t265_y_position < boundary && y - t265_y_position > -boundary)
-	{
+	{ 
 		if(time_task >= 0)
 			return 1;
 		time_task++;
