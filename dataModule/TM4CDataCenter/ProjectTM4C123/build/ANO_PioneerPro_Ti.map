@@ -2203,57 +2203,57 @@ Image Symbol Table
     i.MainBoard_BeginLevelCalibration        0x000012f4   Section        0  datacenter.o(i.MainBoard_BeginLevelCalibration)
     i.MainBoard_BeginSixSidesCalibration     0x00001314   Section        0  datacenter.o(i.MainBoard_BeginSixSidesCalibration)
     i.MainBoard_DataAnl                      0x00001334   Section        0  datacenter.o(i.MainBoard_DataAnl)
-    i.MainBoard_GetOneByte                   0x000013cc   Section        0  datacenter.o(i.MainBoard_GetOneByte)
-    i.MainBoard_Unlock                       0x000014d8   Section        0  datacenter.o(i.MainBoard_Unlock)
-    i.MyDelayMs                              0x000014f8   Section        0  drv_sys.o(i.MyDelayMs)
-    i.OpenMV_DataAnl                         0x0000151c   Section        0  datacenter.o(i.OpenMV_DataAnl)
-    i.OpenMV_GetOneByte                      0x000015bc   Section        0  datacenter.o(i.OpenMV_GetOneByte)
-    i.OpenMV_RequestLAB                      0x000016d8   Section        0  datacenter.o(i.OpenMV_RequestLAB)
-    i.OpenMV_SetLAB                          0x000016f4   Section        0  datacenter.o(i.OpenMV_SetLAB)
-    i.Scheduler_Run                          0x00001780   Section        0  ano_scheduler.o(i.Scheduler_Run)
-    i.Scheduler_Setup                        0x000017d0   Section        0  ano_scheduler.o(i.Scheduler_Setup)
-    i.Screen_BackData                        0x00001820   Section        0  datacenter.o(i.Screen_BackData)
-    i.Screen_DataAnl                         0x00001898   Section        0  datacenter.o(i.Screen_DataAnl)
-    i.Screen_GetOneByte                      0x00001974   Section        0  datacenter.o(i.Screen_GetOneByte)
-    i.SysCtlClockGet                         0x00001acc   Section        0  sysctl.o(i.SysCtlClockGet)
-    i.SysTick_Handler                        0x00001c20   Section        0  drv_sys.o(i.SysTick_Handler)
-    i.SysTick_Init                           0x00001c38   Section        0  drv_sys.o(i.SysTick_Init)
-    i.SystemInit                             0x00001c70   Section        0  system_tm4c123.o(i.SystemInit)
-    i.Timer0Irq                              0x00001d08   Section        0  drv_timer.o(i.Timer0Irq)
-    i.TimerIntClear                          0x00001d18   Section        0  timer.o(i.TimerIntClear)
-    i.TimerIntRegister                       0x00001d1c   Section        0  timer.o(i.TimerIntRegister)
-    i.UART2_IRQHandler                       0x00001d84   Section        0  drv_uart.o(i.UART2_IRQHandler)
-    i.UART3_IRQHandler                       0x00001ddc   Section        0  drv_uart.o(i.UART3_IRQHandler)
-    i.UART4_IRQHandler                       0x00001e34   Section        0  drv_uart.o(i.UART4_IRQHandler)
-    i.UART5_IRQHandler                       0x00001e8c   Section        0  drv_uart.o(i.UART5_IRQHandler)
-    i.UART6_IRQHandler                       0x00001ee4   Section        0  drv_uart.o(i.UART6_IRQHandler)
-    i.UART7_IRQHandler                       0x00001f3c   Section        0  drv_uart.o(i.UART7_IRQHandler)
-    i.UARTIntRegister                        0x00001f94   Section        0  uart.o(i.UARTIntRegister)
-    i.__scatterload_copy                     0x00001fec   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x00001ffa   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00001ffc   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.check_color                            0x0000200c   Section        0  datacenter.o(i.check_color)
-    i.main                                   0x00002024   Section        0  main.o(i.main)
-    i.send_t265_data                         0x00002034   Section        0  datacenter.o(i.send_t265_data)
-    i.sent_Control_ToANO                     0x00002140   Section        0  datacenter.o(i.sent_Control_ToANO)
-    .constdata                               0x0000217c   Section      596  sysctl.o(.constdata)
-    g_pui32VCOFrequencies                    0x0000217c   Data           8  sysctl.o(.constdata)
-    g_pui32Xtals                             0x00002184   Data         108  sysctl.o(.constdata)
-    g_pppui32XTALtoVCO                       0x000021f0   Data         432  sysctl.o(.constdata)
-    g_sXTALtoMEMTIM                          0x000023a0   Data          48  sysctl.o(.constdata)
-    .constdata                               0x000023d0   Section      160  timer.o(.constdata)
-    g_ppui32TimerIntMap                      0x000023d0   Data          96  timer.o(.constdata)
-    g_ppui32TimerIntMapSnowflake             0x00002430   Data          64  timer.o(.constdata)
-    .constdata                               0x00002470   Section      128  uart.o(.constdata)
-    g_ppui32UARTIntMap                       0x00002470   Data          64  uart.o(.constdata)
-    g_ppui32UARTIntMapSnowflake              0x000024b0   Data          64  uart.o(.constdata)
-    .constdata                               0x000024f0   Section      268  interrupt.o(.constdata)
-    g_pui32Priority                          0x000024f0   Data          32  interrupt.o(.constdata)
-    g_pui32Regs                              0x00002510   Data         156  interrupt.o(.constdata)
-    g_pui32EnRegs                            0x000025ac   Data          20  interrupt.o(.constdata)
-    g_pui32Dii16Regs                         0x000025c0   Data          20  interrupt.o(.constdata)
-    g_pui32PendRegs                          0x000025d4   Data          20  interrupt.o(.constdata)
-    g_pui32UnpendRegs                        0x000025e8   Data          20  interrupt.o(.constdata)
+    i.MainBoard_GetOneByte                   0x0000140c   Section        0  datacenter.o(i.MainBoard_GetOneByte)
+    i.MainBoard_Unlock                       0x00001518   Section        0  datacenter.o(i.MainBoard_Unlock)
+    i.MyDelayMs                              0x00001538   Section        0  drv_sys.o(i.MyDelayMs)
+    i.OpenMV_DataAnl                         0x0000155c   Section        0  datacenter.o(i.OpenMV_DataAnl)
+    i.OpenMV_GetOneByte                      0x000015fc   Section        0  datacenter.o(i.OpenMV_GetOneByte)
+    i.OpenMV_RequestLAB                      0x00001718   Section        0  datacenter.o(i.OpenMV_RequestLAB)
+    i.OpenMV_SetLAB                          0x00001734   Section        0  datacenter.o(i.OpenMV_SetLAB)
+    i.Scheduler_Run                          0x000017c0   Section        0  ano_scheduler.o(i.Scheduler_Run)
+    i.Scheduler_Setup                        0x00001810   Section        0  ano_scheduler.o(i.Scheduler_Setup)
+    i.Screen_BackData                        0x00001860   Section        0  datacenter.o(i.Screen_BackData)
+    i.Screen_DataAnl                         0x000018d8   Section        0  datacenter.o(i.Screen_DataAnl)
+    i.Screen_GetOneByte                      0x000019b4   Section        0  datacenter.o(i.Screen_GetOneByte)
+    i.SysCtlClockGet                         0x00001b0c   Section        0  sysctl.o(i.SysCtlClockGet)
+    i.SysTick_Handler                        0x00001c60   Section        0  drv_sys.o(i.SysTick_Handler)
+    i.SysTick_Init                           0x00001c78   Section        0  drv_sys.o(i.SysTick_Init)
+    i.SystemInit                             0x00001cb0   Section        0  system_tm4c123.o(i.SystemInit)
+    i.Timer0Irq                              0x00001d48   Section        0  drv_timer.o(i.Timer0Irq)
+    i.TimerIntClear                          0x00001d58   Section        0  timer.o(i.TimerIntClear)
+    i.TimerIntRegister                       0x00001d5c   Section        0  timer.o(i.TimerIntRegister)
+    i.UART2_IRQHandler                       0x00001dc4   Section        0  drv_uart.o(i.UART2_IRQHandler)
+    i.UART3_IRQHandler                       0x00001e1c   Section        0  drv_uart.o(i.UART3_IRQHandler)
+    i.UART4_IRQHandler                       0x00001e74   Section        0  drv_uart.o(i.UART4_IRQHandler)
+    i.UART5_IRQHandler                       0x00001ecc   Section        0  drv_uart.o(i.UART5_IRQHandler)
+    i.UART6_IRQHandler                       0x00001f24   Section        0  drv_uart.o(i.UART6_IRQHandler)
+    i.UART7_IRQHandler                       0x00001f7c   Section        0  drv_uart.o(i.UART7_IRQHandler)
+    i.UARTIntRegister                        0x00001fd4   Section        0  uart.o(i.UARTIntRegister)
+    i.__scatterload_copy                     0x0000202c   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0000203a   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x0000203c   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.check_color                            0x0000204c   Section        0  datacenter.o(i.check_color)
+    i.main                                   0x00002064   Section        0  main.o(i.main)
+    i.send_t265_data                         0x00002074   Section        0  datacenter.o(i.send_t265_data)
+    i.sent_Control_ToANO                     0x00002180   Section        0  datacenter.o(i.sent_Control_ToANO)
+    .constdata                               0x000021bc   Section      596  sysctl.o(.constdata)
+    g_pui32VCOFrequencies                    0x000021bc   Data           8  sysctl.o(.constdata)
+    g_pui32Xtals                             0x000021c4   Data         108  sysctl.o(.constdata)
+    g_pppui32XTALtoVCO                       0x00002230   Data         432  sysctl.o(.constdata)
+    g_sXTALtoMEMTIM                          0x000023e0   Data          48  sysctl.o(.constdata)
+    .constdata                               0x00002410   Section      160  timer.o(.constdata)
+    g_ppui32TimerIntMap                      0x00002410   Data          96  timer.o(.constdata)
+    g_ppui32TimerIntMapSnowflake             0x00002470   Data          64  timer.o(.constdata)
+    .constdata                               0x000024b0   Section      128  uart.o(.constdata)
+    g_ppui32UARTIntMap                       0x000024b0   Data          64  uart.o(.constdata)
+    g_ppui32UARTIntMapSnowflake              0x000024f0   Data          64  uart.o(.constdata)
+    .constdata                               0x00002530   Section      268  interrupt.o(.constdata)
+    g_pui32Priority                          0x00002530   Data          32  interrupt.o(.constdata)
+    g_pui32Regs                              0x00002550   Data         156  interrupt.o(.constdata)
+    g_pui32EnRegs                            0x000025ec   Data          20  interrupt.o(.constdata)
+    g_pui32Dii16Regs                         0x00002600   Data          20  interrupt.o(.constdata)
+    g_pui32PendRegs                          0x00002614   Data          20  interrupt.o(.constdata)
+    g_pui32UnpendRegs                        0x00002628   Data          20  interrupt.o(.constdata)
     .data                                    0x20000000   Section       84  ano_scheduler.o(.data)
     sched_tasks                              0x20000000   Data          84  ano_scheduler.o(.data)
     .data                                    0x20000058   Section        8  drv_sys.o(.data)
@@ -2489,42 +2489,42 @@ Image Symbol Table
     MainBoard_BeginCompassCalibration        0x000012d5   Thumb Code    20  datacenter.o(i.MainBoard_BeginCompassCalibration)
     MainBoard_BeginLevelCalibration          0x000012f5   Thumb Code    20  datacenter.o(i.MainBoard_BeginLevelCalibration)
     MainBoard_BeginSixSidesCalibration       0x00001315   Thumb Code    20  datacenter.o(i.MainBoard_BeginSixSidesCalibration)
-    MainBoard_DataAnl                        0x00001335   Thumb Code   140  datacenter.o(i.MainBoard_DataAnl)
-    MainBoard_GetOneByte                     0x000013cd   Thumb Code   252  datacenter.o(i.MainBoard_GetOneByte)
-    MainBoard_Unlock                         0x000014d9   Thumb Code    20  datacenter.o(i.MainBoard_Unlock)
-    MyDelayMs                                0x000014f9   Thumb Code    30  drv_sys.o(i.MyDelayMs)
-    OpenMV_DataAnl                           0x0000151d   Thumb Code   134  datacenter.o(i.OpenMV_DataAnl)
-    OpenMV_GetOneByte                        0x000015bd   Thumb Code   266  datacenter.o(i.OpenMV_GetOneByte)
-    OpenMV_RequestLAB                        0x000016d9   Thumb Code    20  datacenter.o(i.OpenMV_RequestLAB)
-    OpenMV_SetLAB                            0x000016f5   Thumb Code   104  datacenter.o(i.OpenMV_SetLAB)
-    Scheduler_Run                            0x00001781   Thumb Code    76  ano_scheduler.o(i.Scheduler_Run)
-    Scheduler_Setup                          0x000017d1   Thumb Code    76  ano_scheduler.o(i.Scheduler_Setup)
-    Screen_BackData                          0x00001821   Thumb Code    92  datacenter.o(i.Screen_BackData)
-    Screen_DataAnl                           0x00001899   Thumb Code   194  datacenter.o(i.Screen_DataAnl)
-    Screen_GetOneByte                        0x00001975   Thumb Code   320  datacenter.o(i.Screen_GetOneByte)
-    SysCtlClockGet                           0x00001acd   Thumb Code   304  sysctl.o(i.SysCtlClockGet)
-    SysTick_Handler                          0x00001c21   Thumb Code    20  drv_sys.o(i.SysTick_Handler)
-    SysTick_Init                             0x00001c39   Thumb Code    54  drv_sys.o(i.SysTick_Init)
-    SystemInit                               0x00001c71   Thumb Code   112  system_tm4c123.o(i.SystemInit)
-    Timer0Irq                                0x00001d09   Thumb Code    12  drv_timer.o(i.Timer0Irq)
-    TimerIntClear                            0x00001d19   Thumb Code     4  timer.o(i.TimerIntClear)
-    TimerIntRegister                         0x00001d1d   Thumb Code    88  timer.o(i.TimerIntRegister)
-    UART2_IRQHandler                         0x00001d85   Thumb Code    82  drv_uart.o(i.UART2_IRQHandler)
-    UART3_IRQHandler                         0x00001ddd   Thumb Code    82  drv_uart.o(i.UART3_IRQHandler)
-    UART4_IRQHandler                         0x00001e35   Thumb Code    82  drv_uart.o(i.UART4_IRQHandler)
-    UART5_IRQHandler                         0x00001e8d   Thumb Code    82  drv_uart.o(i.UART5_IRQHandler)
-    UART6_IRQHandler                         0x00001ee5   Thumb Code    82  drv_uart.o(i.UART6_IRQHandler)
-    UART7_IRQHandler                         0x00001f3d   Thumb Code    82  drv_uart.o(i.UART7_IRQHandler)
-    UARTIntRegister                          0x00001f95   Thumb Code    70  uart.o(i.UARTIntRegister)
-    __scatterload_copy                       0x00001fed   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x00001ffb   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00001ffd   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    check_color                              0x0000200d   Thumb Code    14  datacenter.o(i.check_color)
-    main                                     0x00002025   Thumb Code    16  main.o(i.main)
-    send_t265_data                           0x00002035   Thumb Code   238  datacenter.o(i.send_t265_data)
-    sent_Control_ToANO                       0x00002141   Thumb Code    60  datacenter.o(i.sent_Control_ToANO)
-    Region$$Table$$Base                      0x000025fc   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x0000261c   Number         0  anon$$obj.o(Region$$Table)
+    MainBoard_DataAnl                        0x00001335   Thumb Code   200  datacenter.o(i.MainBoard_DataAnl)
+    MainBoard_GetOneByte                     0x0000140d   Thumb Code   252  datacenter.o(i.MainBoard_GetOneByte)
+    MainBoard_Unlock                         0x00001519   Thumb Code    20  datacenter.o(i.MainBoard_Unlock)
+    MyDelayMs                                0x00001539   Thumb Code    30  drv_sys.o(i.MyDelayMs)
+    OpenMV_DataAnl                           0x0000155d   Thumb Code   134  datacenter.o(i.OpenMV_DataAnl)
+    OpenMV_GetOneByte                        0x000015fd   Thumb Code   266  datacenter.o(i.OpenMV_GetOneByte)
+    OpenMV_RequestLAB                        0x00001719   Thumb Code    20  datacenter.o(i.OpenMV_RequestLAB)
+    OpenMV_SetLAB                            0x00001735   Thumb Code   104  datacenter.o(i.OpenMV_SetLAB)
+    Scheduler_Run                            0x000017c1   Thumb Code    76  ano_scheduler.o(i.Scheduler_Run)
+    Scheduler_Setup                          0x00001811   Thumb Code    76  ano_scheduler.o(i.Scheduler_Setup)
+    Screen_BackData                          0x00001861   Thumb Code    92  datacenter.o(i.Screen_BackData)
+    Screen_DataAnl                           0x000018d9   Thumb Code   194  datacenter.o(i.Screen_DataAnl)
+    Screen_GetOneByte                        0x000019b5   Thumb Code   320  datacenter.o(i.Screen_GetOneByte)
+    SysCtlClockGet                           0x00001b0d   Thumb Code   304  sysctl.o(i.SysCtlClockGet)
+    SysTick_Handler                          0x00001c61   Thumb Code    20  drv_sys.o(i.SysTick_Handler)
+    SysTick_Init                             0x00001c79   Thumb Code    54  drv_sys.o(i.SysTick_Init)
+    SystemInit                               0x00001cb1   Thumb Code   112  system_tm4c123.o(i.SystemInit)
+    Timer0Irq                                0x00001d49   Thumb Code    12  drv_timer.o(i.Timer0Irq)
+    TimerIntClear                            0x00001d59   Thumb Code     4  timer.o(i.TimerIntClear)
+    TimerIntRegister                         0x00001d5d   Thumb Code    88  timer.o(i.TimerIntRegister)
+    UART2_IRQHandler                         0x00001dc5   Thumb Code    82  drv_uart.o(i.UART2_IRQHandler)
+    UART3_IRQHandler                         0x00001e1d   Thumb Code    82  drv_uart.o(i.UART3_IRQHandler)
+    UART4_IRQHandler                         0x00001e75   Thumb Code    82  drv_uart.o(i.UART4_IRQHandler)
+    UART5_IRQHandler                         0x00001ecd   Thumb Code    82  drv_uart.o(i.UART5_IRQHandler)
+    UART6_IRQHandler                         0x00001f25   Thumb Code    82  drv_uart.o(i.UART6_IRQHandler)
+    UART7_IRQHandler                         0x00001f7d   Thumb Code    82  drv_uart.o(i.UART7_IRQHandler)
+    UARTIntRegister                          0x00001fd5   Thumb Code    70  uart.o(i.UARTIntRegister)
+    __scatterload_copy                       0x0000202d   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0000203b   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x0000203d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    check_color                              0x0000204d   Thumb Code    14  datacenter.o(i.check_color)
+    main                                     0x00002065   Thumb Code    16  main.o(i.main)
+    send_t265_data                           0x00002075   Thumb Code   238  datacenter.o(i.send_t265_data)
+    sent_Control_ToANO                       0x00002181   Thumb Code    60  datacenter.o(i.sent_Control_ToANO)
+    Region$$Table$$Base                      0x0000263c   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x0000265c   Number         0  anon$$obj.o(Region$$Table)
     U1TxInCnt                                0x20000060   Data           1  drv_uart.o(.data)
     U1TxOutCnt                               0x20000061   Data           1  drv_uart.o(.data)
     U2TxInCnt                                0x20000062   Data           1  drv_uart.o(.data)
@@ -2565,9 +2565,9 @@ Memory Map of the image
 
   Image Entry point : 0x00000281
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00002c88, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00002664])
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00002cc8, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x000026a4])
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x0000261c, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x0000265c, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2629,50 +2629,50 @@ Memory Map of the image
     0x000012d4   0x000012d4   0x00000020   Code   RO         1513    i.MainBoard_BeginCompassCalibration  datacenter.o
     0x000012f4   0x000012f4   0x00000020   Code   RO         1514    i.MainBoard_BeginLevelCalibration  datacenter.o
     0x00001314   0x00001314   0x00000020   Code   RO         1515    i.MainBoard_BeginSixSidesCalibration  datacenter.o
-    0x00001334   0x00001334   0x00000098   Code   RO         1516    i.MainBoard_DataAnl  datacenter.o
-    0x000013cc   0x000013cc   0x0000010c   Code   RO         1517    i.MainBoard_GetOneByte  datacenter.o
-    0x000014d8   0x000014d8   0x00000020   Code   RO         1519    i.MainBoard_Unlock  datacenter.o
-    0x000014f8   0x000014f8   0x00000024   Code   RO          855    i.MyDelayMs         drv_sys.o
-    0x0000151c   0x0000151c   0x000000a0   Code   RO         1520    i.OpenMV_DataAnl    datacenter.o
-    0x000015bc   0x000015bc   0x0000011c   Code   RO         1521    i.OpenMV_GetOneByte  datacenter.o
-    0x000016d8   0x000016d8   0x0000001c   Code   RO         1522    i.OpenMV_RequestLAB  datacenter.o
-    0x000016f4   0x000016f4   0x0000008c   Code   RO         1523    i.OpenMV_SetLAB     datacenter.o
-    0x00001780   0x00001780   0x00000050   Code   RO          105    i.Scheduler_Run     ano_scheduler.o
-    0x000017d0   0x000017d0   0x00000050   Code   RO          106    i.Scheduler_Setup   ano_scheduler.o
-    0x00001820   0x00001820   0x00000078   Code   RO         1524    i.Screen_BackData   datacenter.o
-    0x00001898   0x00001898   0x000000dc   Code   RO         1525    i.Screen_DataAnl    datacenter.o
-    0x00001974   0x00001974   0x00000158   Code   RO         1526    i.Screen_GetOneByte  datacenter.o
-    0x00001acc   0x00001acc   0x00000154   Code   RO         2377    i.SysCtlClockGet    driverlib.lib(sysctl.o)
-    0x00001c20   0x00001c20   0x00000018   Code   RO          856    i.SysTick_Handler   drv_sys.o
-    0x00001c38   0x00001c38   0x00000036   Code   RO          857    i.SysTick_Init      drv_sys.o
-    0x00001c6e   0x00001c6e   0x00000002   PAD
-    0x00001c70   0x00001c70   0x00000098   Code   RO         1435    i.SystemInit        system_tm4c123.o
-    0x00001d08   0x00001d08   0x00000010   Code   RO         1395    i.Timer0Irq         drv_timer.o
-    0x00001d18   0x00001d18   0x00000004   Code   RO         2742    i.TimerIntClear     driverlib.lib(timer.o)
-    0x00001d1c   0x00001d1c   0x00000068   Code   RO         2745    i.TimerIntRegister  driverlib.lib(timer.o)
-    0x00001d84   0x00001d84   0x00000058   Code   RO         1126    i.UART2_IRQHandler  drv_uart.o
-    0x00001ddc   0x00001ddc   0x00000058   Code   RO         1127    i.UART3_IRQHandler  drv_uart.o
-    0x00001e34   0x00001e34   0x00000058   Code   RO         1128    i.UART4_IRQHandler  drv_uart.o
-    0x00001e8c   0x00001e8c   0x00000058   Code   RO         1129    i.UART5_IRQHandler  drv_uart.o
-    0x00001ee4   0x00001ee4   0x00000058   Code   RO         1130    i.UART6_IRQHandler  drv_uart.o
-    0x00001f3c   0x00001f3c   0x00000058   Code   RO         1131    i.UART7_IRQHandler  drv_uart.o
-    0x00001f94   0x00001f94   0x00000058   Code   RO         3000    i.UARTIntRegister   driverlib.lib(uart.o)
-    0x00001fec   0x00001fec   0x0000000e   Code   RO         5615    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x00001ffa   0x00001ffa   0x00000002   Code   RO         5616    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00001ffc   0x00001ffc   0x0000000e   Code   RO         5617    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0000200a   0x0000200a   0x00000002   PAD
-    0x0000200c   0x0000200c   0x00000018   Code   RO         1527    i.check_color       datacenter.o
-    0x00002024   0x00002024   0x00000010   Code   RO            4    i.main              main.o
-    0x00002034   0x00002034   0x0000010c   Code   RO         1528    i.send_t265_data    datacenter.o
-    0x00002140   0x00002140   0x0000003c   Code   RO         1529    i.sent_Control_ToANO  datacenter.o
-    0x0000217c   0x0000217c   0x00000254   Data   RO         2430    .constdata          driverlib.lib(sysctl.o)
-    0x000023d0   0x000023d0   0x000000a0   Data   RO         2766    .constdata          driverlib.lib(timer.o)
-    0x00002470   0x00002470   0x00000080   Data   RO         3017    .constdata          driverlib.lib(uart.o)
-    0x000024f0   0x000024f0   0x0000010c   Data   RO         4330    .constdata          driverlib.lib(interrupt.o)
-    0x000025fc   0x000025fc   0x00000020   Data   RO         5613    Region$$Table       anon$$obj.o
+    0x00001334   0x00001334   0x000000d8   Code   RO         1516    i.MainBoard_DataAnl  datacenter.o
+    0x0000140c   0x0000140c   0x0000010c   Code   RO         1517    i.MainBoard_GetOneByte  datacenter.o
+    0x00001518   0x00001518   0x00000020   Code   RO         1519    i.MainBoard_Unlock  datacenter.o
+    0x00001538   0x00001538   0x00000024   Code   RO          855    i.MyDelayMs         drv_sys.o
+    0x0000155c   0x0000155c   0x000000a0   Code   RO         1520    i.OpenMV_DataAnl    datacenter.o
+    0x000015fc   0x000015fc   0x0000011c   Code   RO         1521    i.OpenMV_GetOneByte  datacenter.o
+    0x00001718   0x00001718   0x0000001c   Code   RO         1522    i.OpenMV_RequestLAB  datacenter.o
+    0x00001734   0x00001734   0x0000008c   Code   RO         1523    i.OpenMV_SetLAB     datacenter.o
+    0x000017c0   0x000017c0   0x00000050   Code   RO          105    i.Scheduler_Run     ano_scheduler.o
+    0x00001810   0x00001810   0x00000050   Code   RO          106    i.Scheduler_Setup   ano_scheduler.o
+    0x00001860   0x00001860   0x00000078   Code   RO         1524    i.Screen_BackData   datacenter.o
+    0x000018d8   0x000018d8   0x000000dc   Code   RO         1525    i.Screen_DataAnl    datacenter.o
+    0x000019b4   0x000019b4   0x00000158   Code   RO         1526    i.Screen_GetOneByte  datacenter.o
+    0x00001b0c   0x00001b0c   0x00000154   Code   RO         2377    i.SysCtlClockGet    driverlib.lib(sysctl.o)
+    0x00001c60   0x00001c60   0x00000018   Code   RO          856    i.SysTick_Handler   drv_sys.o
+    0x00001c78   0x00001c78   0x00000036   Code   RO          857    i.SysTick_Init      drv_sys.o
+    0x00001cae   0x00001cae   0x00000002   PAD
+    0x00001cb0   0x00001cb0   0x00000098   Code   RO         1435    i.SystemInit        system_tm4c123.o
+    0x00001d48   0x00001d48   0x00000010   Code   RO         1395    i.Timer0Irq         drv_timer.o
+    0x00001d58   0x00001d58   0x00000004   Code   RO         2742    i.TimerIntClear     driverlib.lib(timer.o)
+    0x00001d5c   0x00001d5c   0x00000068   Code   RO         2745    i.TimerIntRegister  driverlib.lib(timer.o)
+    0x00001dc4   0x00001dc4   0x00000058   Code   RO         1126    i.UART2_IRQHandler  drv_uart.o
+    0x00001e1c   0x00001e1c   0x00000058   Code   RO         1127    i.UART3_IRQHandler  drv_uart.o
+    0x00001e74   0x00001e74   0x00000058   Code   RO         1128    i.UART4_IRQHandler  drv_uart.o
+    0x00001ecc   0x00001ecc   0x00000058   Code   RO         1129    i.UART5_IRQHandler  drv_uart.o
+    0x00001f24   0x00001f24   0x00000058   Code   RO         1130    i.UART6_IRQHandler  drv_uart.o
+    0x00001f7c   0x00001f7c   0x00000058   Code   RO         1131    i.UART7_IRQHandler  drv_uart.o
+    0x00001fd4   0x00001fd4   0x00000058   Code   RO         3000    i.UARTIntRegister   driverlib.lib(uart.o)
+    0x0000202c   0x0000202c   0x0000000e   Code   RO         5615    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0000203a   0x0000203a   0x00000002   Code   RO         5616    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0000203c   0x0000203c   0x0000000e   Code   RO         5617    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0000204a   0x0000204a   0x00000002   PAD
+    0x0000204c   0x0000204c   0x00000018   Code   RO         1527    i.check_color       datacenter.o
+    0x00002064   0x00002064   0x00000010   Code   RO            4    i.main              main.o
+    0x00002074   0x00002074   0x0000010c   Code   RO         1528    i.send_t265_data    datacenter.o
+    0x00002180   0x00002180   0x0000003c   Code   RO         1529    i.sent_Control_ToANO  datacenter.o
+    0x000021bc   0x000021bc   0x00000254   Data   RO         2430    .constdata          driverlib.lib(sysctl.o)
+    0x00002410   0x00002410   0x000000a0   Data   RO         2766    .constdata          driverlib.lib(timer.o)
+    0x000024b0   0x000024b0   0x00000080   Data   RO         3017    .constdata          driverlib.lib(uart.o)
+    0x00002530   0x00002530   0x0000010c   Data   RO         4330    .constdata          driverlib.lib(interrupt.o)
+    0x0000263c   0x0000263c   0x00000020   Data   RO         5613    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x0000261c, Size: 0x0000066c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00000048])
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x0000265c, Size: 0x0000066c, Max: 0xffffffff, ABSOLUTE, COMPRESSED[0x00000048])
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2685,7 +2685,7 @@ Memory Map of the image
     0x20000400   COMPRESSED   0x0000026c   Data   RW         4331    vtable              driverlib.lib(interrupt.o)
 
 
-    Execution Region ER_ZI (Exec base: 0x2000066c, Load base: 0x00002664, Size: 0x000013bc, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x2000066c, Load base: 0x000026a4, Size: 0x000013bc, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -2702,7 +2702,7 @@ Image component sizes
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
        388         20          0         84          0       5174   ano_scheduler.o
-      3338        380          0         83        700      18178   datacenter.o
+      3402        384          0         83        700      18210   datacenter.o
         82          0          0          0          0        583   drv_bsp.o
        206         28          0          8          0      33335   drv_sys.o
        140         18          0          0          0       1141   drv_timer.o
@@ -2713,7 +2713,7 @@ Image component sizes
        152         40          0          0          0        661   system_tm4c123.o
 
     ----------------------------------------------------------------------
-      7074        838        652       1024       5052     112705   Object Totals
+      7138        842        652       1024       5052     112737   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          4          0          0        835          0          0   (incl. Padding)
 
@@ -2761,15 +2761,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      7952        940       1804       1644       5052     118961   Grand Totals
-      7952        940       1804         72       5052     118961   ELF Image Totals (compressed)
-      7952        940       1804         72          0          0   ROM Totals
+      8016        944       1804       1644       5052     118993   Grand Totals
+      8016        944       1804         72       5052     118993   ELF Image Totals (compressed)
+      8016        944       1804         72          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 9756 (   9.53kB)
+    Total RO  Size (Code + RO Data)                 9820 (   9.59kB)
     Total RW  Size (RW Data + ZI Data)              6696 (   6.54kB)
-    Total ROM Size (Code + RO Data + RW Data)       9828 (   9.60kB)
+    Total ROM Size (Code + RO Data + RW Data)       9892 (   9.66kB)
 
 ==============================================================================
 

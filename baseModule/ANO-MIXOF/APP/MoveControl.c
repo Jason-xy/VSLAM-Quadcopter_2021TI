@@ -242,12 +242,14 @@ void MoveControl_Output(void)
 			break;
 			case 8:
 			{
+				laser_request = 3;
 				//move to 28
 				mission_step += fly2field(260, -50, 150);
 			}
 			break;
 			case 9:
 			{
+				
 				//move to 27
 				mission_step += fly2field(250, -100, 150);
 			}
@@ -309,17 +311,19 @@ void MoveControl_Output(void)
 			case 19:
 			{
 				//move to 1
-				mission_step += fly2field(0, -360, 150);
+				mission_step += final_land(0, -350, 150);
 			}
 			break;
 			case 20:
 			{
+				laser_request = 4;
 				//move to 2
-				mission_step += fly2field(0, -300, 150);
+				mission_step += fly2field(0, -290, 150);
 			}
 			break;
 			case 21:
 			{
+				//laser_request = 4;
 				//move to 6
 				mission_step += fly2field(50, -300, 150);
 			}
@@ -339,7 +343,7 @@ void MoveControl_Output(void)
 			case 24:
 			{
 				//move to 16
-				mission_step += fly2field(210, -310, 150);
+				mission_step += final_land(200, -300, 150);
 			}
 			break;
 			case 25:
@@ -369,7 +373,7 @@ void MoveControl_Output(void)
 			case 29:
 			{
 				//move to 3
-				mission_step += fly2field(0, -260, 150);
+				mission_step += final_land(0, -250, 150);
 			}
 			break;
 			case 30:
@@ -417,21 +421,20 @@ void MoveControl_Output(void)
 			case 37:
 			{
 				//move to 21
+				laser_request = 2;
 				mission_step += fly2field(200, -50, 150);
 			}
 			break;
 			case 38:
 			{
 				//move to 200 0
-				laser_request = 2;
 				mission_step += fly2field(200, 0, 150);
 			}
 			break;
 			case 39:
 			{
 				//move to 17,30
-				laser_request = 2;
-				mission_step += fly2field(17, 30, 150);
+				mission_step += fly2field(0, 20, 150);
 			}
 			break;
 			case 40:
@@ -682,7 +685,7 @@ u8 Height_Move_Down(u16 distance_cm, u16 velocity_cmps)
 const double P = 0.6, I = 0.01, D = 0;
 void PositionControl(int dif_x, int dif_y)
 {
-	const int maxSpeed = 15 ;
+	const int maxSpeed = 17 ;
   static int speed, dir, dif;
   dif = sqrt(dif_x * dif_x + dif_y * dif_y) / 2.0f;
   speed = P * dif;
@@ -700,10 +703,10 @@ void PositionControl(int dif_x, int dif_y)
 }
 void PositionControl_land(int dif_x, int dif_y)
 {
-	const int maxSpeed = 15 ;
+	const int maxSpeed = 10 ;
   static int speed, dir, dif;
   dif = sqrt(dif_x * dif_x + dif_y * dif_y) / 2.0f;
-  speed = P / 3 * dif;
+  speed = P * dif;
   if(dif_y > 0 && dif_x > 0)
       dir = 360 - atan((float)dif_y / (float)dif_x) * 57.3;
   else if(dif_y > 0 && dif_x < 0)
@@ -716,10 +719,10 @@ void PositionControl_land(int dif_x, int dif_y)
 	
 	Horizontal_Move(dif, speed, dir);
 }
-int time_task = 0, laser_request = 0;
+int time_task = 0, laser_request = 0, prelaser_request = 0;
 int fly2field(int x, int y, int z)
 {	
-	const int boundary = 15;
+	const int boundary = 17;
 	//check data
 	if(t265_x_position == 0 || t265_y_position == 0 || t265_z_position == 0)
 	{
@@ -730,13 +733,15 @@ int fly2field(int x, int y, int z)
 	{ 
 		if(time_task >= 0)
 		{
-			if(laser_request == 1)
+			if(prelaser_request == 1)
 			{
 				laser_request = 0;
+				prelaser_request = 0;
 			}
 			else
 			{
 				laser_request = 1;
+				prelaser_request = 1;
 			}
 			return 1;
 		}
@@ -752,7 +757,7 @@ int fly2field(int x, int y, int z)
 
 int final_land(int x, int y, int z)
 {	
-	const int boundary = 5;
+	const int boundary = 10;
 	//check data
 	if(t265_x_position == 0 || t265_y_position == 0 || t265_z_position == 0)
 	{
@@ -761,7 +766,7 @@ int final_land(int x, int y, int z)
 	PositionControl_land(x - t265_x_position, y - t265_y_position);
 	if(x - t265_x_position < boundary && x - t265_x_position > -boundary && y - t265_y_position < boundary && y - t265_y_position > -boundary)
 	{ 
-		if(time_task >= 0)
+		if(time_task >= 2)
 		{
 			if(laser_request == 1)
 			{

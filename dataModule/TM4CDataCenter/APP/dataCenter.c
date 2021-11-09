@@ -426,14 +426,20 @@ void MainBoard_DataAnl(uint8_t *data, uint8_t len)
 	switch(*(data+2)){
 		case 0x93:
 			RequestState = (*(data+4));
-			if(preRequestState != RequestState)
+			if((RequestState == 3 || RequestState == 4) && (preRequestState != RequestState))
 			{
-				check_color();
+				blink_state = 1;
+				preRequestState = RequestState;
 			}
-			preRequestState = RequestState;
-			if(preRequestState == 2 || RequestState == 2)
+			else if(RequestState == 2 && (preRequestState != RequestState))
 			{
 				state_is_land=20;
+				preRequestState = RequestState;
+			}
+			else if(preRequestState != RequestState)
+			{
+				check_color();
+				preRequestState = RequestState;
 			}
 			break;
 		

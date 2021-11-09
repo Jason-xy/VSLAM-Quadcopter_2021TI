@@ -51,6 +51,7 @@ static void Loop_50Hz(void) //20ms执行一次
 //	UartSendLXIMU(dataToSend, 18);
 	//////////////////////////////////////////////////////////////////////
 	MoveControl_Output();
+	send_laser_request(laser_request);
 }
 
 static void Loop_20Hz(void) //50ms执行一次
@@ -60,7 +61,6 @@ static void Loop_20Hz(void) //50ms执行一次
 //	if(t265_z_position != 256)
 //			heightcontrol(150, t265_z_position);
 //	t265_z_position = 256;
-	send_laser_request(laser_request);
 	//////////////////////////////////////////////////////////////////////
 }
 

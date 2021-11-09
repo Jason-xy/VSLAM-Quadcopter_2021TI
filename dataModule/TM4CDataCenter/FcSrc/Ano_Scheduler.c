@@ -64,7 +64,7 @@ static void Loop_4Hz(void) //250ms÷¥––“ª¥Œ
 		}
 		else
 		{
-			Laser_Off();
+			Laser_Off  ();
 	  }
 		
 		
