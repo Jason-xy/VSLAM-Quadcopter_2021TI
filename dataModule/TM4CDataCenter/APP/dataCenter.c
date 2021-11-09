@@ -31,7 +31,7 @@ int16_t t265_y_position_control;
 
 //is barScanner have data if got change the mode to 1
 uint8_t state_is_land=0;// only scaned 1 only allowed 2     scaned and allowed 3
-uint8_t barcode_data=0;
+uint8_t barcode_data=4;
 
 
 
@@ -431,6 +431,10 @@ void MainBoard_DataAnl(uint8_t *data, uint8_t len)
 				check_color();
 			}
 			preRequestState = RequestState;
+			if(preRequestState == 2 || RequestState == 2)
+			{
+				state_is_land=20;
+			}
 			break;
 		
 		default:
@@ -561,7 +565,12 @@ void BarcodeScanner_DataAnl(uint8_t *data, uint8_t len)
 		barcode_data*=10;
 		barcode_data=*(data+i)-'0';
 	}
-	Barcode_Blink();
+	
+	if((state_is_land==1||state_is_land==0)&&2==2){
+		state_is_land=20;
+	}
+		
+		
 	
 }
 
@@ -755,14 +764,14 @@ void Barcode_Blink_Init(void){
     ROM_GPIOPinTypeGPIOOutput(GPIOA_BASE, GPIO_PIN_5);
 }
 void Barcode_Blink(void){
-	int i=0;
-	for(i=0;i<barcode_data;i++){
-		GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0xFF);
-		MyDelayMs(300);
-		GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0);
-		MyDelayMs(300);
-	}
-	
-	MyDelayMs(3000);
+//	int i=0;
+//	for(i=0;i<barcode_data;i++){
+//		GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0xFF);
+//		MyDelayMs(300);
+//		GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0);
+//		MyDelayMs(300);
+//	}
+//	
+//	MyDelayMs(3000);
 }
 

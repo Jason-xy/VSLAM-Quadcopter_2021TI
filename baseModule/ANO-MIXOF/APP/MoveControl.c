@@ -423,13 +423,15 @@ void MoveControl_Output(void)
 			case 38:
 			{
 				//move to 200 0
+				laser_request = 2;
 				mission_step += fly2field(200, 0, 150);
 			}
 			break;
 			case 39:
 			{
-				//move to 0,0
-				mission_step += fly2field(0, 0, 150);
+				//move to 17,30
+				laser_request = 2;
+				mission_step += fly2field(17, 30, 150);
 			}
 			break;
 			case 40:
@@ -440,7 +442,7 @@ void MoveControl_Output(void)
 			break;
 			case 41:
 			{
-				//move to 0,0
+				//move to 17,30
 				mission_step += final_land(17, 30, 10);
 			}
 			break;

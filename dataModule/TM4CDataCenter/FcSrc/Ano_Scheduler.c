@@ -66,6 +66,20 @@ static void Loop_4Hz(void) //250ms执行一次
 		{
 			Laser_Off();
 	  }
+		
+		
+		if(state_is_land>=20 &&state_is_land<(20+barcode_data*2)&& ((state_is_land%2)==0)){
+			//blink_on
+			GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0xFF);
+			state_is_land++;
+		}else if(state_is_land>=20&&state_is_land<(20+barcode_data*2) && ((state_is_land%2)==1)){
+			GPIOPinWrite(GPIOA_BASE, GPIO_PIN_5, 0x00);
+			state_is_land++;
+		}else if(state_is_land >=5&&state_is_land<20){
+			state_is_land++;
+		}else if(state_is_land>=5){
+			state_is_land=5;
+		}
 }
 //////////////////////////////////////////////////////////////////////
 //调度器初始化
