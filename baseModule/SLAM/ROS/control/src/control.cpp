@@ -68,10 +68,6 @@ int main(int argc, char **argv)
     ROS_INFO_STREAM("Subscrib /t265_pose");
 
     // 创建一个Subscriber， 订阅名为/cvTask/moveCommand, 注册回到函数cvTaskCallback
-    ros::Subscriber cvTask_sub = n.subscribe("/cvTask/moveCommand", 1000, cvTaskCallback);
-    ROS_INFO_STREAM("Subscrib /cvTask/moveCommand");
-
-    // 创建一个Subscriber， 订阅名为/cvTask/moveCommand, 注册回到函数cvTaskCallback
     ros::Subscriber cvTaskfunc_sub = n.subscribe("/cvTask/funcCommand", 1000, funcCallback);
     ROS_INFO_STREAM("Subscrib /cvTask/funcCommand");
 
@@ -96,51 +92,51 @@ void poseCallback(const geometry_msgs::Twist::ConstPtr& msg)
     t265_pzcm = msg->angular.z;
 
         //发送串口
-        short x_position_cm = (short)(t265_pxcm);
-        short y_position_cm = (short)(t265_pycm);
-        short z_position_cm = (short)(t265_pzcm);
-        short x_velocity_cms = (short)(t265_vxcms);
-        short y_velocity_cms = (short)(t265_vycms);
-        short z_velocity_cms = (short)(t265_vzcms);
-
-        uint8_t i = 0;
-        uint8_t sumcheck = 0, add_on_check =0;
+    short x_position_cm = (short)(t265_pxcm);
+    short y_position_cm = (short)(t265_pycm);
+    short z_position_cm = (short)(t265_pzcm);
+    short x_velocity_cms = (short)(t265_vxcms);
+    short y_velocity_cms = (short)(t265_vycms);
+    short z_velocity_cms = (short)(t265_vzcms);
+    ROS_INFO("[x]:%d [y]:%d [z]:%d", x_position_cm, y_position_cm, z_position_cm);
+    uint8_t i = 0;
+    uint8_t sumcheck = 0, add_on_check =0;
         
-        t265_usartBuffer[0] = 0xAA;
-        t265_usartBuffer[1] = 0x62;
-        t265_usartBuffer[2] = 0x91;
-        t265_usartBuffer[3] = 0x0C;
-        //x_position_cm
-        t265_usartBuffer[5] = x_position_cm >> 8;
-        t265_usartBuffer[4] = x_position_cm - (t265_usartBuffer[5] << 8);
-        //y_position_cm
-        t265_usartBuffer[7] = y_position_cm >> 8;
-        t265_usartBuffer[6] = y_position_cm - (t265_usartBuffer[7] << 8);
-        //z_position_cm
-        t265_usartBuffer[9] = z_position_cm >> 8;
-        t265_usartBuffer[8] = z_position_cm - (t265_usartBuffer[9] << 8);
-        //x_velocity_cms
-        t265_usartBuffer[11] = x_velocity_cms >> 8;
-        t265_usartBuffer[10] = x_velocity_cms - (t265_usartBuffer[11] << 8);
-        //y_velocity_cms
-        t265_usartBuffer[13] = y_velocity_cms >> 8;
-        t265_usartBuffer[12] = y_velocity_cms - (t265_usartBuffer[13] << 8);
-        //z_velocity_cms
-        t265_usartBuffer[15] = z_velocity_cms >> 8;
-        t265_usartBuffer[14] = z_velocity_cms - (t265_usartBuffer[15] << 8);
+    t265_usartBuffer[0] = 0xAA;
+    t265_usartBuffer[1] = 0x62;
+    t265_usartBuffer[2] = 0x91;
+    t265_usartBuffer[3] = 0x0C;
+    //x_position_cm
+    t265_usartBuffer[5] = x_position_cm >> 8;
+    t265_usartBuffer[4] = x_position_cm - (t265_usartBuffer[5] << 8);
+    //y_position_cm
+    t265_usartBuffer[7] = y_position_cm >> 8;
+    t265_usartBuffer[6] = y_position_cm - (t265_usartBuffer[7] << 8);
+    //z_position_cm
+    t265_usartBuffer[9] = z_position_cm >> 8;
+    t265_usartBuffer[8] = z_position_cm - (t265_usartBuffer[9] << 8);
+    //x_velocity_cms
+    t265_usartBuffer[11] = x_velocity_cms >> 8;
+    t265_usartBuffer[10] = x_velocity_cms - (t265_usartBuffer[11] << 8);
+    //y_velocity_cms
+    t265_usartBuffer[13] = y_velocity_cms >> 8;
+    t265_usartBuffer[12] = y_velocity_cms - (t265_usartBuffer[13] << 8);
+    //z_velocity_cms
+    t265_usartBuffer[15] = z_velocity_cms >> 8;
+    t265_usartBuffer[14] = z_velocity_cms - (t265_usartBuffer[15] << 8);
 
-        for(i = 0; i<= 15; i++)
-        {
-            sumcheck += t265_usartBuffer[i];
-            add_on_check += sumcheck;
-        }
-        sumcheck %= 256;
-        add_on_check %= 256;
+    for(i = 0; i<= 15; i++)
+    {
+        sumcheck += t265_usartBuffer[i];
+        add_on_check += sumcheck;
+    }
+    sumcheck %= 256;
+    add_on_check %= 256;
 
-        t265_usartBuffer[16] = sumcheck;
-        t265_usartBuffer[17] = add_on_check;
+    t265_usartBuffer[16] = sumcheck;
+    t265_usartBuffer[17] = add_on_check;
 
-        sp.write(t265_usartBuffer, 18);
+    sp.write(t265_usartBuffer, 18);
 }
 
 //0:白色 1:绿色
@@ -148,29 +144,29 @@ void funcCallback(const std_msgs::Int8::ConstPtr& msg){
     static int8_t funcNum;
     funcNum = msg->data;
 
-        //发送串口
-        uint8_t i = 0;
-        uint8_t sumcheck = 0, add_on_check =0;
+    //发送串口
+    uint8_t i = 0;
+    uint8_t sumcheck = 0, add_on_check =0;
         
-        func_usartBuffer[0] = 0xAA;
-        func_usartBuffer[1] = 0x62;
-        func_usartBuffer[2] = 0x92;
-        func_usartBuffer[3] = 0x01;
+    func_usartBuffer[0] = 0xAA;
+    func_usartBuffer[1] = 0x62;
+    func_usartBuffer[2] = 0x92;
+    func_usartBuffer[3] = 0x01;
 
-        func_usartBuffer[4] = funcNum;
+    func_usartBuffer[4] = funcNum;
 
-        for(i = 0; i<= 4; i++)
-        {
-            sumcheck += func_usartBuffer[i];
-            add_on_check += sumcheck;
-        }
-        sumcheck %= 256;
-        add_on_check %= 256;
+    for(i = 0; i<= 4; i++)
+    {
+        sumcheck += func_usartBuffer[i];
+        add_on_check += sumcheck;
+    }
+    sumcheck %= 256;
+    add_on_check %= 256;
 
-        func_usartBuffer[5] = sumcheck;
-        func_usartBuffer[6] = add_on_check;
+    func_usartBuffer[5] = sumcheck;
+    func_usartBuffer[6] = add_on_check;
         
-        ROS_INFO("[FuncNum]: %d",funcNum);
-        sp.write(func_usartBuffer, 7);
+    ROS_INFO("[FuncNum]: %d",funcNum);
+    sp.write(func_usartBuffer, 7);
 }
 

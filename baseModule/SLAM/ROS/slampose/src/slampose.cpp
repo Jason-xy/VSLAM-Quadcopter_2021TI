@@ -13,6 +13,59 @@
 #include "slampose/slamposeConfig.h"
 using namespace Eigen;  
 // /camera/accel/sample /camera/gyro/sample sensor_msgs/Imu 
+/*
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+geometry_msgs/Quaternion orientation
+  float64 x
+  float64 y
+  float64 z
+  float64 w
+float64[9] orientation_covariance
+geometry_msgs/Vector3 angular_velocity
+  float64 x
+  float64 y
+  float64 z
+float64[9] angular_velocity_covariance
+geometry_msgs/Vector3 linear_acceleration
+  float64 x
+  float64 y
+  float64 z
+float64[9] linear_acceleration_covariance
+*/
+// /camera/odom/sample nav_msgs/Odometry
+/*
+std_msgs/Header header
+  uint32 seq
+  time stamp
+  string frame_id
+string child_frame_id
+geometry_msgs/PoseWithCovariance pose
+  geometry_msgs/Pose pose
+    geometry_msgs/Point position
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Quaternion orientation
+      float64 x
+      float64 y
+      float64 z
+      float64 w
+  float64[36] covariance
+geometry_msgs/TwistWithCovariance twist
+  geometry_msgs/Twist twist
+    geometry_msgs/Vector3 linear
+      float64 x
+      float64 y
+      float64 z
+    geometry_msgs/Vector3 angular
+      float64 x
+      float64 y
+      float64 z
+  float64[36] covariance
+*/
 
 typedef signed char             int8_t;
 typedef short int               int16_t;
@@ -28,6 +81,7 @@ typedef unsigned int            uint32_t;
 Eigen::Quaterniond q;
 double pitch, roll, yaw;
 double now_time, pre_time, dif_time;
+double raw_pxcm, raw_pycm, raw_pzcm;
 double now_pxcm, now_pycm, now_pzcm;
 double pre_pxcm, pre_pycm, pre_pzcm;
 double dif_pxcm, dif_pycm, dif_pzcm;
@@ -39,7 +93,7 @@ ros::Publisher pub_t265;
 #define a  0.7 //低通滤波系数
 double scale_x = 1;
 double scale_y = 1;
-double scale_z = 1;
+double theta = 0;
 
 //动态参数调节
 void callback(slampose::slamposeConfig &config)
@@ -47,20 +101,24 @@ void callback(slampose::slamposeConfig &config)
   ROS_INFO("Reconfigure Request: %lf %lf %lf",
            config.scale_x,
            config.scale_y,
-           config.scale_z);
+           config.theta);
   scale_x = config.scale_x;
   scale_y = config.scale_y;
-  scale_z = config.scale_z;
+  theta = config.theta;
 }
 
 // 接收到订阅的消息后，会进入消息回调函数
 //坐标信息回调函数
 void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
 {
-    //计算坐标
-    now_pxcm = msg->pose.pose.position.x * 100 * scale_x;
-    now_pycm = msg->pose.pose.position.y * 100 * scale_y;
-    now_pzcm = msg->pose.pose.position.z * 100 * scale_z;
+    //计算原始坐标
+    raw_pxcm = msg->pose.pose.position.x * 100;
+    raw_pycm = msg->pose.pose.position.y * 100;
+    raw_pzcm = msg->pose.pose.position.z * 100;
+    //计算矫正坐标
+    now_pxcm = (cos(theta) * raw_pxcm - sin(theta) * raw_pycm) * scale_x;
+    now_pycm = (sin(theta) * raw_pxcm + cos(theta) * raw_pycm) * scale_y;
+    now_pzcm = raw_pzcm;
     //获取四元数
     q.w() = msg->pose.pose.orientation.w;
     q.x() = msg->pose.pose.orientation.x;
@@ -124,7 +182,6 @@ void poseCallback(const nav_msgs::Odometry::ConstPtr& msg)
     t265_msg.angular.y = now_pycm;
     t265_msg.angular.z = now_pzcm;
     pub_t265.publish(t265_msg);
-    
 }
  
 int main(int argc, char **argv)

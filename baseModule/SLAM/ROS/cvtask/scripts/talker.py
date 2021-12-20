@@ -4,52 +4,24 @@
 import rospy
 from jetcam.csi_camera import CSICamera
 from std_msgs.msg import Int8
-from geometry_msgs.msg import Twist
 import cv2
-# import jetson.inference
-# import jetson.utils
-import argparse
-import sys
 import time
 import numpy as np
 
-# parse the command line
-# /home/jason/catkin_ws/src/cvtask/scripts/talker.py --network=ssd-mobilenet-v2 --model=/home/jason/github/jetson-inference/python/training/detection/ssd/models/A/ssd-mobilenet.onnx --labels=/home/jason/github/jetson-inference/python/training/detection/ssd/models/A/labels.txt --input-blob=input_0 --output-cvg=scores --output-bbox=boxes
-# input_img_file = "/home/jason/cvtask/map1.jpg"
-
 input_img_file = "csi://0"
-
-# sub node
-t265_px = 0.0
-t265_py = 0.0
-t265_pz = 0.0
-t265_vx = 0.0
-t265_vy = 0.0
-def t265callback(msg):
-    global t265_px
-    global t265_py
-    global t265_pz
-    global t265_vx
-    global t265_vy
-    t265_vx = msg.linear.x
-    t265_vy = msg.linear.y
-    t265_px = msg.angular.x + 10
-    t265_py = msg.angular.y - 15
-    t265_pz = msg.angular.z
-    # print(t265_px, t265_py, t265_pz)
 
 # white or green
 def isGreen(img):
     #is_center_green
-    width=10
-    ROI=[int(360-width/2),int(330-width/2),width,width] #x,y,h,w
-    Green_threshold={'Lower': np.array([20, 72, 138]), 'Upper': np.array([60, 187, 198])}
+    width=20
+    ROI=[int(360-width/2),int(350-width/2),width,width] #x,y,h,w
+    Green_threshold={'Lower': np.array([0, 70, 40]), 'Upper': np.array([65, 255, 255])}
     
-    
+
     gs_img = cv2.GaussianBlur(img, (5, 5), 0)                   # 高斯模糊         
     hsv = cv2.cvtColor(gs_img, cv2.COLOR_BGR2HSV)                 # 转化成HSV图像
-    erode_hsv = cv2.erode(hsv, None, iterations=2)                  # 腐蚀 粗的变细
-    inRange_hsv = cv2.inRange(erode_hsv,Green_threshold['Lower'], Green_threshold['Upper'])
+    # erode_hsv = cv2.erode(hsv, None, iterations=2)                  # 腐蚀 粗的变细
+    inRange_hsv = cv2.inRange(hsv,Green_threshold['Lower'], Green_threshold['Upper'])
     # cv2.imshow("inRange",inRange_hsv)
     # print(inRange_hsv[360,360])
 
@@ -59,7 +31,8 @@ def isGreen(img):
         for j in range(ROI[3]):
             if inRange_hsv[ROI[0]+j,ROI[1]+i]==255 : 
                 count=count+1
-
+    cv2.rectangle(img, (ROI[0], ROI[1]), ((ROI[0] + ROI[2]), (ROI[1] + ROI[3])), (255, 0, 0), 2)
+    # cv2.imshow("roi", img)
     if (count/(ROI[2]*ROI[3]))>0.9:
         return 1
     else:
@@ -67,12 +40,8 @@ def isGreen(img):
     
 def talker():
     cap = CSICamera(capture_device=0, width=720, height=720)
-    pub = rospy.Publisher('cvTask/moveCommand', Twist, queue_size=100)
     funcpub = rospy.Publisher('cvTask/funcCommand', Int8, queue_size=100)
     funcNum = Int8()
-    command = Twist()
-    command.linear.x = 0 
-    command.linear.y = 0
     rospy.init_node('cvTask', anonymous=True)
     rate = rospy.Rate(50) # 50hz
     # fourcc = cv2.VideoWriter_fourcc(*'XVID')
@@ -84,18 +53,10 @@ def talker():
     while not rospy.is_shutdown():
         img = cap.read()
         img = cv2.flip(img, 1)
-        # out.write(img)
-        command.linear.x = 0
-        command.linear.y = 0
-        command.linear.z = 0
-        command.angular.x = 0
-        command.angular.y = 0
-        command.angular.z = 0
-        # 等到到达巡航高度
         funcNum = isGreen(img)
         # cv2.imshow("image", img)
-        pub.publish(command)
         funcpub.publish(funcNum)
+        print(funcNum)
         rate.sleep()
         kk = cv2.waitKey(1)
         if kk == ord('q'):  # 按下 q 键，退出
